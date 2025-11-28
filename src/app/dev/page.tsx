@@ -48,6 +48,7 @@ export default function DevPage() {
   const typesData = diagnosisType === "54" ? types54Data : types18Data;
   const typeCodes = Object.keys(typesData) as string[];
   const types = typeCodes.map(code => typesData[code as keyof typeof typesData] as PersonalityType);
+  const defaultPair: [string, string] = [typeCodes[0], typeCodes[1] || typeCodes[0]];
 
   const handleQuickLink = (userTypeCode: string, partnerTypeCode: string) => {
     setUserType(userTypeCode);
@@ -119,8 +120,8 @@ export default function DevPage() {
     },
     {
       label: "ランダム組み合わせ",
-      userType: typeCodes[Math.floor(Math.random() * typeCodes.length)],
-      partnerType: typeCodes[Math.floor(Math.random() * typeCodes.length)],
+      userType: defaultPair[0],
+      partnerType: defaultPair[1],
     },
   ];
 

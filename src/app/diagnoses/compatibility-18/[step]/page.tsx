@@ -35,6 +35,7 @@ function Compatibility18QuestionContent() {
     if (savedAnswers) {
       try {
         const parsedAnswers = JSON.parse(savedAnswers) as Answer[];
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setAnswers(parsedAnswers);
       } catch (error) {
         console.error("Failed to parse saved answers:", error);

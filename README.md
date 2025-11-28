@@ -106,6 +106,8 @@ match-tune/
    git push -u origin main
    ```
 
+   > **補足:** この開発コンテナでは既定で GitHub リモートが設定されていません。上記のように `git remote add origin <URL>` を実行してから `git push` してください。
+
 2. **Vercelでプロジェクトをインポート**
    - [Vercel](https://vercel.com)にアクセス
    - 「Add New...」→「Project」を選択

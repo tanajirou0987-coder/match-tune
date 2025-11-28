@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import questionsData from "../../../../../data/diagnoses/compatibility-54/questions.json";
 import type { Question, Answer, Score } from "@/lib/types";
@@ -14,38 +14,29 @@ type Step = "user" | "partner";
 
 export default function Compatibility54QuestionsPage() {
   const router = useRouter();
-  const [step, setStep] = useState<Step>("user");
-  const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
-  const [partnerAnswers, setPartnerAnswers] = useState<Answer[]>([]);
-  const [questions] = useState<Question[]>(questionsData as Question[]);
+  const safeLoadAnswers = (key: string) => {
+    if (typeof window === "undefined") return [] as Answer[];
+    const saved = sessionStorage.getItem(key);
+    if (!saved) return [] as Answer[];
+    try {
+      return JSON.parse(saved) as Answer[];
+    } catch (error) {
+      console.error("Failed to parse saved answers:", error);
+      return [] as Answer[];
+    }
+  };
 
-  // セッションストレージから回答を復元
-  useEffect(() => {
-    const savedUserAnswers = sessionStorage.getItem(STORAGE_KEY_USER);
-    const savedPartnerAnswers = sessionStorage.getItem(STORAGE_KEY_PARTNER);
-    
-    if (savedUserAnswers) {
-      try {
-        const parsed = JSON.parse(savedUserAnswers) as Answer[];
-        setUserAnswers(parsed);
-        // ユーザーの回答が完了している場合は、パートナーのステップへ
-        if (parsed.length === TOTAL_QUESTIONS) {
-          setStep("partner");
-        }
-      } catch (error) {
-        console.error("Failed to parse saved user answers:", error);
-      }
-    }
-    
-    if (savedPartnerAnswers) {
-      try {
-        const parsed = JSON.parse(savedPartnerAnswers) as Answer[];
-        setPartnerAnswers(parsed);
-      } catch (error) {
-        console.error("Failed to parse saved partner answers:", error);
-      }
-    }
-  }, []);
+  const initialUserAnswers = safeLoadAnswers(STORAGE_KEY_USER);
+  const initialPartnerAnswers = safeLoadAnswers(STORAGE_KEY_PARTNER);
+
+  const [step, setStep] = useState<Step>(
+    initialUserAnswers.length === TOTAL_QUESTIONS ? "partner" : "user"
+  );
+  const [userAnswers, setUserAnswers] = useState<Answer[]>(initialUserAnswers);
+  const [partnerAnswers, setPartnerAnswers] = useState<Answer[]>(
+    initialPartnerAnswers
+  );
+  const [questions] = useState<Question[]>(questionsData as Question[]);
 
   // 現在のステップの回答
   const currentAnswers = step === "user" ? userAnswers : partnerAnswers;

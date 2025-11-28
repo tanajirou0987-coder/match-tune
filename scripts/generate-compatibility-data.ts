@@ -103,9 +103,17 @@ function generateAdvice(type1: string, type2: string): { user: string; partner: 
 }
 
 // 729パターンを生成
+type CompatibilityEntry = {
+  total: number;
+  message: string;
+  detail: string;
+  adviceUser: string;
+  advicePartner: string;
+};
+
 function generateCompatibilityData() {
   const types = generateAllTypes();
-  const compatibility: Record<string, any> = {};
+  const compatibility: Record<string, CompatibilityEntry> = {};
 
   for (const type1 of types) {
     for (const type2 of types) {

@@ -35,6 +35,14 @@ const profilesPath = join(process.cwd(), "data/diagnoses/type-profiles.json");
 const types18Path = join(process.cwd(), "data/diagnoses/compatibility-18/types.json");
 const types54Path = join(process.cwd(), "data/diagnoses/compatibility-54/types.json");
 
+type Profile = {
+  personality: string;
+  romanceTendency: string;
+  dailyActions: string;
+  innerMotivation: string;
+  futureVision: string;
+};
+
 const profiles = JSON.parse(readFileSync(profilesPath, "utf-8"));
 const types18 = JSON.parse(readFileSync(types18Path, "utf-8"));
 const types54 = JSON.parse(readFileSync(types54Path, "utf-8"));
@@ -42,7 +50,7 @@ const types54 = JSON.parse(readFileSync(types54Path, "utf-8"));
 // 各プロファイルをtypes.jsonに統合
 for (const [code, profileData] of Object.entries(profiles)) {
   const typeCode = convertTypeCode(code);
-  const profile = profileData as any;
+  const profile = profileData as Profile;
   
   if (types18[typeCode]) {
     types18[typeCode] = {
