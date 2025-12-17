@@ -111,6 +111,40 @@ export function setParticipantCompletion(
   return session;
 }
 
+/**
+ * セッションに自動的に役割を割り当てる
+ * 最初に参加した人が「user」、2人目が「partner」になる
+ * @returns 割り当てられた役割、またはnull（セッションが満員または存在しない場合）
+ */
+export function assignParticipantRole(sessionId: string): ParticipantRole | null {
+  const session = getSession(sessionId);
+  if (!session) return null;
+
+  const userState = session.participants.user;
+  const partnerState = session.participants.partner;
+
+  // 両方とも初期状態（createdAtと同じupdatedAt）なら、userを割り当て
+  if (userState.updatedAt === session.createdAt && partnerState.updatedAt === session.createdAt) {
+    userState.updatedAt = Date.now();
+    return "user";
+  }
+
+  // userが既に参加している場合、partnerを割り当て
+  if (userState.updatedAt > session.createdAt && partnerState.updatedAt === session.createdAt) {
+    partnerState.updatedAt = Date.now();
+    return "partner";
+  }
+
+  // partnerが既に参加している場合、userを割り当て
+  if (partnerState.updatedAt > session.createdAt && userState.updatedAt === session.createdAt) {
+    userState.updatedAt = Date.now();
+    return "user";
+  }
+
+  // 両方とも既に参加している場合はnullを返す（満員）
+  return null;
+}
+
 export interface SessionResponsePayload {
   sessionId: string;
   diagnosisType: MultiDeviceSession["diagnosisType"];

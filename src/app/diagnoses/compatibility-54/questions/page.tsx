@@ -13,9 +13,38 @@ type Step = "user" | "partner";
 
 function Compatibility54QuestionsContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const sessionId = searchParams.get("sessionId");
   const participant = searchParams.get("role");
   const isValidParticipant = participant === "user" || participant === "partner";
+
+  // セッションIDがあるが役割が指定されていない場合、自動的に役割を割り当て
+  useEffect(() => {
+    if (sessionId && !isValidParticipant) {
+      const assignRole = async () => {
+        try {
+          const response = await fetch(`/api/sessions/${sessionId}/assign-role`, {
+            method: "POST",
+          });
+          if (!response.ok) {
+            throw new Error("役割の割り当てに失敗しました");
+          }
+          const data = await response.json();
+          if (data.role) {
+            // 役割が割り当てられたら、その役割でリダイレクト
+            router.replace(`/diagnoses/compatibility-54/questions?sessionId=${sessionId}&role=${data.role}`);
+          } else {
+            // 満員の場合はエラーページへ
+            router.replace(`/diagnoses/compatibility-54/multi?error=full`);
+          }
+        } catch (err) {
+          console.error("役割割り当てエラー:", err);
+          router.replace(`/diagnoses/compatibility-54/multi?error=assign`);
+        }
+      };
+      assignRole();
+    }
+  }, [sessionId, isValidParticipant, router]);
 
   if (sessionId && isValidParticipant) {
     return (
@@ -23,6 +52,18 @@ function Compatibility54QuestionsContent() {
         sessionId={sessionId}
         participant={participant}
       />
+    );
+  }
+
+  // 役割割り当て中の表示
+  if (sessionId && !isValidParticipant) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <p className="text-white text-lg font-black mb-2">参加中...</p>
+          <p className="text-white/70 text-sm">役割を割り当てています</p>
+        </div>
+      </div>
     );
   }
 

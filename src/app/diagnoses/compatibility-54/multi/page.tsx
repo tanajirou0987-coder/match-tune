@@ -20,14 +20,9 @@ export default function Compatibility54MultiPage() {
 
   const origin = typeof window !== "undefined" ? window.location.origin : "";
 
-  const userLink = useMemo(() => {
+  const joinLink = useMemo(() => {
     if (!session || !origin) return "";
-    return `${origin}/diagnoses/compatibility-54/questions?sessionId=${session.sessionId}&role=user`;
-  }, [origin, session]);
-
-  const partnerLink = useMemo(() => {
-    if (!session || !origin) return "";
-    return `${origin}/diagnoses/compatibility-54/questions?sessionId=${session.sessionId}&role=partner`;
+    return `${origin}/diagnoses/compatibility-54/questions?sessionId=${session.sessionId}`;
   }, [origin, session]);
 
   const handleCreateSession = useCallback(async () => {
@@ -53,11 +48,11 @@ export default function Compatibility54MultiPage() {
     }
   }, []);
 
-  const handleCopy = useCallback(async (text: string, linkType: "user" | "partner") => {
+  const handleCopy = useCallback(async (text: string) => {
     if (!text) return;
     const copied = await copyToClipboard(text);
     if (copied) {
-      setCopiedLink(linkType);
+      setCopiedLink("join");
       setTimeout(() => setCopiedLink(null), 2000);
     } else {
       alert("コピーに失敗しました。長押しでコピーしてください。");
@@ -111,11 +106,11 @@ export default function Compatibility54MultiPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-[#00f5ff] to-[#8338ec] text-white font-black text-xs flex items-center justify-center">2</span>
-                      <p>片方は「あなた用QRコード」をスキャンして開始</p>
+                      <p>2人とも同じQRコードをスキャン</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-[#00f5ff] to-[#8338ec] text-white font-black text-xs flex items-center justify-center">3</span>
-                      <p>相手は「パートナー用QRコード」をスキャンして参加</p>
+                      <p>自動で「あなた」「パートナー」に振り分けられる</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-[#00f5ff] to-[#8338ec] text-white font-black text-xs flex items-center justify-center">4</span>
@@ -196,81 +191,48 @@ export default function Compatibility54MultiPage() {
               </div>
 
               {/* QRコード共有 */}
-              {userLink && partnerLink && (
-                <div className="grid gap-6 md:grid-cols-2">
-                  {/* あなた用QRコード */}
-                  <motion.div
-                    className="rounded-[40px] border-4 border-white/30 bg-gradient-to-br from-[#00f5ff]/20 to-[#8338ec]/20 p-6 backdrop-blur-xl shadow-[0_0_60px_rgba(0,245,255,0.3)]"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <h3 className="text-lg font-black text-white mb-4 text-center">あなた用QRコード</h3>
-                    <div className="flex flex-col items-center mb-4">
-                      <div className="rounded-[30px] border-4 border-white/30 bg-white p-4 mb-4">
-                        <QRCodeCanvas
-                          value={userLink}
-                          size={240}
-                          bgColor="#ffffff"
-                          fgColor="#18181b"
-                          level="M"
-                        />
-                      </div>
-                      <p className="text-xs text-white/70 mb-2">スマホでスキャンして開始</p>
-                      <div className="rounded-[20px] border-2 border-white/20 bg-black/20 p-3 w-full">
-                        <p className="break-words text-xs text-white/90 font-medium text-center">{userLink}</p>
-                      </div>
+              {joinLink && (
+                <motion.div
+                  className="rounded-[40px] border-4 border-white/30 bg-gradient-to-br from-[#00f5ff]/20 via-[#8338ec]/20 to-[#ff006e]/20 p-8 backdrop-blur-xl shadow-[0_0_60px_rgba(0,245,255,0.3)]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <h3 className="text-xl font-black text-white mb-6 text-center">参加用QRコード</h3>
+                  <div className="flex flex-col items-center mb-6">
+                    <div className="rounded-[30px] border-4 border-white/30 bg-white p-6 mb-4">
+                      <QRCodeCanvas
+                        value={joinLink}
+                        size={280}
+                        bgColor="#ffffff"
+                        fgColor="#18181b"
+                        level="M"
+                      />
                     </div>
-                    <motion.button
-                      onClick={() => handleCopy(userLink, "user")}
-                      className="w-full rounded-[30px] border-4 border-white bg-gradient-to-r from-[#00f5ff] to-[#8338ec] px-6 py-4 text-lg font-black text-white shadow-[0_0_40px_rgba(0,245,255,0.5)] transition-all transform hover:scale-105"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {copiedLink === "user" ? "コピーしました！" : "URLをコピー"}
-                    </motion.button>
-                  </motion.div>
-
-                  {/* パートナー用QRコード */}
-                  <motion.div
-                    className="rounded-[40px] border-4 border-white/30 bg-gradient-to-br from-[#ff006e]/20 to-[#8338ec]/20 p-6 backdrop-blur-xl shadow-[0_0_60px_rgba(255,0,110,0.3)]"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <h3 className="text-lg font-black text-white mb-4 text-center">パートナー用QRコード</h3>
-                    <div className="flex flex-col items-center mb-4">
-                      <div className="rounded-[30px] border-4 border-white/30 bg-white p-4 mb-4">
-                        <QRCodeCanvas
-                          value={partnerLink}
-                          size={240}
-                          bgColor="#ffffff"
-                          fgColor="#18181b"
-                          level="M"
-                        />
-                      </div>
-                      <p className="text-xs text-white/70 mb-2">スマホでスキャンして参加</p>
-                      <div className="rounded-[20px] border-2 border-white/20 bg-black/20 p-3 w-full">
-                        <p className="break-words text-xs text-white/90 font-medium text-center">{partnerLink}</p>
-                      </div>
+                    <p className="text-sm text-white/80 mb-3 text-center font-black">
+                      2人とも同じQRコードをスキャン<br />
+                      自動で「あなた」「パートナー」に振り分けられます
+                    </p>
+                    <div className="rounded-[20px] border-2 border-white/20 bg-black/20 p-4 w-full">
+                      <p className="break-words text-xs text-white/90 font-medium text-center">{joinLink}</p>
                     </div>
-                    <motion.button
-                      onClick={() => handleCopy(partnerLink, "partner")}
-                      className="w-full rounded-[30px] border-4 border-white bg-gradient-to-r from-[#ff006e] to-[#8338ec] px-6 py-4 text-lg font-black text-white shadow-[0_0_40px_rgba(255,0,110,0.5)] transition-all transform hover:scale-105"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {copiedLink === "partner" ? "コピーしました！" : "URLをコピー"}
-                    </motion.button>
-                  </motion.div>
-                </div>
+                  </div>
+                  <motion.button
+                    onClick={() => handleCopy(joinLink)}
+                    className="w-full rounded-[30px] border-4 border-white bg-gradient-to-r from-[#00f5ff] via-[#8338ec] to-[#ff006e] px-6 py-4 text-lg font-black text-white shadow-[0_0_40px_rgba(0,245,255,0.5)] transition-all transform hover:scale-105"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {copiedLink === "join" ? "コピーしました！" : "URLをコピー"}
+                  </motion.button>
+                </motion.div>
               )}
 
               {/* 注意事項 */}
               <div className="rounded-[30px] border-4 border-dashed border-white/30 bg-white/5 p-6 backdrop-blur-xl">
                 <p className="text-sm font-black text-white mb-2">重要</p>
                 <p className="text-sm text-white/80 leading-relaxed mb-3">
-                  それぞれのQRコードを正しく使い分けてください。「あなた」と「パートナー」で異なるQRコードを使用します。
+                  2人とも同じQRコードをスキャンしてください。最初にスキャンした人が「あなた」、2人目が「パートナー」として自動的に振り分けられます。
                   両方の回答が完了すると、自動的に結果ページへリダイレクトされます。
                 </p>
                 <p className="text-xs text-white/60">
