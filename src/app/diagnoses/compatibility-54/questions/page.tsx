@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, Suspense } from "react";
+import { useCallback, useEffect, useState, Suspense, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import questionsData from "../../../../../data/diagnoses/compatibility-54/questions.json";
 import type { Question, Answer, Score } from "@/lib/types";
@@ -9,6 +9,7 @@ import type { ParticipantRole, SessionResponsePayload } from "@/lib/session-stor
 import { copyToClipboard } from "@/lib/clipboard";
 import { useSessionAssignment } from "@/hooks/useSessionAssignment";
 import { BackgroundEffect } from "@/components/diagnoses/BackgroundEffect";
+import { QuestionCard } from "@/components/diagnoses/QuestionCard";
 
 const TOTAL_QUESTIONS = 54;
 type Step = "user" | "partner";
@@ -65,7 +66,8 @@ function SingleDeviceQuestions() {
   const [step, setStep] = useState<Step>("user");
   const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
   const [partnerAnswers, setPartnerAnswers] = useState<Answer[]>([]);
-  const [questions] = useState<Question[]>(questionsData as Question[]);
+  // 質問データをメモ化して再生成を防ぐ
+  const questions = useMemo(() => questionsData as Question[], []);
   const [isTransitioningStep, setIsTransitioningStep] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
 
@@ -76,27 +78,25 @@ function SingleDeviceQuestions() {
     : currentAnswers.length;
   const progress = (answeredCount / TOTAL_QUESTIONS) * 100;
 
-  const handleAnswer = (questionId: number, score: Score) => {
-    const existingAnswerIndex = currentAnswers.findIndex(
-      (a) => a.questionId === questionId
-    );
-
-    const newAnswer: Answer = {
-      questionId,
-      score,
-    };
-
-    const newAnswers =
-      existingAnswerIndex >= 0
-        ? currentAnswers.map((a, i) => (i === existingAnswerIndex ? newAnswer : a))
-        : [...currentAnswers, newAnswer];
-
+  const handleAnswer = useCallback((questionId: number, score: Score) => {
     if (step === "user") {
-      setUserAnswers(newAnswers);
+      setUserAnswers((prev) => {
+        const existingIndex = prev.findIndex((a) => a.questionId === questionId);
+        if (existingIndex >= 0) {
+          return prev.map((a, i) => (i === existingIndex ? { questionId, score } : a));
+        }
+        return [...prev, { questionId, score }];
+      });
     } else {
-      setPartnerAnswers(newAnswers);
+      setPartnerAnswers((prev) => {
+        const existingIndex = prev.findIndex((a) => a.questionId === questionId);
+        if (existingIndex >= 0) {
+          return prev.map((a, i) => (i === existingIndex ? { questionId, score } : a));
+        }
+        return [...prev, { questionId, score }];
+      });
     }
-  };
+  }, [step]);
 
   const calculateResult = (userFinalAnswers: Answer[], partnerFinalAnswers: Answer[]) => {
     try {
@@ -181,10 +181,18 @@ function SingleDeviceQuestions() {
     }
   }, [step]);
 
-  const getAnswerForQuestion = (questionId: number): Score | null => {
-    const answer = currentAnswers.find((a) => a.questionId === questionId);
-    return answer ? answer.score : null;
-  };
+  // 回答をMapに変換して高速検索
+  const answersMap = useMemo(() => {
+    const map = new Map<number, Score>();
+    currentAnswers.forEach((a) => {
+      map.set(a.questionId, a.score);
+    });
+    return map;
+  }, [currentAnswers]);
+
+  const getAnswerForQuestion = useCallback((questionId: number): Score | null => {
+    return answersMap.get(questionId) ?? null;
+  }, [answersMap]);
 
   return (
     <div className="relative min-h-screen px-4 py-12 sm:px-6 lg:px-8">
@@ -219,43 +227,15 @@ function SingleDeviceQuestions() {
             const isAnswered = currentAnswer !== null;
 
             return (
-              <div
+              <QuestionCard
                 key={`${step}-${question.id}`}
-                className={`rounded-[40px] border-4 p-6 text-white transition-all duration-200 ${
-                  isAnswered 
-                    ? "border-white/40 bg-gradient-to-br from-[#ff006e]/30 to-[#8338ec]/30" 
-                    : "border-white/20 bg-gradient-to-br from-white/10 to-white/5"
-                }`}
-              >
-                <div className="mb-4 flex items-start justify-between gap-3">
-                  <h2 className="text-2xl font-black sm:text-3xl leading-tight">
-                    {question.text}
-                  </h2>
-                  <span className="ml-4 flex-shrink-0 rounded-full border-2 border-white/30 bg-gradient-to-r from-[#ff006e] to-[#8338ec] px-4 py-2 text-xs font-black text-white">
-                    Q{index + 1}
-                  </span>
-                </div>
-
-                <div className="space-y-3">
-                  {question.options.map((option, optionIndex) => {
-                    const isSelected = currentAnswer === option.score;
-
-                    return (
-                      <button
-                        key={optionIndex}
-                        onClick={() => handleAnswer(question.id, option.score)}
-                        className={`w-full rounded-[30px] border-4 px-6 py-4 text-left text-base font-black transition-all duration-200 ${
-                          isSelected
-                            ? "border-white/50 bg-gradient-to-r from-[#ff006e] to-[#8338ec] text-white"
-                            : "border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+                question={question}
+                index={index}
+                currentAnswer={currentAnswer}
+                isAnswered={isAnswered}
+                onAnswer={handleAnswer}
+                step={step}
+              />
             );
           })}
         </div>
@@ -302,7 +282,8 @@ function SingleDeviceQuestions() {
 
 function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; participant: ParticipantRole }) {
   const router = useRouter();
-  const [questions] = useState<Question[]>(questionsData as Question[]);
+  // 質問データをメモ化して再生成を防ぐ
+  const questions = useMemo(() => questionsData as Question[], []);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [sessionData, setSessionData] = useState<SessionResponsePayload | null>(null);
   const [error, setError] = useState<string | null>(null);
