@@ -420,18 +420,19 @@ export function getCompatibilityRank(percentile: number): CompatibilityRank {
 
 /**
  * ランクに応じた画像パスを返す
+ * 10.png = SS (最高), 9.png = S, 8.png = A, 7.png = B, 6.png = C, 5.png = D, 4.png = E, 3.png = F, 2.png = G (最低)
  */
 export function getRankImagePath(rank: string): string {
   const rankImages: Record<string, string> = {
-    SS: "/rank-images/bestria.jpg",
-    S: "/rank-images/lynx.jpg",
-    A: "/rank-images/goodton.jpg",
-    B: "/rank-images/lightm.jpg",
-    C: "/rank-images/frica.jpg",
-    D: "/rank-images/rafne.jpg",
-    E: "/rank-images/mistal.jpg",
-    F: "/rank-images/buggy.jpg",
-    G: "/rank-images/zerona.jpg",
+    SS: "/rank-images/10.png",
+    S: "/rank-images/9.png",
+    A: "/rank-images/8.png",
+    B: "/rank-images/7.png",
+    C: "/rank-images/6.png",
+    D: "/rank-images/5.png",
+    E: "/rank-images/4.png",
+    F: "/rank-images/3.png",
+    G: "/rank-images/2.png",
   };
   return rankImages[rank] || rankImages.G;
 }

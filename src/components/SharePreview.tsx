@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -8,6 +8,48 @@ import { getCompatibilityRank, getRankImagePath } from "@/lib/calculate";
 import { toPng } from "html-to-image";
 import { QRCodeCanvas } from "qrcode.react";
 import Image from "next/image";
+
+// ランク画像コンポーネント（エラーハンドリング付き）
+const RankImageDisplay: React.FC<{ imagePath: string; alt: string }> = ({ imagePath, alt }) => {
+  const [imgError, setImgError] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  useEffect(() => {
+    // 画像の読み込みをテスト
+    const img = new window.Image();
+    img.onload = () => setImgLoaded(true);
+    img.onerror = () => {
+      console.error("画像の読み込みエラー:", imagePath);
+      setImgError(true);
+    };
+    img.src = imagePath;
+  }, [imagePath]);
+
+  if (imgError || !imgLoaded) {
+    // フォールバック: 通常のimgタグを使用
+    return (
+      <img
+        src={imagePath}
+        alt={alt}
+        className="w-full h-full object-contain"
+        onError={() => {
+          console.error("画像の読み込みエラー（フォールバック）:", imagePath);
+        }}
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={imagePath}
+      alt={alt}
+      fill
+      className="object-contain"
+      priority
+      unoptimized
+    />
+  );
+};
 
 interface SharePreviewProps {
   isOpen: boolean;
@@ -63,13 +105,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
 
         <div className="my-4 flex flex-1 items-center justify-center overflow-hidden">
           <div className="relative w-full h-full flex items-center justify-center">
-            <Image
-              src={rankImagePath}
-              alt={rankInfo.tier}
-              fill
-              className="object-contain"
-              priority
-            />
+            <RankImageDisplay imagePath={rankImagePath} alt={rankInfo.tier} />
           </div>
         </div>
 
@@ -129,7 +165,20 @@ export default function SharePreview({
     try {
       setIsDownloading(true);
       
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // 画像の読み込みを確実に待つ
+      const images = downloadCardRef.current.querySelectorAll('img');
+      await Promise.all(
+        Array.from(images).map((img) => {
+          if (img.complete) return Promise.resolve<void>(undefined);
+          return new Promise<void>((resolve, reject) => {
+            img.onload = () => resolve();
+            img.onerror = () => reject(new Error('画像の読み込みに失敗しました'));
+            setTimeout(() => resolve(), 2000); // タイムアウト
+          });
+        })
+      );
+      
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
       const dataUrl = await toPng(downloadCardRef.current, {
         cacheBust: true,
@@ -142,20 +191,74 @@ export default function SharePreview({
         quality: 1.0,
       });
       
-      const newWindow = window.open(dataUrl, '_blank');
-      if (newWindow) {
-        newWindow.focus();
-        alert("画像を新しいタブで開きました。新しいタブで右クリック（または長押し）し、「名前を付けて画像を保存」を選択して、保存先を選んでください。");
-      } else {
-        // ポップアップブロッカーなどで開けない場合、フォールバックとして直接ダウンロードを試みる
-        alert("画像を新しいタブで開けませんでした。ポップアップブロッカーを無効にして再試行するか、ダウンロードボタンを長押しして保存してください。\n\n自動でダウンロードを試みます。");
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = `pairlylab-${userNickname}-${partnerNickname}-${rankInfo.rank}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      // Web Share APIが利用可能な場合（主にモバイル）
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      if (isMobile && navigator.share) {
+        try {
+          // dataUrlをBlobに変換
+          const response = await fetch(dataUrl);
+          const blob = await response.blob();
+          const file = new File([blob], `pairlylab-${userNickname}-${partnerNickname}-${rankInfo.rank}.png`, { type: 'image/png' });
+          
+          // Web Share APIでファイル共有を試みる
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: `${userNickname} × ${partnerNickname} の相性診断結果`,
+              text: `${rankInfo.tier} - ${percentileDisplay}`,
+            });
+            setIsDownloading(false);
+            return;
+          }
+        } catch (shareError: any) {
+          // Web Share APIが失敗した場合（ユーザーがキャンセルした場合も含む）、通常のダウンロードにフォールバック
+          if (shareError.name !== 'AbortError') {
+            console.log("Web Share API failed, falling back to download", shareError);
+          }
+        }
       }
+      
+      // PCとモバイルの両方で動作するダウンロード方法
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      link.download = `pairlylab-${userNickname}-${partnerNickname}-${rankInfo.rank}.png`;
+      link.style.display = 'none';
+      
+      document.body.appendChild(link);
+      link.click();
+      
+      // iOS Safari対策: ダウンロードが開始されない場合のフォールバック
+      setTimeout(() => {
+        document.body.removeChild(link);
+        
+        // iOS Safariではdownload属性が動作しないため、画像を新しいタブで開く
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+          const newWindow = window.open();
+          if (newWindow) {
+            newWindow.document.write(`
+              <html>
+                <head>
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>相性診断結果</title>
+                  <style>
+                    body { margin: 0; padding: 20px; background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+                    img { max-width: 100%; height: auto; }
+                    p { color: white; text-align: center; margin-top: 20px; }
+                  </style>
+                </head>
+                <body>
+                  <div>
+                    <img src="${dataUrl}" alt="相性診断結果" />
+                    <p>画像を長押しして保存してください</p>
+                  </div>
+                </body>
+              </html>
+            `);
+            newWindow.document.close();
+          }
+        }
+      }, 100);
       
     } catch (error) {
       console.error("Failed to export share card", error);

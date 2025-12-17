@@ -119,6 +119,49 @@ const AxisInsight: React.FC<{ label: string; value: number; description: string 
     </div>
 );
 
+// ランク画像コンポーネント（エラーハンドリング付き）
+const RankImage: React.FC<{ rank: CompatibilityRank }> = ({ rank }) => {
+  const [imgError, setImgError] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const imagePath = getRankImagePath(rank.rank);
+
+  useEffect(() => {
+    // 画像の読み込みをテスト
+    const img = new window.Image();
+    img.onload = () => setImgLoaded(true);
+    img.onerror = () => {
+      console.error("画像の読み込みエラー:", imagePath);
+      setImgError(true);
+    };
+    img.src = imagePath;
+  }, [imagePath]);
+
+  if (imgError || !imgLoaded) {
+    // フォールバック: 通常のimgタグを使用
+    return (
+      <img
+        src={imagePath}
+        alt={rank.tier}
+        className="w-full h-full object-contain"
+        onError={() => {
+          console.error("画像の読み込みエラー（フォールバック）:", imagePath);
+        }}
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={imagePath}
+      alt={rank.tier}
+      fill
+      className="object-contain"
+      priority
+      unoptimized
+    />
+  );
+};
+
 export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
   type1,
   type2,
@@ -215,13 +258,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                 {rank && percentile !== undefined && (
                   <div className="mb-4 flex items-center justify-center">
                     <div className="relative w-full h-48">
-                      <Image
-                        src={getRankImagePath(rank.rank)}
-                        alt={rank.tier}
-                        fill
-                        className="object-contain"
-                        priority
-                      />
+                      <RankImage rank={rank} />
                     </div>
                   </div>
                 )}
