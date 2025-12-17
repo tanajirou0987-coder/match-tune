@@ -69,8 +69,11 @@ function SingleDeviceQuestions() {
   const [isTransitioningStep, setIsTransitioningStep] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
 
+  // トランジション中は前のステップの回答数を保持
   const currentAnswers = step === "user" ? userAnswers : partnerAnswers;
-  const answeredCount = currentAnswers.length;
+  const answeredCount = isTransitioningStep 
+    ? (step === "partner" ? userAnswers.length : partnerAnswers.length)
+    : currentAnswers.length;
   const progress = (answeredCount / TOTAL_QUESTIONS) * 100;
 
   const handleAnswer = (questionId: number, score: Score) => {
@@ -138,17 +141,45 @@ function SingleDeviceQuestions() {
     if (step === "user") {
       if (userAnswers.length !== TOTAL_QUESTIONS || isTransitioningStep) return;
       setIsTransitioningStep(true);
-      setTimeout(() => {
-        setStep("partner");
-        setIsTransitioningStep(false);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, 250);
+      // まず即座にトップにスクロール
+      window.scrollTo({ top: 0, behavior: "instant" });
+      // スクロール完了を待ってからステップを変更
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setStep("partner");
+          // ステップ変更後、レンダリング完了を待ってからトップにスクロール
+          setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            // スクロール完了後にトランジション状態を解除
+            setTimeout(() => {
+              setIsTransitioningStep(false);
+            }, 500);
+          }, 50);
+        });
+      });
     } else {
       if (partnerAnswers.length !== TOTAL_QUESTIONS || isCalculating) return;
       setIsCalculating(true);
       calculateResult(userAnswers, partnerAnswers);
     }
   };
+
+  // ステップが変更されたときに確実にトップにスクロール
+  useEffect(() => {
+    if (step === "partner") {
+      // レンダリング完了後に確実にトップにスクロール
+      const timer1 = setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }, 0);
+      const timer2 = setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+  }, [step]);
 
   const getAnswerForQuestion = (questionId: number): Score | null => {
     const answer = currentAnswers.find((a) => a.questionId === questionId);
@@ -189,7 +220,7 @@ function SingleDeviceQuestions() {
 
             return (
               <div
-                key={question.id}
+                key={`${step}-${question.id}`}
                 className={`rounded-[40px] border-4 p-6 text-white transition-all duration-200 ${
                   isAnswered 
                     ? "border-white/40 bg-gradient-to-br from-[#ff006e]/30 to-[#8338ec]/30" 
