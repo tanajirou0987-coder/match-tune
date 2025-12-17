@@ -41,8 +41,8 @@ export const LazyQuestionCard = memo(function LazyQuestionCard({
     return (
       <div
         ref={ref}
-        className="rounded-[40px] border-4 border-white/10 bg-white/5 p-6"
-        style={{ minHeight: "200px" }}
+        className="rounded-2xl border-2 border-white/5 bg-white/3 p-4"
+        style={{ minHeight: "150px" }}
       />
     );
   }
