@@ -68,15 +68,16 @@ function SingleDeviceQuestions() {
   const [partnerAnswers, setPartnerAnswers] = useState<Answer[]>([]);
   // 質問データをメモ化（ビルド時に最適化される）
   const questions = useMemo(() => questionsData as Question[], []);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isTransitioningStep, setIsTransitioningStep] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
 
   // トランジション中は前のステップの回答数を保持
   const currentAnswers = step === "user" ? userAnswers : partnerAnswers;
-  const answeredCount = isTransitioningStep 
-    ? (step === "partner" ? userAnswers.length : partnerAnswers.length)
-    : currentAnswers.length;
+  const answeredCount = currentAnswers.length;
   const progress = (answeredCount / TOTAL_QUESTIONS) * 100;
+  const currentQuestion = questions[currentQuestionIndex];
 
   const handleAnswer = useCallback((questionId: number, score: Score) => {
     if (step === "user") {
@@ -200,20 +201,20 @@ function SingleDeviceQuestions() {
 
       <div className="relative mx-auto w-full max-w-3xl space-y-10">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-white/20 bg-white/10 px-4 py-2 text-white">
-            <span className="text-base font-black">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
-            <span className="text-xs font-black bg-white/20 px-2 py-0.5 rounded-full">{step === "user" ? "1/2" : "2/2"}</span>
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/8 px-3 py-1 text-white">
+            <span className="text-sm font-black">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
+            <span className="text-[10px] font-black bg-white/15 px-1.5 py-0.5 rounded-full">{step === "user" ? "1/2" : "2/2"}</span>
           </div>
         </div>
 
-        <div className="sticky top-0 z-20 -mx-4 border-b-2 border-white/20 bg-white/5 px-4 py-3">
-          <div className="mb-2 flex items-center justify-between text-base text-white">
-            <span className="font-black">
+        <div className="sticky top-0 z-20 -mx-4 border-b border-white/15 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <div className="mb-1.5 flex items-center justify-between text-sm text-white">
+            <span className="font-black text-xs">
               {answeredCount} / {TOTAL_QUESTIONS}
             </span>
-            <span className="font-black text-xl text-[#ff006e]">{Math.round(progress)}%</span>
+            <span className="font-black text-lg text-[#ff006e]">{Math.round(progress)}%</span>
           </div>
-          <div className="h-2 w-full overflow-hidden rounded-full border border-white/20 bg-white/5">
+          <div className="h-1.5 w-full overflow-hidden rounded-full border border-white/15 bg-white/5">
             <div
               className="h-full rounded-full bg-[#ff006e] transition-all duration-200"
               style={{ width: `${progress}%` }}
@@ -221,7 +222,7 @@ function SingleDeviceQuestions() {
           </div>
         </div>
 
-        <div className="space-y-4 pb-12">
+        <div className="space-y-2.5 pb-8">
           {questions.map((question, index) => {
             const currentAnswer = getAnswerForQuestion(question.id);
             const isAnswered = currentAnswer !== null;
@@ -464,7 +465,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
           )}
         </div>
 
-        <div className="space-y-4 pb-16">
+        <div className="space-y-2.5 pb-8">
           {questions.map((question, index) => {
             const currentAnswer = getAnswerForQuestion(question.id);
             const isAnswered = currentAnswer !== null;
