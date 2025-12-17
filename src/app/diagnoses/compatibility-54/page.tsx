@@ -2,98 +2,123 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Compatibility54StartPage() {
   const router = useRouter();
 
   return (
-    <div className="space-y-10">
-      <main className="relative mx-auto w-full max-w-4xl rounded-[32px] border border-white/5 bg-white/5 p-8 shadow-[0_30px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
-        <motion.div
-          className="rounded-3xl border border-white/10 bg-transparent p-6 text-foreground sm:p-8"
+    <div className="relative min-h-screen px-4 py-12 sm:px-6 lg:px-8">
+      {/* 背景エフェクト */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#000000] via-[#1a0033] to-[#000033]" />
+        <div className="absolute top-0 left-1/4 h-[600px] w-[600px] rounded-full bg-[#ff006e] opacity-20 blur-[200px] animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] rounded-full bg-[#8338ec] opacity-20 blur-[200px] animate-pulse" style={{ animationDelay: "1s" }} />
+      </div>
+
+      <div className="relative mx-auto w-full max-w-4xl">
+        <motion.main
+          className="rounded-[40px] border-4 border-white/30 bg-gradient-to-br from-[#ff006e]/20 via-[#8338ec]/20 to-[#00f5ff]/20 p-8 sm:p-12 backdrop-blur-2xl shadow-[0_0_80px_rgba(255,0,110,0.4)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-            <div className="flex-1 space-y-4">
-              <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">precision mode</p>
-              <h1 className="text-3xl font-semibold text-white sm:text-4xl">徹底相性診断</h1>
-              <p className="text-muted-foreground">
-                54問で価値観から生活リズムまで照射。ひとつずつ丁寧に進められるので、相手と共有する前に自分の感覚も整理できます。
-              </p>
-              <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
-                <span className="rounded-full border border-white/15 px-3 py-1 uppercase tracking-[0.3em]">54 questions</span>
-                <span className="rounded-full border border-white/15 px-3 py-1 uppercase tracking-[0.3em]">about 7 min</span>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  { label: "精度", value: "★★★★★" },
-                  { label: "相性指標", value: "6軸" },
-                ].map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{item.label}</p>
-                    <p className="text-xl font-semibold text-white">{item.value}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4 space-y-3">
-                <Button
-                  onClick={() => router.push("/diagnoses/compatibility-54/questions")}
-                  className="w-full rounded-2xl bg-primary text-primary-foreground shadow-[0_20px_45px_rgba(255,217,59,0.35)]"
-                  size="lg"
-                >
-                  徹底診断を始める
-                </Button>
-                <div className="relative">
-                  <div className="absolute -top-2 left-4 z-10 rounded-full bg-gradient-to-r from-[#7ff6f2] to-[#9a8cff] px-3 py-1 text-[0.65rem] font-bold text-[#050608] shadow-md">
-                    おすすめ
-                  </div>
-                  <Button
-                    onClick={() => router.push("/diagnoses/compatibility-54/multi")}
-                    className="w-full rounded-2xl bg-gradient-to-r from-[#7ff6f2] to-[#9a8cff] text-[#050608] shadow-[0_18px_40px_rgba(127,246,242,0.25)] transition hover:scale-[1.02] hover:shadow-[0_20px_50px_rgba(154,140,255,0.35)]"
-                    size="lg"
-                  >
-                    ふたりで同時接続
-                  </Button>
-                </div>
-                <Button
-                  onClick={() => router.push("/diagnoses")}
-                  variant="outline"
-                  className="w-full rounded-2xl border-white/20 text-foreground hover:border-primary hover:text-primary"
-                  size="lg"
-                >
-                  他の診断を見る
-                </Button>
-              </div>
-            </div>
-            <Card className="flex-1 border-white/10 bg-white/5">
-              <CardHeader>
-                <CardTitle className="text-lg text-white">診断内容</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-sm text-muted-foreground">
-                <div>
-                  <p className="font-semibold text-white">コミュニケーション特性</p>
-                  <p className="text-xs text-muted-foreground">18問 / 話し方・聞き方のクセ</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">意思決定特性</p>
-                  <p className="text-xs text-muted-foreground">18問 / ロジックと感情のバランス</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">関係性特性</p>
-                  <p className="text-xs text-muted-foreground">18問 / リード＆サポートの傾向</p>
-                </div>
-                <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.08] px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-                  途中保存に対応。回答した内容はそのまま相性リポートに転写され、後からでもゆっくり読み返せます。
-                </div>
-              </CardContent>
-            </Card>
+          <div className="text-center mb-10">
+            <motion.div
+              className="inline-block mb-4"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+            >
+              <span className="text-6xl">🔥</span>
+            </motion.div>
+            <h1 className="text-5xl sm:text-6xl font-black mb-4">
+              <span className="bg-gradient-to-r from-[#ff006e] to-[#8338ec] bg-clip-text text-transparent">
+                DEEP 54
+              </span>
+            </h1>
+            <p className="text-xl font-black text-white mb-2">徹底相性診断</p>
+            <p className="text-white/80 max-w-2xl mx-auto">
+              54問で価値観から生活リズムまで照射。<br />
+              ひとつずつ丁寧に進められるので、相手と共有する前に自分の感覚も整理できます。
+            </p>
           </div>
-        </motion.div>
-      </main>
+
+          <div className="grid gap-6 mb-10 sm:grid-cols-3">
+            {[
+              { label: "質問数", value: "54問", emoji: "💬" },
+              { label: "所要時間", value: "約7-8分", emoji: "⏱️" },
+              { label: "相性軸", value: "6軸", emoji: "📊" },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                className="rounded-[30px] border-4 border-white/30 bg-white/10 p-6 text-center backdrop-blur-xl"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+              >
+                <div className="text-4xl mb-2">{item.emoji}</div>
+                <div className="text-2xl font-black text-white mb-1">{item.value}</div>
+                <div className="text-xs font-black uppercase tracking-wider text-white/70">{item.label}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="space-y-4 mb-10">
+            <h2 className="text-2xl font-black text-white mb-4">診断内容</h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                { title: "コミュニケーション", desc: "18問 / 話し方・聞き方のクセ", emoji: "💭" },
+                { title: "意思決定", desc: "18問 / ロジックと感情のバランス", emoji: "⚖️" },
+                { title: "関係性", desc: "18問 / リード＆サポートの傾向", emoji: "🤝" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  className="rounded-[30px] border-4 border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-6 backdrop-blur-xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
+                >
+                  <div className="text-3xl mb-3">{item.emoji}</div>
+                  <h3 className="text-lg font-black text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-white/70">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <motion.button
+              onClick={() => router.push("/diagnoses/compatibility-54/questions")}
+              className="w-full rounded-[40px] border-4 border-white bg-gradient-to-r from-[#ff006e] to-[#8338ec] px-8 py-6 text-2xl font-black text-white shadow-[0_0_60px_rgba(255,0,110,0.6)] transition-all transform hover:scale-105"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              徹底診断を始める 🔥
+            </motion.button>
+            
+            <div className="relative">
+              <div className="absolute -top-3 left-6 z-10 rounded-full border-2 border-white bg-gradient-to-r from-[#00f5ff] to-[#8338ec] px-4 py-1 text-sm font-black text-white shadow-[0_0_30px_rgba(0,245,255,0.5)]">
+                おすすめ
+              </div>
+              <motion.button
+                onClick={() => router.push("/diagnoses/compatibility-54/multi")}
+                className="w-full rounded-[40px] border-4 border-white/30 bg-gradient-to-r from-[#00f5ff] to-[#8338ec] px-8 py-6 text-xl font-black text-white shadow-[0_0_60px_rgba(0,245,255,0.4)] transition-all transform hover:scale-105"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                ふたりで同時接続 💕
+              </motion.button>
+            </div>
+
+            <motion.button
+              onClick={() => router.push("/")}
+              className="w-full rounded-[40px] border-4 border-white/20 bg-white/5 px-8 py-4 text-lg font-black text-white hover:bg-white/10 transition-all"
+            >
+              ホームに戻る
+            </motion.button>
+          </div>
+        </motion.main>
+      </div>
     </div>
   );
 }

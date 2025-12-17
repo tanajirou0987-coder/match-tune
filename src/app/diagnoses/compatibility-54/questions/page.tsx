@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 import questionsData from "../../../../../data/diagnoses/compatibility-54/questions.json";
 import type { Question, Answer, Score } from "@/lib/types";
 import { calculateScores, getPersonalityType } from "@/lib/calculate";
@@ -138,27 +139,35 @@ function SingleDeviceQuestions() {
 
   return (
     <div className="relative min-h-screen px-4 py-12 sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-primary/15 via-transparent to-transparent" />
-      <div className="pointer-events-none absolute -left-10 top-20 h-64 w-64 rounded-full bg-[#7ff6f225] blur-[150px]" />
-      <div className="pointer-events-none absolute right-0 bottom-10 h-72 w-72 rounded-full bg-[#9a8cff20] blur-[170px]" />
-      <div className="relative mx-auto w-full max-w-3xl space-y-10">
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-white">
-            <span className="text-sm font-semibold">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
-            <span className="text-xs text-muted-foreground">{step === "user" ? "ステップ 1/2" : "ステップ 2/2"}</span>
-          </div>
-        </div>
+      {/* 背景エフェクト - 音楽フェス風 */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#000000] via-[#1a0033] to-[#000033]" />
+        <div className="absolute top-0 left-1/4 h-[600px] w-[600px] rounded-full bg-[#ff006e] opacity-20 blur-[200px] animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] rounded-full bg-[#00f5ff] opacity-20 blur-[200px] animate-pulse" style={{ animationDelay: "1s" }} />
+      </div>
 
-        <div className="sticky top-0 z-20 -mx-4 border-b border-white/10 bg-background/90 px-4 py-4 backdrop-blur-lg">
-          <div className="mb-2 flex items-center justify-between text-sm text-white">
-            <span className="font-semibold">
+      <div className="relative mx-auto w-full max-w-3xl space-y-10">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="inline-flex items-center gap-3 rounded-full border-4 border-white/30 bg-gradient-to-r from-[#ff006e]/30 to-[#8338ec]/30 px-6 py-3 text-white backdrop-blur-xl shadow-[0_0_40px_rgba(255,0,110,0.3)]">
+            <span className="text-lg font-black">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
+            <span className="text-sm font-black bg-white/20 px-3 py-1 rounded-full">{step === "user" ? "ステップ 1/2" : "ステップ 2/2"}</span>
+          </div>
+        </motion.div>
+
+        <div className="sticky top-0 z-20 -mx-4 border-b-4 border-white/30 bg-gradient-to-r from-[#8338ec]/40 to-[#ff006e]/40 px-4 py-6 backdrop-blur-2xl shadow-[0_10px_60px_rgba(131,56,236,0.3)]">
+          <div className="mb-3 flex items-center justify-between text-lg text-white">
+            <span className="font-black">
               回答済み {answeredCount} / {TOTAL_QUESTIONS}
             </span>
-            <span className="text-muted-foreground">{Math.round(progress)}%</span>
+            <span className="font-black text-2xl bg-gradient-to-r from-[#ff006e] to-[#00f5ff] bg-clip-text text-transparent">{Math.round(progress)}%</span>
           </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+          <div className="h-4 w-full overflow-hidden rounded-full border-2 border-white/30 bg-white/10">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-primary via-[#7ff6f2] to-[#9a8cff] transition-all duration-500 ease-out"
+              className="h-full rounded-full bg-gradient-to-r from-[#ff006e] via-[#8338ec] to-[#00f5ff] transition-all duration-500 ease-out shadow-[0_0_20px_rgba(255,0,110,0.6)]"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -170,22 +179,28 @@ function SingleDeviceQuestions() {
             const isAnswered = currentAnswer !== null;
 
             return (
-              <div
+              <motion.div
                 key={question.id}
-                className={`rounded-3xl border bg-white/5 p-6 text-white shadow-[0_25px_80px_rgba(0,0,0,0.45)] transition-all duration-200 ${
-                  isAnswered ? "border-primary/60" : "border-white/10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className={`rounded-[40px] border-4 p-6 text-white shadow-[0_0_60px_rgba(0,0,0,0.3)] transition-all duration-200 ${
+                  isAnswered 
+                    ? "border-white/40 bg-gradient-to-br from-[#ff006e]/30 to-[#8338ec]/30 backdrop-blur-xl shadow-[0_0_60px_rgba(255,0,110,0.4)]" 
+                    : "border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl"
                 }`}
               >
                 <div className="mb-4 flex items-start justify-between gap-3">
-                  <h2 className="serif-heading text-xl font-semibold sm:text-2xl">
+                  <h2 className="text-2xl font-black sm:text-3xl leading-tight">
                     {question.text}
                   </h2>
-                  <span className="ml-4 flex-shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-muted-foreground">
-                    質問 {index + 1}
+                  <span className="ml-4 flex-shrink-0 rounded-full border-2 border-white/30 bg-gradient-to-r from-[#ff006e] to-[#8338ec] px-4 py-2 text-xs font-black text-white">
+                    Q{index + 1}
                   </span>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {question.options.map((option, optionIndex) => {
                     const isSelected = currentAnswer === option.score;
 
@@ -193,10 +208,10 @@ function SingleDeviceQuestions() {
                       <button
                         key={optionIndex}
                         onClick={() => handleAnswer(question.id, option.score)}
-                        className={`w-full rounded-2xl border px-4 py-3 text-left text-sm font-medium transition-all duration-200 ${
+                        className={`w-full rounded-[30px] border-4 px-6 py-4 text-left text-base font-black transition-all duration-200 transform hover:scale-[1.02] ${
                           isSelected
-                            ? "border-transparent bg-gradient-to-r from-primary to-[#7ff6f2] text-background shadow-lg"
-                            : "border-white/10 bg-white/5 text-white hover:border-primary/60 hover:bg-primary/15"
+                            ? "border-white/50 bg-gradient-to-r from-[#ff006e] to-[#8338ec] text-white shadow-[0_0_40px_rgba(255,0,110,0.6)]"
+                            : "border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
                         }`}
                       >
                         {option.label}
@@ -204,45 +219,51 @@ function SingleDeviceQuestions() {
                     );
                   })}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        <div className="mt-12 space-y-3 text-center">
-          <p className="text-sm text-muted-foreground">徹底診断（54問・約7分）</p>
+        <motion.div
+          className="mt-12 space-y-4 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-sm font-black uppercase tracking-wider text-white/60">徹底診断（54問・約7分）</p>
           {step === "user" ? (
             userAnswers.length === TOTAL_QUESTIONS ? (
-              <div className="space-y-3">
-                <p className="text-sm font-medium text-white">
-                  自分の回答がそろいました。内容に間違いがないか確認してからパートナーに渡してください。
+              <div className="space-y-4 rounded-[40px] border-4 border-white/30 bg-gradient-to-r from-[#ff006e]/30 to-[#8338ec]/30 p-8 backdrop-blur-2xl shadow-[0_0_60px_rgba(255,0,110,0.4)]">
+                <p className="text-lg font-black text-white">
+                  自分の回答がそろいました！<br />
+                  内容に間違いがないか確認してからパートナーに渡してください。
                 </p>
                 <button
                   onClick={handleConfirmStep}
                   disabled={isTransitioningStep}
-                  className="inline-flex w-full items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_18px_45px_rgba(255,217,59,0.35)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex w-full items-center justify-center rounded-full border-4 border-white bg-white px-8 py-4 text-lg font-black text-black shadow-[0_0_60px_rgba(255,255,255,0.4)] transition-all transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  パートナーの回答に進む
+                  パートナーの回答に進む →
                 </button>
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">すべて回答するとパートナーにバトンタッチできます。</p>
+              <p className="text-sm font-bold text-white/70">すべて回答するとパートナーにバトンタッチできます 💫</p>
             )
           ) : partnerAnswers.length === TOTAL_QUESTIONS ? (
-            <div className="space-y-3">
-              <p className="text-sm font-medium text-white">2人分の回答がそろいました。診断結果を作成します。</p>
+            <div className="space-y-4 rounded-[40px] border-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/30 to-[#8338ec]/30 p-8 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,245,255,0.4)]">
+              <p className="text-lg font-black text-white">2人分の回答がそろいました！<br />診断結果を作成します 🎉</p>
               <button
                 onClick={handleConfirmStep}
                 disabled={isCalculating}
-                className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#7ff6f2] to-[#9a8cff] px-6 py-3 text-sm font-semibold text-background shadow-[0_18px_45px_rgba(127,246,242,0.3)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center rounded-full border-4 border-white bg-gradient-to-r from-[#00f5ff] to-[#8338ec] px-8 py-4 text-lg font-black text-white shadow-[0_0_60px_rgba(0,245,255,0.5)] transition-all transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                結果を表示
+                結果を表示 🔥
               </button>
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground">パートナーの回答をすべて埋めてから結果へ進めます。</p>
+            <p className="text-sm font-bold text-white/70">パートナーの回答をすべて埋めてから結果へ進めます ✨</p>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

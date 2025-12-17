@@ -88,11 +88,11 @@
     font-family: var(--font-lato), sans-serif;
     font-feature-settings: "liga" 1, "calt" 1;
     text-rendering: optimizeLegibility;
-    background-image:
-      radial-gradient(circle at 20% 20%, rgba(127, 246, 242, 0.12), transparent 45%),
-      radial-gradient(circle at 80% 0%, rgba(255, 217, 59, 0.14), transparent 40%),
-      radial-gradient(circle at 50% 100%, rgba(154, 140, 255, 0.18), transparent 55%),
-      linear-gradient(180deg, #050608 0%, #090a13 40%, #090b16 100%);
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255, 0, 110, 0.15), transparent 50%),
+      radial-gradient(circle at 80% 0%, rgba(0, 245, 255, 0.15), transparent 50%),
+      radial-gradient(circle at 50% 100%, rgba(131, 56, 236, 0.2), transparent 60%),
+      linear-gradient(180deg, #000000 0%, #1a0033 40%, #000033 100%);
     background-attachment: fixed;
   }
 
