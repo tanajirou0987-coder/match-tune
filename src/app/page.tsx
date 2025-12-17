@@ -12,7 +12,6 @@ const diagnostics = [
     duration: "約7-8分",
     gradient: "from-[#ff006e] via-[#ff006e] to-[#8338ec]",
     glow: "shadow-[0_0_60px_rgba(255,0,110,0.5)]",
-    emoji: "🔥",
   },
   {
     title: "QUICK 18",
@@ -22,7 +21,6 @@ const diagnostics = [
     duration: "約3分",
     gradient: "from-[#00f5ff] via-[#00d4ff] to-[#8338ec]",
     glow: "shadow-[0_0_60px_rgba(0,245,255,0.5)]",
-    emoji: "⚡",
   },
 ];
 
@@ -84,14 +82,14 @@ export default function Home() {
               href="/diagnoses/compatibility-54"
               className="group relative px-8 py-4 text-lg font-black rounded-full bg-gradient-to-r from-[#ff006e] to-[#8338ec] text-white shadow-[0_0_40px_rgba(255,0,110,0.6)] hover:shadow-[0_0_60px_rgba(255,0,110,0.8)] transition-all transform hover:scale-105"
             >
-              <span className="relative z-10">54問でじっくり 🔥</span>
+              <span className="relative z-10">54問でじっくり</span>
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#ff006e] to-[#8338ec] opacity-0 group-hover:opacity-100 blur-xl transition-opacity" />
             </Link>
             <Link
               href="/diagnoses/compatibility-18"
               className="group relative px-8 py-4 text-lg font-black rounded-full bg-gradient-to-r from-[#00f5ff] to-[#8338ec] text-black shadow-[0_0_40px_rgba(0,245,255,0.6)] hover:shadow-[0_0_60px_rgba(0,245,255,0.8)] transition-all transform hover:scale-105"
             >
-              <span className="relative z-10">3分で試す ⚡</span>
+              <span className="relative z-10">3分で試す</span>
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#00f5ff] to-[#8338ec] opacity-0 group-hover:opacity-100 blur-xl transition-opacity" />
             </Link>
           </motion.div>
@@ -104,9 +102,9 @@ export default function Home() {
             transition={{ delay: 0.8 }}
           >
             {[
-              { label: "質問", value: "18/54", emoji: "💬" },
-              { label: "タイプ", value: "27", emoji: "✨" },
-              { label: "相性", value: "729", emoji: "💕" },
+              { label: "質問", value: "18/54" },
+              { label: "タイプ", value: "27" },
+              { label: "相性", value: "729" },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -115,7 +113,6 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.9 + i * 0.1 }}
               >
-                <div className="text-3xl mb-2">{stat.emoji}</div>
                 <div className="text-2xl font-black text-white mb-1">{stat.value}</div>
                 <div className="text-xs font-bold uppercase tracking-wider text-white/70">{stat.label}</div>
               </motion.div>
@@ -149,7 +146,6 @@ export default function Home() {
               >
                 <Link href={mode.href}>
                   <div className={`relative rounded-[40px] border-4 border-white/30 bg-gradient-to-br ${mode.gradient} p-8 text-white ${mode.glow} transform hover:scale-[1.02] transition-all cursor-pointer`}>
-                    <div className="absolute top-4 right-4 text-5xl">{mode.emoji}</div>
                     <div className="relative z-10">
                       <div className="text-xs font-black uppercase tracking-[0.4em] mb-3 opacity-80">{mode.duration}</div>
                       <h3 className="text-4xl font-black mb-3">{mode.title}</h3>
@@ -179,9 +175,9 @@ export default function Home() {
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              { num: "01", title: "診断を選ぶ", desc: "気分に合わせて3分 or 7分", emoji: "🎯" },
-              { num: "02", title: "質問に答える", desc: "シンプルな選択肢だけ", emoji: "💭" },
-              { num: "03", title: "結果を共有", desc: "カードでスクショして拡散", emoji: "📸" },
+              { num: "01", title: "診断を選ぶ", desc: "気分に合わせて3分 or 7分" },
+              { num: "02", title: "質問に答える", desc: "シンプルな選択肢だけ" },
+              { num: "03", title: "結果を共有", desc: "カードでスクショして拡散" },
             ].map((step, i) => (
               <motion.div
                 key={step.num}
@@ -191,7 +187,6 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
               >
-                <div className="text-6xl mb-4">{step.emoji}</div>
                 <div className="text-5xl font-black text-white/30 mb-2">{step.num}</div>
                 <h4 className="text-xl font-black text-white mb-2">{step.title}</h4>
                 <p className="text-sm text-white/70">{step.desc}</p>
@@ -221,13 +216,13 @@ export default function Home() {
                 href="/diagnoses/compatibility-54"
                 className="px-10 py-5 text-xl font-black rounded-full bg-white text-black shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_50px_rgba(0,0,0,0.4)] transform hover:scale-105 transition-all"
               >
-                徹底診断を始める 🔥
+                徹底診断を始める
               </Link>
               <Link
                 href="/diagnoses/compatibility-18"
                 className="px-10 py-5 text-xl font-black rounded-full border-4 border-white text-white hover:bg-white hover:text-black transform hover:scale-105 transition-all"
               >
-                クイック診断 ⚡
+                クイック診断
               </Link>
             </div>
           </div>

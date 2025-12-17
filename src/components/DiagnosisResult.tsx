@@ -234,12 +234,12 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
             {analysis && (
               <div className="rounded-[40px] border-4 border-white/30 bg-gradient-to-br from-[#00f5ff]/20 to-[#8338ec]/20 p-6 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,245,255,0.3)]">
                 <h3 className="text-base font-black uppercase tracking-[0.3em] text-white/60 mb-2">詳細分析</h3>
-                <AccordionItem title="二人の強み ✨" initialOpen={true}>
+                <AccordionItem title="二人の強み" initialOpen={true}>
                   <ul className="list-disc pl-5 space-y-2 text-white/90">
                     {analysis.strengths.map((item, index) => <li key={index} className="leading-relaxed">{item}</li>)}
                   </ul>
                 </AccordionItem>
-                <AccordionItem title="二人の課題 💭">
+                <AccordionItem title="二人の課題">
                    <ul className="list-disc pl-5 space-y-3">
                     {analysis.challenges.map((item, index) => (
                       <li key={index} className="leading-relaxed">
@@ -248,10 +248,10 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                     ))}
                   </ul>
                 </AccordionItem>
-                <AccordionItem title="6つの相性軸 📊">
+                <AccordionItem title="6つの相性軸">
                     {analysisItems.map(item => <AxisInsight key={item.label} {...item} />)}
                 </AccordionItem>
-                <AccordionItem title="関係を深めるヒント 💕">
+                <AccordionItem title="関係を深めるヒント">
                     <div className="space-y-4">
                         <div>
                             <h4 className="font-black text-white mb-2">あなたへ</h4>
@@ -277,7 +277,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
               </div>
             )}
              <div className="rounded-[40px] border-4 border-white/30 bg-gradient-to-r from-[#ff006e] via-[#8338ec] to-[#00f5ff] p-6 text-center backdrop-blur-2xl shadow-[0_0_80px_rgba(255,0,110,0.4)]">
-                <h3 className="text-base font-black uppercase tracking-[0.3em] text-white/90 mb-4">結果を共有 📸</h3>
+                <h3 className="text-base font-black uppercase tracking-[0.3em] text-white/90 mb-4">結果を共有</h3>
                 <ShareButton shareUrl={shareUrl} darkTheme={true} />
              </div>
           </motion.aside>

@@ -23,14 +23,6 @@ export default function Compatibility54StartPage() {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-10">
-            <motion.div
-              className="inline-block mb-4"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring" }}
-            >
-              <span className="text-6xl">🔥</span>
-            </motion.div>
             <h1 className="text-5xl sm:text-6xl font-black mb-4">
               <span className="bg-gradient-to-r from-[#ff006e] to-[#8338ec] bg-clip-text text-transparent">
                 DEEP 54
@@ -45,9 +37,9 @@ export default function Compatibility54StartPage() {
 
           <div className="grid gap-6 mb-10 sm:grid-cols-3">
             {[
-              { label: "質問数", value: "54問", emoji: "💬" },
-              { label: "所要時間", value: "約7-8分", emoji: "⏱️" },
-              { label: "相性軸", value: "6軸", emoji: "📊" },
+              { label: "質問数", value: "54問" },
+              { label: "所要時間", value: "約7-8分" },
+              { label: "相性軸", value: "6軸" },
             ].map((item, i) => (
               <motion.div
                 key={item.label}
@@ -56,7 +48,6 @@ export default function Compatibility54StartPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 + i * 0.1 }}
               >
-                <div className="text-4xl mb-2">{item.emoji}</div>
                 <div className="text-2xl font-black text-white mb-1">{item.value}</div>
                 <div className="text-xs font-black uppercase tracking-wider text-white/70">{item.label}</div>
               </motion.div>
@@ -67,9 +58,9 @@ export default function Compatibility54StartPage() {
             <h2 className="text-2xl font-black text-white mb-4">診断内容</h2>
             <div className="grid gap-4 sm:grid-cols-3">
               {[
-                { title: "コミュニケーション", desc: "18問 / 話し方・聞き方のクセ", emoji: "💭" },
-                { title: "意思決定", desc: "18問 / ロジックと感情のバランス", emoji: "⚖️" },
-                { title: "関係性", desc: "18問 / リード＆サポートの傾向", emoji: "🤝" },
+                { title: "コミュニケーション", desc: "18問 / 話し方・聞き方のクセ" },
+                { title: "意思決定", desc: "18問 / ロジックと感情のバランス" },
+                { title: "関係性", desc: "18問 / リード＆サポートの傾向" },
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -78,7 +69,6 @@ export default function Compatibility54StartPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + i * 0.1 }}
                 >
-                  <div className="text-3xl mb-3">{item.emoji}</div>
                   <h3 className="text-lg font-black text-white mb-2">{item.title}</h3>
                   <p className="text-sm text-white/70">{item.desc}</p>
                 </motion.div>
@@ -93,7 +83,7 @@ export default function Compatibility54StartPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              徹底診断を始める 🔥
+              徹底診断を始める
             </motion.button>
             
             <div className="relative">
@@ -106,7 +96,7 @@ export default function Compatibility54StartPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                ふたりで同時接続 💕
+                ふたりで同時接続
               </motion.button>
             </div>
 

@@ -247,21 +247,21 @@ function SingleDeviceQuestions() {
                 </button>
               </div>
             ) : (
-              <p className="text-sm font-bold text-white/70">すべて回答するとパートナーにバトンタッチできます 💫</p>
+              <p className="text-sm font-bold text-white/70">すべて回答するとパートナーにバトンタッチできます</p>
             )
           ) : partnerAnswers.length === TOTAL_QUESTIONS ? (
             <div className="space-y-4 rounded-[40px] border-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/30 to-[#8338ec]/30 p-8 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,245,255,0.4)]">
-              <p className="text-lg font-black text-white">2人分の回答がそろいました！<br />診断結果を作成します 🎉</p>
+              <p className="text-lg font-black text-white">2人分の回答がそろいました！<br />診断結果を作成します</p>
               <button
                 onClick={handleConfirmStep}
                 disabled={isCalculating}
                 className="inline-flex w-full items-center justify-center rounded-full border-4 border-white bg-gradient-to-r from-[#00f5ff] to-[#8338ec] px-8 py-4 text-lg font-black text-white shadow-[0_0_60px_rgba(0,245,255,0.5)] transition-all transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                結果を表示 🔥
+                結果を表示
               </button>
             </div>
           ) : (
-            <p className="text-sm font-bold text-white/70">パートナーの回答をすべて埋めてから結果へ進めます ✨</p>
+            <p className="text-sm font-bold text-white/70">パートナーの回答をすべて埋めてから結果へ進めます</p>
           )}
         </motion.div>
       </div>

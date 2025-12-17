@@ -206,7 +206,7 @@ export default function Compatibility18QuestionsPage() {
           transition={{ delay: 0.5 }}
         >
           <p className="text-sm font-black uppercase tracking-wider text-white/60">
-            クイック診断（18問・約3分）⚡
+            クイック診断（18問・約3分）
           </p>
         </motion.div>
 
@@ -223,7 +223,6 @@ export default function Compatibility18QuestionsPage() {
                 <div className="flex items-center justify-between gap-4 text-white">
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
-                      <span className="text-3xl">{step === "user" ? "✨" : "🎉"}</span>
                       <div>
                         <p className="text-lg font-black">
                           {step === "user"
@@ -242,7 +241,7 @@ export default function Compatibility18QuestionsPage() {
                     whileTap={{ scale: 0.95 }}
                     className="rounded-full border-4 border-white bg-white px-8 py-4 text-base font-black text-black shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all"
                   >
-                    {step === "user" ? "次へ進む →" : "結果を見る 🔥"}
+                    {step === "user" ? "次へ進む →" : "結果を見る"}
                   </motion.button>
                 </div>
               </div>
