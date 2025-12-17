@@ -217,6 +217,24 @@ export default function Compatibility54MultiPage() {
                       <p className="break-words text-xs text-white/90 font-medium text-center">{joinLink}</p>
                     </div>
                   </div>
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <motion.button
+                      onClick={() => router.push(`${joinLink}&role=user`)}
+                      className="rounded-[30px] border-4 border-white bg-gradient-to-r from-[#00f5ff] to-[#8338ec] px-6 py-4 text-base font-black text-white shadow-[0_0_40px_rgba(0,245,255,0.5)] transition-all transform hover:scale-105"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      テスト: あなた
+                    </motion.button>
+                    <motion.button
+                      onClick={() => router.push(`${joinLink}&role=partner`)}
+                      className="rounded-[30px] border-4 border-white bg-gradient-to-r from-[#ff006e] to-[#8338ec] px-6 py-4 text-base font-black text-white shadow-[0_0_40px_rgba(255,0,110,0.5)] transition-all transform hover:scale-105"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      テスト: パートナー
+                    </motion.button>
+                  </div>
                   <motion.button
                     onClick={() => handleCopy(joinLink)}
                     className="w-full rounded-[30px] border-4 border-white bg-gradient-to-r from-[#00f5ff] via-[#8338ec] to-[#ff006e] px-6 py-4 text-lg font-black text-white shadow-[0_0_40px_rgba(0,245,255,0.5)] transition-all transform hover:scale-105"
