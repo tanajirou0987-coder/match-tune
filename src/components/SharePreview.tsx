@@ -4,9 +4,10 @@ import { forwardRef, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import { getCompatibilityRank } from "@/lib/calculate";
+import { getCompatibilityRank, getRankImagePath } from "@/lib/calculate";
 import { toPng } from "html-to-image";
 import { QRCodeCanvas } from "qrcode.react";
+import Image from "next/image";
 
 interface SharePreviewProps {
   isOpen: boolean;
@@ -24,12 +25,13 @@ interface ShareImageCardProps {
   userNickname: string;
   partnerNickname: string;
   rankInfo: { rank: string; tier: string };
+  rankImagePath: string;
   className?: string;
   message?: string;
 }
 
 export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(function ShareImageCard(
-  { score, percentileDisplay, userNickname, partnerNickname, rankInfo, className = "", message },
+  { score, percentileDisplay, userNickname, partnerNickname, rankInfo, rankImagePath, className = "", message },
   ref
 ) {
   const shareMessage = message?.trim();
@@ -60,9 +62,14 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
         </div>
 
         <div className="my-4 flex flex-1 items-center justify-center overflow-hidden">
-          <div className="flex flex-col items-center justify-center text-center">
-            <div className="text-6xl font-bold mb-2">{rankInfo.rank}</div>
-            <div className="text-2xl font-semibold">{rankInfo.tier}</div>
+          <div className="relative w-full h-full flex items-center justify-center">
+            <Image
+              src={rankImagePath}
+              alt={rankInfo.tier}
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
         </div>
 
@@ -115,6 +122,7 @@ export default function SharePreview({
   const displayPercentile = roundedPercentile;
   const percentileDisplay = `上位${displayPercentile}%`;
   const rankInfo = getCompatibilityRank(displayPercentile);
+  const rankImagePath = getRankImagePath(displayPercentile);
 
   const handleDownloadImage = async () => {
     if (!downloadCardRef.current) return;
@@ -173,6 +181,7 @@ export default function SharePreview({
             userNickname={userNickname}
             partnerNickname={partnerNickname}
             rankInfo={rankInfo}
+            rankImagePath={rankImagePath}
             message={message}
             className="h-full w-full"
           />
@@ -206,6 +215,7 @@ export default function SharePreview({
                     userNickname={userNickname}
                     partnerNickname={partnerNickname}
                     rankInfo={rankInfo}
+                    rankImagePath={rankImagePath}
                     message={message}
                     className="absolute inset-0 h-full w-full"
                   />

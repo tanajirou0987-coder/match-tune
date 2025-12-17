@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PersonalityType, Compatibility } from '@/lib/types';
-import { CompatibilityRank } from '@/lib/calculate';
+import { CompatibilityRank, getRankImagePath } from '@/lib/calculate';
 import type { DetailedCompatibilityAnalysis } from '@/lib/compatibility-analysis';
 import { ShareButton } from './ShareButton';
 import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 
 interface DiagnosisResultProps {
   type1: PersonalityType;
@@ -211,6 +212,19 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
           >
             <div className="rounded-[40px] border-4 border-white/30 bg-gradient-to-br from-[#8338ec]/20 to-[#ff006e]/20 p-6 backdrop-blur-2xl shadow-[0_0_60px_rgba(131,56,236,0.3)]">
                 <h3 className="text-base font-black uppercase tracking-[0.3em] text-white/60 mb-4">サマリー</h3>
+                {rank && percentile !== undefined && (
+                  <div className="mb-4 flex items-center justify-center">
+                    <div className="relative w-full h-48">
+                      <Image
+                        src={getRankImagePath(percentile)}
+                        alt={rank.tier}
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
+                  </div>
+                )}
                 {rank && (
                     <div className="flex justify-between items-baseline py-3 border-b-2 border-white/20">
                         <span className="text-white/80 font-bold">相性ランク</span>

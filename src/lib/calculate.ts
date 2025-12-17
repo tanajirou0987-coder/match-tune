@@ -421,6 +421,40 @@ export function getCompatibilityRank(percentile: number): CompatibilityRank {
 }
 
 /**
+ * ランク帯に対応する画像パスを取得（降順: SS=10, G=1）
+ */
+export function getRankImagePath(percentile: number): string {
+  if (percentile <= 1) {
+    return "/rank-images/10.jpg"; // SS - 運命の相手
+  }
+  if (percentile <= 10) {
+    return "/rank-images/9.jpg"; // S - 恋人同然
+  }
+  if (percentile <= 20) {
+    return "/rank-images/8.jpg"; // A - 友達以上恋人未満
+  }
+  if (percentile <= 30) {
+    return "/rank-images/7.jpg"; // B - 気の合う友達
+  }
+  if (percentile <= 40) {
+    return "/rank-images/6.jpg"; // C - 良い知り合い
+  }
+  if (percentile <= 50) {
+    return "/rank-images/5.jpg"; // D - ふつうの関係
+  }
+  if (percentile <= 60) {
+    return "/rank-images/4.jpg"; // E - ちょいズレ
+  }
+  if (percentile <= 70) {
+    return "/rank-images/3.jpg"; // E - 合わないかも
+  }
+  if (percentile <= 80) {
+    return "/rank-images/2.jpg"; // F - ちょい無理
+  }
+  return "/rank-images/1.jpg"; // G - 赤の他人
+}
+
+/**
  * 上位%からメッセージを生成
  * percentileは「上位何%か」を表す（例：70は「上位70%」=「下位30%」を意味する）
  */
