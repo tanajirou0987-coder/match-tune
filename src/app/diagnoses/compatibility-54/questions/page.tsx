@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState, Suspense, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import questionsData from "../../../../../data/diagnoses/compatibility-54/questions.json";
 import type { Question, Answer, Score } from "@/lib/types";
 import { calculateScores, getPersonalityType } from "@/lib/calculate";
 import type { ParticipantRole, SessionResponsePayload } from "@/lib/session-store";
@@ -66,10 +65,32 @@ function SingleDeviceQuestions() {
   const [step, setStep] = useState<Step>("user");
   const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
   const [partnerAnswers, setPartnerAnswers] = useState<Answer[]>([]);
-  // 質問データをメモ化して再生成を防ぐ
-  const questions = useMemo(() => questionsData as Question[], []);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
   const [isTransitioningStep, setIsTransitioningStep] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
+
+  // 質問データをAPIから取得（SPA的なアプローチ）
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch("/api/questions/compatibility-54");
+        if (!response.ok) {
+          throw new Error("質問データの取得に失敗しました");
+        }
+        const data = await response.json();
+        setQuestions(data);
+      } catch (error) {
+        console.error("質問データの取得エラー:", error);
+        // フォールバック: JSONファイルから直接読み込み
+        const fallbackData = await import("../../../../../data/diagnoses/compatibility-54/questions.json");
+        setQuestions(fallbackData.default as Question[]);
+      } finally {
+        setIsLoadingQuestions(false);
+      }
+    };
+    fetchQuestions();
+  }, []);
 
   // トランジション中は前のステップの回答数を保持
   const currentAnswers = step === "user" ? userAnswers : partnerAnswers;
@@ -285,9 +306,31 @@ function SingleDeviceQuestions() {
 
 function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; participant: ParticipantRole }) {
   const router = useRouter();
-  // 質問データをメモ化して再生成を防ぐ
-  const questions = useMemo(() => questionsData as Question[], []);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
   const [answers, setAnswers] = useState<Answer[]>([]);
+
+  // 質問データをAPIから取得（SPA的なアプローチ）
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch("/api/questions/compatibility-54");
+        if (!response.ok) {
+          throw new Error("質問データの取得に失敗しました");
+        }
+        const data = await response.json();
+        setQuestions(data);
+      } catch (error) {
+        console.error("質問データの取得エラー:", error);
+        // フォールバック: JSONファイルから直接読み込み
+        const fallbackData = await import("../../../../../data/diagnoses/compatibility-54/questions.json");
+        setQuestions(fallbackData.default as Question[]);
+      } finally {
+        setIsLoadingQuestions(false);
+      }
+    };
+    fetchQuestions();
+  }, []);
   const [sessionData, setSessionData] = useState<SessionResponsePayload | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
@@ -414,6 +457,21 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
       alert("コピーに失敗しました。リンクを長押ししてください。");
     }
   };
+
+  // 読み込み中の表示
+  if (isLoadingQuestions) {
+    return (
+      <div className="relative min-h-screen px-4 py-12 sm:px-6 lg:px-8">
+        <BackgroundEffect />
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <p className="text-white text-lg font-black mb-2">質問を読み込み中...</p>
+            <p className="text-white/70 text-sm">少々お待ちください</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen px-4 py-12 sm:px-6 lg:px-8">
