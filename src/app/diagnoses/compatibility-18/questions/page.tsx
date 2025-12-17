@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import questionsData from "../../../../../data/diagnoses/compatibility-18/questions.json";
 import type { Question, Answer, Score } from "@/lib/types";
 import { calculateScores, getPersonalityType } from "@/lib/calculate";
@@ -98,33 +97,22 @@ export default function Compatibility18QuestionsPage() {
 
   return (
     <div className="relative min-h-screen px-4 py-12 sm:px-6 lg:px-8">
-      {/* 背景エフェクト - 音楽フェス風 */}
+      {/* 背景エフェクト - 軽量化 */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-[#000000] via-[#1a0033] to-[#000033]" />
-        <div className="absolute top-0 left-1/4 h-[600px] w-[600px] rounded-full bg-[#00f5ff] opacity-20 blur-[200px] animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] rounded-full bg-[#8338ec] opacity-20 blur-[200px] animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-0 left-1/4 h-[400px] w-[400px] rounded-full bg-[#00f5ff] opacity-10 blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 h-[300px] w-[300px] rounded-full bg-[#8338ec] opacity-10 blur-[100px]" />
       </div>
 
       <div className="relative mx-auto w-full max-w-3xl space-y-10">
-        <motion.div
-          className="text-center"
-          key={step}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="inline-flex items-center gap-3 rounded-full border-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/30 to-[#8338ec]/30 px-6 py-3 text-white backdrop-blur-xl shadow-[0_0_40px_rgba(0,245,255,0.3)]">
+        <div className="text-center">
+          <div className="inline-flex items-center gap-3 rounded-full border-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/30 to-[#8338ec]/30 px-6 py-3 text-white">
             <span className="text-lg font-black">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
             <span className="text-sm font-black bg-white/20 px-3 py-1 rounded-full">{step === "user" ? "ステップ 1/2" : "ステップ 2/2"}</span>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="sticky top-0 z-20 -mx-4 border-b-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/40 to-[#8338ec]/40 px-4 py-6 backdrop-blur-2xl shadow-[0_10px_60px_rgba(0,245,255,0.3)]"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="sticky top-0 z-20 -mx-4 border-b-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/40 to-[#8338ec]/40 px-4 py-6">
           <div className="mb-3 flex items-center justify-between text-lg text-white">
             <span className="font-black">
               回答済み {answeredCount} / {TOTAL_QUESTIONS}
@@ -132,14 +120,12 @@ export default function Compatibility18QuestionsPage() {
             <span className="font-black text-2xl bg-gradient-to-r from-[#00f5ff] to-[#ff006e] bg-clip-text text-transparent">{Math.round(progress)}%</span>
           </div>
           <div className="h-4 w-full overflow-hidden rounded-full border-2 border-white/30 bg-white/10">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-[#00f5ff] via-[#8338ec] to-[#ff006e] shadow-[0_0_20px_rgba(0,245,255,0.6)]"
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.5 }}
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#00f5ff] via-[#8338ec] to-[#ff006e] transition-all duration-300"
+              style={{ width: `${progress}%` }}
             />
           </div>
-        </motion.div>
+        </div>
 
         <div className={`space-y-6 ${answeredCount === TOTAL_QUESTIONS ? "pb-32" : "pb-10"}`}>
           {questions.map((question, index) => {
@@ -147,15 +133,12 @@ export default function Compatibility18QuestionsPage() {
             const isAnswered = currentAnswer !== null;
 
             return (
-              <motion.div
+              <div
                 key={question.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className={`rounded-[40px] border-4 p-6 text-white shadow-[0_0_60px_rgba(0,0,0,0.3)] transition-all duration-200 ${
+                className={`rounded-[40px] border-4 p-6 text-white transition-all duration-200 ${
                   isAnswered 
-                    ? "border-white/40 bg-gradient-to-br from-[#00f5ff]/30 to-[#8338ec]/30 backdrop-blur-xl shadow-[0_0_60px_rgba(0,245,255,0.4)]" 
-                    : "border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl"
+                    ? "border-white/40 bg-gradient-to-br from-[#00f5ff]/30 to-[#8338ec]/30" 
+                    : "border-white/20 bg-gradient-to-br from-white/10 to-white/5"
                 }`}
               >
                 <div className="mb-4 flex items-start justify-between gap-3">
@@ -172,53 +155,33 @@ export default function Compatibility18QuestionsPage() {
                     const isSelected = currentAnswer === option.score;
 
                     return (
-                      <motion.button
+                      <button
                         key={optionIndex}
                         onClick={() => handleAnswer(question.id, option.score)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                          delay: index * 0.05 + optionIndex * 0.05,
-                          duration: 0.2,
-                        }}
                         className={`w-full rounded-[30px] border-4 px-6 py-4 text-left text-base font-black transition-all duration-200 ${
                           isSelected
-                            ? "border-white/50 bg-gradient-to-r from-[#00f5ff] to-[#8338ec] text-white shadow-[0_0_40px_rgba(0,245,255,0.6)]"
+                            ? "border-white/50 bg-gradient-to-r from-[#00f5ff] to-[#8338ec] text-white"
                             : "border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
                         }`}
                       >
                         {option.label}
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
+        <div className="text-center">
           <p className="text-sm font-black uppercase tracking-wider text-white/60">
             クイック診断（18問・約3分）
           </p>
-        </motion.div>
+        </div>
 
-        <AnimatePresence>
-          {answeredCount === TOTAL_QUESTIONS && (
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed bottom-0 left-0 right-0 z-50 border-t-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/40 to-[#8338ec]/40 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,245,255,0.4)]"
-            >
+        {answeredCount === TOTAL_QUESTIONS && (
+            <div className="fixed bottom-0 left-0 right-0 z-50 border-t-4 border-white/30 bg-gradient-to-r from-[#00f5ff]/40 to-[#8338ec]/40">
               <div className="mx-auto max-w-3xl px-4 py-6">
                 <div className="flex items-center justify-between gap-4 text-white">
                   <div className="flex-1">
@@ -235,19 +198,16 @@ export default function Compatibility18QuestionsPage() {
                       </div>
                     </div>
                   </div>
-                  <motion.button
+                  <button
                     onClick={handleComplete}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="rounded-full border-4 border-white bg-white px-8 py-4 text-base font-black text-black shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all"
+                    className="rounded-full border-4 border-white bg-white px-8 py-4 text-base font-black text-black transition-all"
                   >
                     {step === "user" ? "次へ進む →" : "結果を見る"}
-                  </motion.button>
+                  </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </div>
     </div>
   );
