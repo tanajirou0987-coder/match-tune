@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import questionsData from "../../../../../data/diagnoses/compatibility-18/questions.json";
 import type { Question, Answer, Score } from "@/lib/types";
 import { calculateScores, getPersonalityType } from "@/lib/calculate";
+import { QuestionCard } from "@/components/diagnoses/QuestionCard";
 
 const TOTAL_QUESTIONS = 18;
 
@@ -60,16 +61,16 @@ function Compatibility18QuestionContent() {
     }
   }, [answers]);
 
-  const handleAnswer = (score: Score) => {
+  const handleAnswer = (questionId: number, score: Score) => {
     if (isAnimating || !currentQuestion) return;
 
     // 既存の回答を確認し、同じ質問IDの回答があれば上書き
     const existingAnswerIndex = answers.findIndex(
-      (a) => a.questionId === currentQuestion.id
+      (a) => a.questionId === questionId
     );
 
     const newAnswer: Answer = {
-      questionId: currentQuestion.id,
+      questionId: questionId,
       score,
     };
 
@@ -164,35 +165,18 @@ function Compatibility18QuestionContent() {
         </div>
 
         <div
-          className={`rounded-[32px] border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_rgba(0,0,0,0.5)] transition-opacity duration-300 sm:p-8 ${
+          className={`transition-opacity duration-300 ${
             isAnimating ? "opacity-0" : "opacity-100"
           }`}
         >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-accent">balance board</p>
-              <h2 className="serif-heading mt-2 text-2xl font-semibold text-white sm:text-3xl">{currentQuestion.text}</h2>
-            </div>
-            <span className="flex-shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-              Q{step}
-            </span>
-          </div>
-
-          <div className="mt-6 space-y-3">
-            {currentQuestion.options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswer(option.score)}
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-dashed border-white/15 bg-white/[0.08] px-4 py-3 text-xs text-muted-foreground">
-            サクッと終わるエンタメ診断。音色カードのようなUIで集中を途切れさせません。
-          </div>
+          <QuestionCard
+            question={currentQuestion}
+            index={questionIndex}
+            currentAnswer={answers.find(a => a.questionId === currentQuestion.id)?.score || null}
+            isAnswered={answers.some(a => a.questionId === currentQuestion.id)}
+            onAnswer={handleAnswer}
+            step="user"
+          />
         </div>
 
         <p className="text-center text-xs uppercase tracking-[0.35em] text-muted-foreground">

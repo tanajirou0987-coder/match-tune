@@ -6,6 +6,7 @@ import { PersonalityType, Compatibility } from '@/lib/types';
 import { CompatibilityRank, getRankImagePath } from '@/lib/calculate';
 import type { DetailedCompatibilityAnalysis } from '@/lib/compatibility-analysis';
 import { ShareButton } from './ShareButton';
+import SharePreview from './SharePreview';
 import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
@@ -139,6 +140,7 @@ const RankImage: React.FC<{ rank: CompatibilityRank }> = ({ rank }) => {
   if (imgError || !imgLoaded) {
     // フォールバック: 通常のimgタグを使用
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={imagePath}
         alt={rank.tier}
@@ -159,6 +161,37 @@ const RankImage: React.FC<{ rank: CompatibilityRank }> = ({ rank }) => {
       priority
       unoptimized
     />
+  );
+};
+
+// 画像共有ボタンコンポーネント
+const ShareImageButton: React.FC<{
+  score: number;
+  percentile: number;
+  userNickname: string;
+  partnerNickname: string;
+  message: string;
+}> = ({ score, percentile, userNickname, partnerNickname, message }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="rounded-full border border-white/20 bg-white/10 px-8 py-3 text-base font-semibold text-white transition hover:border-white/40 hover:bg-white/20"
+      >
+        画像をダウンロード
+      </button>
+      <SharePreview
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        score={score}
+        percentile={percentile}
+        userNickname={userNickname}
+        partnerNickname={partnerNickname}
+        message={message}
+      />
+    </>
   );
 };
 
@@ -271,7 +304,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                 {rank && (
                     <div className="flex justify-between items-baseline py-3 border-b-2 border-white/20">
                         <span className="text-white/80 font-bold">ランク帯</span>
-                        <span className="font-black text-xl text-white">{rank.tier}</span>
+                        <span className="font-black text-xl text-white">{rank.bandName}</span>
                     </div>
                 )}
                 {percentile !== undefined && (
@@ -329,7 +362,18 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
             )}
              <div className="rounded-[40px] border-4 border-white/30 bg-gradient-to-r from-[#ff006e] via-[#8338ec] to-[#00f5ff] p-6 text-center backdrop-blur-2xl shadow-[0_0_80px_rgba(255,0,110,0.4)]">
                 <h3 className="text-base font-black uppercase tracking-[0.3em] text-white/90 mb-4">結果を共有</h3>
-                <ShareButton shareUrl={shareUrl} darkTheme={true} />
+                <div className="flex flex-col gap-3">
+                  <ShareButton shareUrl={shareUrl} darkTheme={true} />
+                  {compatibility && percentile !== undefined && (
+                    <ShareImageButton 
+                      score={compatibility.total}
+                      percentile={percentile}
+                      userNickname={type1.name}
+                      partnerNickname={type2?.name || "パートナー"}
+                      message={compatibility.message}
+                    />
+                  )}
+                </div>
              </div>
           </motion.aside>
         </main>

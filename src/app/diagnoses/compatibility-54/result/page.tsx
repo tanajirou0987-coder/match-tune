@@ -90,15 +90,26 @@ function ResultContent() {
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   return (
-    <DiagnosisResult
-      type1={userType}
-      type2={partnerType}
-      compatibility={compatibility}
-      rank={rank}
-      analysis={detailedAnalysis}
-      percentile={percentile}
-      shareUrl={shareUrl}
-    />
+    <div className="relative min-h-screen">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-end px-6 pt-6">
+        <Button
+          type="button"
+          onClick={() => router.push("/")}
+          className="pointer-events-auto rounded-full border border-white/30 bg-white/10 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+        >
+          トップに戻る
+        </Button>
+      </div>
+      <DiagnosisResult
+        type1={userType}
+        type2={partnerType}
+        compatibility={compatibility}
+        rank={rank}
+        analysis={detailedAnalysis}
+        percentile={percentile}
+        shareUrl={shareUrl}
+      />
+    </div>
   );
 }
 

@@ -198,6 +198,17 @@ chmod 755 logs/
 - ✅ 端末識別（localStorage に保存する device_id）
 - ✅ 回答保存API（pair_code, device_id, question_id, answer_value）
 - ✅ 回答同期（2〜3秒のPollingで /check-result を実行）
+
+## 🖼 OGPシェア画像
+
+`php-version/ogp/share.php` でカードゲーム風のOGP PNGを動的生成できます。  
+パラメータ例：
+
+```
+/ogp/share.php?type=徹底相性診断&rank=S&comment=最高の相性
+```
+
+利用方法・フォント配置・OGP metaタグ例・X/LINE共有URL例は `php-version/ogp/README.md` を参照してください。
 - ✅ 両端末の回答完了後に結果を自動生成（PHP側でロジック実行）
 - ✅ 結果画面の表示（スコア・タイプ・ランク・パーセンタイル）
 - ✅ パーセンタイル計算（上位何%か）
@@ -236,4 +247,3 @@ chmod 755 logs/
 ## 📞 サポート
 
 問題が発生した場合は、エラーログ（`logs/error.log`）を確認してください。
-

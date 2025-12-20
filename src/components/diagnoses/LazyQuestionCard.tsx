@@ -32,6 +32,7 @@ export const LazyQuestionCard = memo(function LazyQuestionCard({
 
   useEffect(() => {
     if (priority || isVisible) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShouldRender(true);
     }
   }, [isVisible, priority]);

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import questionsData from "../../../../../data/diagnoses/compatibility-18/questions.json";
 import type { Question, Answer, Score } from "@/lib/types";
 import { calculateScores, getPersonalityType } from "@/lib/calculate";
+import { QuestionCard } from "@/components/diagnoses/QuestionCard";
 
 const TOTAL_QUESTIONS = 18;
 type Step = "user" | "partner";
@@ -127,49 +128,21 @@ export default function Compatibility18QuestionsPage() {
           </div>
         </div>
 
-        <div className={`space-y-6 ${answeredCount === TOTAL_QUESTIONS ? "pb-32" : "pb-10"}`}>
+        <div className={`space-y-2.5 ${answeredCount === TOTAL_QUESTIONS ? "pb-32" : "pb-10"}`}>
           {questions.map((question, index) => {
             const currentAnswer = getAnswerForQuestion(question.id);
             const isAnswered = currentAnswer !== null;
 
             return (
-              <div
+              <QuestionCard
                 key={question.id}
-                className={`rounded-[40px] border-4 p-6 text-white transition-all duration-200 ${
-                  isAnswered 
-                    ? "border-white/40 bg-gradient-to-br from-[#00f5ff]/30 to-[#8338ec]/30" 
-                    : "border-white/20 bg-gradient-to-br from-white/10 to-white/5"
-                }`}
-              >
-                <div className="mb-4 flex items-start justify-between gap-3">
-                  <h2 className="text-2xl font-black sm:text-3xl leading-tight">
-                    {question.text}
-                  </h2>
-                  <span className="ml-4 flex-shrink-0 rounded-full border-2 border-white/30 bg-gradient-to-r from-[#00f5ff] to-[#8338ec] px-4 py-2 text-xs font-black text-white">
-                    Q{index + 1}
-                  </span>
-                </div>
-
-                <div className="space-y-3">
-                  {question.options.map((option, optionIndex) => {
-                    const isSelected = currentAnswer === option.score;
-
-                    return (
-                      <button
-                        key={optionIndex}
-                        onClick={() => handleAnswer(question.id, option.score)}
-                        className={`w-full rounded-[30px] border-4 px-6 py-4 text-left text-base font-black transition-all duration-200 ${
-                          isSelected
-                            ? "border-white/50 bg-gradient-to-r from-[#00f5ff] to-[#8338ec] text-white"
-                            : "border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+                question={question}
+                index={index}
+                currentAnswer={currentAnswer}
+                isAnswered={isAnswered}
+                onAnswer={handleAnswer}
+                step={step}
+              />
             );
           })}
         </div>
