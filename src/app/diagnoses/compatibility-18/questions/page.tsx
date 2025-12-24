@@ -113,7 +113,7 @@ export default function Compatibility18QuestionsPage() {
       {/* スマホ用レイアウト */}
       <div className="relative mx-auto w-full max-w-md space-y-10 md:hidden">
         <div className="text-center">
-          <div className="inline-flex items-center gap-3 rounded-[16px] border border-black bg-[#fbf7d5] px-6 py-3 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+          <div className="inline-flex items-center gap-3 rounded-[16px] border border-black bg-[#87CEEB] px-6 py-3 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
             <span className="text-lg font-['Coming_Soon:Regular',sans-serif] font-normal text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
             <span className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal bg-white px-3 py-1 rounded-[16px] border border-black text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{step === "user" ? "1/2" : "2/2"}</span>
           </div>
@@ -128,7 +128,7 @@ export default function Compatibility18QuestionsPage() {
           </div>
           <div className="h-4 w-full overflow-hidden rounded-full border border-black bg-white">
             <div
-              className="h-full rounded-full bg-[#e2bef1] transition-all duration-300"
+              className="h-full rounded-full bg-[#FFB6C1] transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -179,7 +179,7 @@ export default function Compatibility18QuestionsPage() {
                   </div>
                   <button
                     onClick={handleComplete}
-                    className="rounded-[16px] border border-black bg-[#e2bef1] px-8 py-4 text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition-all shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105"
+                    className="rounded-[16px] border border-black bg-[#FFB6C1] px-8 py-4 text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition-all shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105"
                   >
                     {step === "user" ? "次へ進む →" : "結果を見る"}
                   </button>
@@ -202,7 +202,7 @@ export default function Compatibility18QuestionsPage() {
           </Button>
         </div>
         <div className="text-center">
-          <div className="inline-flex items-center gap-3 rounded-[16px] border border-black bg-[#fbf7d5] px-8 py-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+          <div className="inline-flex items-center gap-3 rounded-[16px] border border-black bg-[#87CEEB] px-8 py-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
             <span className="text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
             <span className="text-base font-['Coming_Soon:Regular',sans-serif] font-normal bg-white px-4 py-2 rounded-[16px] border border-black text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{step === "user" ? "ステップ 1/2" : "ステップ 2/2"}</span>
           </div>
@@ -217,7 +217,7 @@ export default function Compatibility18QuestionsPage() {
           </div>
           <div className="h-6 w-full overflow-hidden rounded-full border border-black bg-white">
             <div
-              className="h-full rounded-full bg-[#e2bef1] transition-all duration-300"
+              className="h-full rounded-full bg-[#FFB6C1] transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -268,7 +268,7 @@ export default function Compatibility18QuestionsPage() {
                   </div>
                   <button
                     onClick={handleComplete}
-                    className="rounded-[16px] border border-black bg-[#e2bef1] px-12 py-6 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition-all shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105"
+                    className="rounded-[16px] border border-black bg-[#FFB6C1] px-12 py-6 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition-all shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105"
                   >
                     {step === "user" ? "次へ進む →" : "結果を見る"}
                   </button>

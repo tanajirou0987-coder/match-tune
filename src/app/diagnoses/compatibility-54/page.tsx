@@ -12,7 +12,7 @@ export default function Compatibility54StartPage() {
       <div className="relative min-h-screen px-4 py-12 md:hidden">
         <div className="relative mx-auto w-full max-w-md">
         <motion.main
-          className="rounded-[16px] border border-black bg-[#e2bef1] p-8 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+          className="rounded-[16px] border border-black bg-[#FFB6C1] p-8 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -51,9 +51,9 @@ export default function Compatibility54StartPage() {
             <h2 className="text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">診断内容</h2>
             <div className="space-y-4">
               {[
-                { title: "コミュニケーション", desc: "18問 / 話し方・聞き方のクセ", bgColor: "#fbf7d5" },
-                { title: "意思決定", desc: "18問 / ロジックと感情のバランス", bgColor: "#f97b83" },
-                { title: "関係性", desc: "18問 / リード＆サポートの傾向", bgColor: "#f9ded7" },
+                { title: "コミュニケーション", desc: "18問 / 話し方・聞き方のクセ", bgColor: "#87CEEB" },
+                { title: "意思決定", desc: "18問 / ロジックと感情のバランス", bgColor: "#87CEEB" },
+                { title: "関係性", desc: "18問 / リード＆サポートの傾向", bgColor: "#FFF8DC" },
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -81,12 +81,12 @@ export default function Compatibility54StartPage() {
             </motion.button>
             
             <div className="relative">
-              <div className="absolute -top-3 left-6 z-10 rounded-full border border-black bg-[#fbf7d5] px-4 py-1 text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+              <div className="absolute -top-3 left-6 z-10 rounded-full border border-black bg-[#87CEEB] px-4 py-1 text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                 おすすめ
               </div>
               <motion.button
                 onClick={() => router.push("/diagnoses/compatibility-54/multi")}
-                className="w-full rounded-[16px] border border-black bg-[#fbf7d5] px-8 py-6 text-lg font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+                className="w-full rounded-[16px] border border-black bg-[#87CEEB] px-8 py-6 text-lg font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -109,7 +109,7 @@ export default function Compatibility54StartPage() {
       <div className="hidden md:block relative min-h-screen px-8 py-16">
         <div className="relative mx-auto w-full max-w-7xl">
           <motion.main
-            className="rounded-[16px] border border-black bg-[#e2bef1] p-12 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+            className="rounded-[16px] border border-black bg-[#FFB6C1] p-12 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -186,12 +186,12 @@ export default function Compatibility54StartPage() {
               </motion.button>
               
               <div className="relative">
-                <div className="absolute -top-3 left-6 z-10 rounded-full border border-black bg-[#fbf7d5] px-4 py-1 text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                <div className="absolute -top-3 left-6 z-10 rounded-full border border-black bg-[#87CEEB] px-4 py-1 text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                   おすすめ
                 </div>
                 <motion.button
                   onClick={() => router.push("/diagnoses/compatibility-54/multi")}
-                  className="w-full rounded-[16px] border border-black bg-[#fbf7d5] px-12 py-8 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+                  className="w-full rounded-[16px] border border-black bg-[#87CEEB] px-12 py-8 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

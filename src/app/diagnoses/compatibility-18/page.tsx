@@ -12,7 +12,7 @@ export default function Compatibility18StartPage() {
       <div className="relative min-h-screen px-4 py-12 md:hidden">
         <div className="relative mx-auto w-full max-w-md">
         <motion.main
-          className="rounded-[16px] border border-black bg-[#fbf7d5] p-8 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+          className="rounded-[16px] border border-black bg-[#87CEEB] p-8 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -51,9 +51,9 @@ export default function Compatibility18StartPage() {
             <h2 className="text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">測る軸</h2>
             <div className="space-y-4">
               {[
-                { title: "コミュニケーション", desc: "6問", bgColor: "#e2bef1" },
-                { title: "意思決定", desc: "6問", bgColor: "#f97b83" },
-                { title: "関係性", desc: "6問", bgColor: "#f9ded7" },
+                { title: "コミュニケーション", desc: "6問", bgColor: "#FFB6C1" },
+                { title: "意思決定", desc: "6問", bgColor: "#87CEEB" },
+                { title: "関係性", desc: "6問", bgColor: "#FFF8DC" },
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -80,7 +80,7 @@ export default function Compatibility18StartPage() {
           <div className="space-y-4">
             <motion.button
               onClick={() => router.push("/diagnoses/compatibility-18/questions")}
-              className="w-full rounded-[16px] border border-black bg-[#e2bef1] px-8 py-6 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+              className="w-full rounded-[16px] border border-black bg-[#FFB6C1] px-8 py-6 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -102,7 +102,7 @@ export default function Compatibility18StartPage() {
       <div className="hidden md:block relative min-h-screen px-8 py-16">
         <div className="relative mx-auto w-full max-w-7xl">
           <motion.main
-            className="rounded-[16px] border border-black bg-[#fbf7d5] p-12 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+            className="rounded-[16px] border border-black bg-[#87CEEB] p-12 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -178,7 +178,7 @@ export default function Compatibility18StartPage() {
             <div className="space-y-4 max-w-2xl mx-auto">
               <motion.button
                 onClick={() => router.push("/diagnoses/compatibility-18/questions")}
-                className="w-full rounded-[16px] border border-black bg-[#e2bef1] px-12 py-8 text-3xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+                className="w-full rounded-[16px] border border-black bg-[#FFB6C1] px-12 py-8 text-3xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] transition-all transform hover:scale-105 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

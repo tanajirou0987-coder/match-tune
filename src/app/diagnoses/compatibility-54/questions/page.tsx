@@ -394,7 +394,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
       <div className="relative mx-auto w-full max-w-md space-y-10 md:hidden">
         <div className="rounded-[16px] border border-black bg-white p-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
           <div className="flex flex-col gap-3 text-center mb-4">
-            <div className="inline-flex items-center justify-center gap-2 rounded-[16px] border border-black bg-[#e2bef1] px-4 py-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+            <div className="inline-flex items-center justify-center gap-2 rounded-[16px] border border-black bg-[#FFB6C1] px-4 py-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
               <span className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{participant === "user" ? "あなた" : "パートナー"}</span>
               <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-white px-2 py-0.5 rounded-[16px] border border-black text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">ID {sessionId.slice(0, 6)}</span>
             </div>
@@ -411,7 +411,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
               <p className="text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-1 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{Math.round(progress)}%</p>
               <p className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal text-black/70 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{answeredCount} / {TOTAL_QUESTIONS}</p>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full border border-black bg-white">
-                <div className="h-full rounded-full bg-[#e2bef1] transition-all duration-200" style={{ width: `${progress}%` }}></div>
+                <div className="h-full rounded-full bg-[#FFB6C1] transition-all duration-200" style={{ width: `${progress}%` }}></div>
               </div>
             </div>
             <div className="rounded-[16px] border border-black bg-white p-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
@@ -419,7 +419,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
               <p className="text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-1 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{Math.round(partnerProgress)}%</p>
               <p className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal text-black/70 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{partnerAnsweredCount} / {TOTAL_QUESTIONS}</p>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full border border-black bg-white">
-                <div className="h-full rounded-full bg-[#f97b83] transition-all duration-200" style={{ width: `${partnerProgress}%` }}></div>
+                <div className="h-full rounded-full bg-[#87CEEB] transition-all duration-200" style={{ width: `${partnerProgress}%` }}></div>
               </div>
               <p className="mt-1 text-xs font-['Coming_Soon:Regular',sans-serif] font-normal text-black/70 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                 {sessionData?.participants[partnerRole].completed ? "完了" : "回答中"}
@@ -458,7 +458,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
           })}
         </div>
 
-        <div className="mt-12 space-y-4 rounded-[16px] border border-black bg-[#e2bef1] p-6 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+        <div className="mt-12 space-y-4 rounded-[16px] border border-black bg-[#FFB6C1] p-6 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
           <p className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal text-black/60 mb-3 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">相性診断（54問） / セッション同期モード</p>
           {answers.length === TOTAL_QUESTIONS ? (
             <button
@@ -499,7 +499,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
               <p className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-2 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{Math.round(progress)}%</p>
               <p className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black/70 mb-3 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{answeredCount} / {TOTAL_QUESTIONS}</p>
               <div className="h-3 w-full overflow-hidden rounded-full border border-black bg-white">
-                <div className="h-full rounded-full bg-[#e2bef1] transition-all duration-200" style={{ width: `${progress}%` }}></div>
+                <div className="h-full rounded-full bg-[#FFB6C1] transition-all duration-200" style={{ width: `${progress}%` }}></div>
               </div>
             </div>
             <div className="rounded-[16px] border border-black bg-white p-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
@@ -507,7 +507,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
               <p className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-2 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{Math.round(partnerProgress)}%</p>
               <p className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black/70 mb-3 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{partnerAnsweredCount} / {TOTAL_QUESTIONS}</p>
               <div className="h-3 w-full overflow-hidden rounded-full border border-black bg-white">
-                <div className="h-full rounded-full bg-[#f97b83] transition-all duration-200" style={{ width: `${partnerProgress}%` }}></div>
+                <div className="h-full rounded-full bg-[#87CEEB] transition-all duration-200" style={{ width: `${partnerProgress}%` }}></div>
               </div>
               <p className="mt-2 text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black/70 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                 {sessionData?.participants[partnerRole].completed ? "完了" : "回答中"}
@@ -545,7 +545,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
           })}
         </div>
 
-        <div className="mt-12 space-y-4 rounded-[16px] border border-black bg-[#e2bef1] p-8 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+        <div className="mt-12 space-y-4 rounded-[16px] border border-black bg-[#FFB6C1] p-8 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
           <p className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal text-black/60 mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">相性診断（54問） / セッション同期モード</p>
           {answers.length === TOTAL_QUESTIONS ? (
             <button
