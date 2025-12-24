@@ -417,47 +417,15 @@ export default function SharePreview({
         })
       );
       
-      // プレビュー画像のDOM要素を一時的に700x1080サイズに拡大
-      const originalStyle = {
-        width: cardRef.current.style.width,
-        height: cardRef.current.style.height,
-        position: cardRef.current.style.position,
-        left: cardRef.current.style.left,
-        top: cardRef.current.style.top,
-        transform: cardRef.current.style.transform,
-        zIndex: cardRef.current.style.zIndex,
-      };
-      
-      // 一時的に700x1080サイズに拡大（画面外に配置、中央に配置するため）
-      cardRef.current.style.width = '700px';
-      cardRef.current.style.height = '1080px';
-      cardRef.current.style.position = 'fixed';
-      cardRef.current.style.left = '50%';
-      cardRef.current.style.top = '50%';
-      cardRef.current.style.transform = 'translate(-50%, -50%)';
-      cardRef.current.style.zIndex = '-1';
-      
-      // レイアウトの再計算を待つ
-      await new Promise(resolve => setTimeout(resolve, 200));
-      
       // レンダリング完了を待つ
       await new Promise(resolve => setTimeout(resolve, 300));
       
-      // プレビュー画像のDOM要素を直接画像化（700x1080サイズそのまま）
+      // プレビュー画像のDOM要素をそのまま画像化（何も変更しない）
       const blob = await toBlob(cardRef.current, {
         pixelRatio: 2, // 高解像度
         quality: 1.0,
         cacheBust: true,
       });
-      
-      // 元のスタイルに戻す
-      cardRef.current.style.width = originalStyle.width;
-      cardRef.current.style.height = originalStyle.height;
-      cardRef.current.style.position = originalStyle.position;
-      cardRef.current.style.left = originalStyle.left;
-      cardRef.current.style.top = originalStyle.top;
-      cardRef.current.style.transform = originalStyle.transform;
-      cardRef.current.style.zIndex = originalStyle.zIndex;
       
       if (!blob) {
         throw new Error("画像の生成に失敗しました");
