@@ -678,8 +678,9 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   ctx.restore();
   
   // キャラクター画像を描画（正方形にクロップ、角丸付き）
+  // プレビュー画像と同じ画像パスを使用
   try {
-    const characterImagePath = getRankCharacterImagePath(data.rankInfo.rank);
+    const characterImagePath = data.rankImagePath || getRankCharacterImagePath(data.rankInfo.rank);
     const characterImage = await loadImage(characterImagePath);
     
     const imageDrawX = imageBgX * SCALE;
@@ -781,10 +782,11 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   const bioSectionY = bottomSectionY;
   
   // BIOボックス（先に描画、後ろに配置）
+  // プレビュー画像と同じ: left: 16, top: 16, right: 0, bottom: 0
   const bioBoxX = bioSectionX + 16;
   const bioBoxY = bioSectionY + 16;
-  const bioBoxWidth = bioSectionWidth - 16;
-  const bioBoxHeight = bottomSectionHeight - 16;
+  const bioBoxWidth = bioSectionWidth - 16; // right: 0 なので、幅はセクション幅から16px引いた値
+  const bioBoxHeight = bottomSectionHeight - 16; // bottom: 0 なので、高さはセクション高さから16px引いた値
   
   ctx.save();
   ctx.scale(SCALE, SCALE);
@@ -874,20 +876,23 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   ctx.save();
   ctx.scale(SCALE, SCALE);
   
-  // Fun factボックス
+  // Fun factボックス（プレビュー画像と同じ: padding: 16px）
+  const funFactBoxX = funFactSectionX;
+  const funFactBoxY = funFactSectionY;
   const funFactBoxWidth = bioSectionWidth;
   const funFactBoxHeight = bottomSectionHeight;
+  const funFactPadding = 16;
   
   ctx.beginPath();
-  ctx.moveTo(funFactSectionX + 16, funFactSectionY);
-  ctx.lineTo(funFactSectionX + funFactBoxWidth - 16, funFactSectionY);
-  ctx.quadraticCurveTo(funFactSectionX + funFactBoxWidth, funFactSectionY, funFactSectionX + funFactBoxWidth, funFactSectionY + 16);
-  ctx.lineTo(funFactSectionX + funFactBoxWidth, funFactSectionY + funFactBoxHeight - 16);
-  ctx.quadraticCurveTo(funFactSectionX + funFactBoxWidth, funFactSectionY + funFactBoxHeight, funFactSectionX + funFactBoxWidth - 16, funFactSectionY + funFactBoxHeight);
-  ctx.lineTo(funFactSectionX + 16, funFactSectionY + funFactBoxHeight);
-  ctx.quadraticCurveTo(funFactSectionX, funFactSectionY + funFactBoxHeight, funFactSectionX, funFactSectionY + funFactBoxHeight - 16);
-  ctx.lineTo(funFactSectionX, funFactSectionY + 16);
-  ctx.quadraticCurveTo(funFactSectionX, funFactSectionY, funFactSectionX + 16, funFactSectionY);
+  ctx.moveTo(funFactBoxX + 16, funFactBoxY);
+  ctx.lineTo(funFactBoxX + funFactBoxWidth - 16, funFactBoxY);
+  ctx.quadraticCurveTo(funFactBoxX + funFactBoxWidth, funFactBoxY, funFactBoxX + funFactBoxWidth, funFactBoxY + 16);
+  ctx.lineTo(funFactBoxX + funFactBoxWidth, funFactBoxY + funFactBoxHeight - 16);
+  ctx.quadraticCurveTo(funFactBoxX + funFactBoxWidth, funFactBoxY + funFactBoxHeight, funFactBoxX + funFactBoxWidth - 16, funFactBoxY + funFactBoxHeight);
+  ctx.lineTo(funFactBoxX + 16, funFactBoxY + funFactBoxHeight);
+  ctx.quadraticCurveTo(funFactBoxX, funFactBoxY + funFactBoxHeight, funFactBoxX, funFactBoxY + funFactBoxHeight - 16);
+  ctx.lineTo(funFactBoxX, funFactBoxY + 16);
+  ctx.quadraticCurveTo(funFactBoxX, funFactBoxY, funFactBoxX + 16, funFactBoxY);
   ctx.closePath();
   
   ctx.fillStyle = "#ffffff";
@@ -896,37 +901,40 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   ctx.lineWidth = 1;
   ctx.stroke();
   
-  // Fun factタイトル（上部）
+  // Fun factタイトル（上部、padding内）
   ctx.font = `400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
   ctx.fillStyle = "#564eb3";
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
-  ctx.fillText("Fun fact!", funFactSectionX + 16, funFactSectionY + 16);
+  ctx.fillText("Fun fact!", funFactBoxX + funFactPadding, funFactBoxY + funFactPadding);
   
   // ランク表示（上部、Fun factタイトルの下）
   const rankFontSize = 48;
+  const rankY = funFactBoxY + funFactPadding + 16 + 8; // Fun factタイトルの下（mb-2相当）
   ctx.font = `900 ${rankFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
   ctx.fillStyle = "#000000";
   ctx.textAlign = "left";
-  ctx.fillText(data.rankInfo.rank, funFactSectionX + 16, funFactSectionY + 40);
+  ctx.textBaseline = "top";
+  ctx.fillText(data.rankInfo.rank, funFactBoxX + funFactPadding, rankY);
   
   // ランク帯名（ランクの下）
   const rankBandName = getRankBandName(data.rankInfo.bandName);
   const bandNameFontSize = 20;
-  const bandNameY = funFactSectionY + 40 + rankFontSize + 8;
+  const bandNameY = rankY + rankFontSize + 8; // ランクの下
   ctx.font = `600 ${bandNameFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
   ctx.fillStyle = "#000000";
   ctx.textAlign = "left";
-  ctx.fillText(rankBandName, funFactSectionX + 16, bandNameY);
+  ctx.textBaseline = "top";
+  ctx.fillText(rankBandName, funFactBoxX + funFactPadding, bandNameY);
   
   // パーセンタイル表示（ランク帯名の下、中央に配置）
   const percentileFontSize = 16;
-  const percentileY = bandNameY + bandNameFontSize + 20; // ランク帯名の下に余白を追加
+  const percentileY = bandNameY + bandNameFontSize + 20; // mb-5相当（20px）
   ctx.font = `600 ${percentileFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
   ctx.fillStyle = "#000000";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  const percentileX = funFactSectionX + funFactBoxWidth / 2;
+  const percentileX = funFactBoxX + funFactBoxWidth / 2;
   ctx.fillText(data.percentileDisplay, percentileX, percentileY);
   
   ctx.restore();
