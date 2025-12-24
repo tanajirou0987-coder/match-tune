@@ -399,22 +399,6 @@ export default function SharePreview({
     try {
       setIsDownloading(true);
       
-      // 非表示DOM要素を一時的に表示してレンダリングさせる
-      // （画面外に配置しつつ、ブラウザにレンダリングさせる）
-      const originalStyle = {
-        left: cardRef.current.style.left,
-        top: cardRef.current.style.top,
-        visibility: cardRef.current.style.visibility,
-      };
-      
-      // 画面外だが、ブラウザがレンダリングする位置に配置
-      cardRef.current.style.left = '0px';
-      cardRef.current.style.top = '0px';
-      cardRef.current.style.visibility = 'hidden'; // 非表示だがレンダリングされる
-      
-      // レイアウトの再計算を待つ
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
       // フォントの読み込みを待つ
       await document.fonts.ready;
       
@@ -436,18 +420,19 @@ export default function SharePreview({
       // レンダリング完了を待つ
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // 非表示DOM要素（700x1080サイズ）をそのまま画像化
-      // 元のサイズそのままで画像化するため、width/heightオプションは指定しない
+      // プレビュー画像のDOM要素の実際のサイズを取得
+      const rect = cardRef.current.getBoundingClientRect();
+      const scale = 700 / rect.width; // 700pxにスケールする倍率
+      const targetHeight = Math.round(rect.height * scale);
+      
+      // プレビュー画像のDOM要素を直接画像化（700x1080サイズに拡大）
       const blob = await toBlob(cardRef.current, {
+        width: 700,
+        height: targetHeight,
         pixelRatio: 2, // 高解像度
         quality: 1.0,
         cacheBust: true,
       });
-      
-      // 元のスタイルに戻す
-      cardRef.current.style.left = originalStyle.left;
-      cardRef.current.style.top = originalStyle.top;
-      cardRef.current.style.visibility = originalStyle.visibility;
       
       if (!blob) {
         throw new Error("画像の生成に失敗しました");
@@ -493,8 +478,8 @@ export default function SharePreview({
                 </div>
               <div className="w-full max-w-[350px] mx-auto">
                 <div className="relative w-full" style={{ aspectRatio: "700 / 1080" }}>
-                  {/* プレビュー表示用 */}
-                  <div className="absolute inset-0 h-full w-full">
+                  {/* プレビュー表示用（このDOMを直接画像化） */}
+                  <div ref={cardRef} className="absolute inset-0 h-full w-full">
                     <ShareImageCard
                       score={score}
                       percentileDisplay={percentileDisplay}
@@ -507,27 +492,6 @@ export default function SharePreview({
                     />
                   </div>
                 </div>
-              </div>
-              {/* ダウンロード用の非表示DOM（700x1080サイズ、元のサイズそのまま） */}
-              <div 
-                ref={cardRef} 
-                className="fixed left-0 top-0 pointer-events-none"
-                style={{ 
-                  width: "700px", 
-                  height: "1080px",
-                  visibility: "hidden",
-                }}
-              >
-                <ShareImageCard
-                  score={score}
-                  percentileDisplay={percentileDisplay}
-                  userNickname={userNickname}
-                  partnerNickname={partnerNickname}
-                  rankInfo={rankInfo}
-                  rankImagePath={rankImagePath}
-                  message={message}
-                  className=""
-                />
               </div>
               <div className="my-6 flex items-center justify-center gap-3">
                 <Button
