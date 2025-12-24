@@ -27,40 +27,46 @@ const diagnostics = [
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white">
+    <div className="relative min-h-screen overflow-hidden bg-[#ffc9c9]">
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 max-w-md mx-auto bg-white min-h-screen shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] md:hidden">
-        {/* ヘッダーセクション - Figmaデザインの背景画像とスタイル */}
-        <motion.section
-          className="relative h-[299px] rounded-t-[28px] overflow-hidden mx-3 mt-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
+      <div className="relative z-10 max-w-md mx-auto min-h-screen md:hidden py-8 px-4">
+        {/* Figmaデザインスタイルのメインカード */}
+        <motion.div
+          className="relative bg-white border-[3.996px] border-[#2b2b2b] rounded-[49.948px] p-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="absolute inset-0 overflow-hidden rounded-t-[28px]">
-            <img alt="" className="absolute inset-0 w-full h-full object-cover" src={headerBackgroundImage} />
+          {/* 繰り返しテキスト - Figmaデザインスタイル */}
+          <div className="text-center mb-4">
+            <p className="text-xs font-['Coming_Soon:Regular',sans-serif] font-light text-[#e84d3d] tracking-tight">
+              相性診断 · 相性診断 · 相性診断 · 相性診断 · 相性診断 · 相性診断
+            </p>
           </div>
-          {/* 引用文 - Figmaデザインのフォントとスタイル */}
-          <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-['Inter:Extra_Bold_Italic',sans-serif] font-extrabold italic text-[16px] text-center text-white text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] max-w-[280px] leading-[1.5]">
-            2人のリズム、<br />
-            響き合う瞬間を。
-          </p>
-        </motion.section>
 
-        {/* メインコンテナ - Figmaデザインの背景色 */}
-        <div className="relative bg-[#FFB6C1] rounded-[36px] mx-3 mb-20 overflow-hidden">
+          {/* メインタイトル - Figmaデザインスタイル */}
+          <div className="text-center mb-6">
+            <h1 className="text-5xl font-['Coming_Soon:Regular',sans-serif] font-bold text-[#ff9960] mb-2">
+              PAIRLY LAB
+            </h1>
+            <p className="text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black">
+              恋愛相性診断
+            </p>
+          </div>
+
           {/* メインコンテンツエリア */}
-          <div className="relative bg-white rounded-[35px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] mx-0 mt-[-35px] px-[12px] py-[24px] min-h-[665px]">
-            {/* ロゴ/タイトル - Figmaデザインのフォントスタイルに合わせて調整 */}
+          <div className="relative bg-white rounded-[35px] px-[12px] py-[24px]">
+            {/* 説明文 - Figmaデザインスタイル */}
             <motion.div
-              className="text-center mb-8 pt-8"
+              className="text-center mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <h1 className="text-6xl sm:text-7xl font-['Coming_Soon:Regular',sans-serif] font-normal tracking-tight mb-4 text-black">
-                PAIRLY LAB
-              </h1>
+              <p className="text-lg font-['Coming_Soon:Regular',sans-serif] font-normal text-[#c1d50c] leading-relaxed">
+                2人のリズムを数分で診断。<br />
+                恋愛タイプの測定と相性分析をかんたん＆ビジュアルに届ける診断アプリです。
+              </p>
             </motion.div>
 
             {/* クイックアクションボタン - Figmaデザインのスタイルに合わせて調整 */}
@@ -222,43 +228,42 @@ export default function Home() {
               </div>
             </motion.section>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* PC用レイアウト */}
       <div className="hidden md:block relative z-10 max-w-7xl mx-auto px-8 py-12">
-        {/* ヘッダーセクション - PC用 */}
-        <motion.section
-          className="relative h-[400px] rounded-[28px] overflow-hidden mb-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
+        {/* Figmaデザインスタイルのメインカード - PC用 */}
+        <motion.div
+          className="relative bg-white border-[3.996px] border-[#2b2b2b] rounded-[49.948px] p-12 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="absolute inset-0 overflow-hidden rounded-[28px]">
-            <img alt="" className="absolute inset-0 w-full h-full object-cover" src={headerBackgroundImage} />
+          {/* 繰り返しテキスト - Figmaデザインスタイル PC用 */}
+          <div className="text-center mb-6">
+            <p className="text-sm font-['Coming_Soon:Regular',sans-serif] font-light text-[#e84d3d] tracking-tight">
+              相性診断 · 相性診断 · 相性診断 · 相性診断 · 相性診断 · 相性診断 · 相性診断 · 相性診断 · 相性診断
+            </p>
           </div>
-          {/* 引用文 - PC用 */}
-          <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-['Inter:Extra_Bold_Italic',sans-serif] font-extrabold italic text-3xl text-center text-white text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] max-w-2xl leading-[1.5]">
-            2人のリズム、<br />
-            響き合う瞬間を。
-          </p>
-        </motion.section>
+
+          {/* メインタイトル - Figmaデザインスタイル PC用 */}
+          <div className="text-center mb-8">
+            <h1 className="text-7xl font-['Coming_Soon:Regular',sans-serif] font-bold text-[#ff9960] mb-4">
+              PAIRLY LAB
+            </h1>
+            <p className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-6">
+              恋愛相性診断
+            </p>
+            <p className="text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-[#c1d50c] leading-relaxed max-w-3xl mx-auto">
+              2人のリズムを数分で診断。恋愛タイプの測定と相性分析をかんたん＆ビジュアルに届ける診断アプリです。
+            </p>
+          </div>
 
         {/* メインコンテンツエリア - PC用 */}
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {/* 左カラム */}
           <div className="space-y-8">
-            {/* ロゴ/タイトル - PC用 */}
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <h1 className="text-8xl font-['Coming_Soon:Regular',sans-serif] font-normal tracking-tight mb-6 text-black">
-                PAIRLY LAB
-              </h1>
-            </motion.div>
 
             {/* クイックアクションボタン - PC用 */}
             <motion.div
@@ -423,6 +428,7 @@ export default function Home() {
             </div>
           </div>
         </motion.section>
+        </motion.div>
       </div>
     </div>
   );
