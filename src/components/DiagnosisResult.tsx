@@ -43,7 +43,7 @@ const AnimatedCircularProgress: React.FC<{ score: number }> = ({ score }) => {
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          stroke="#e2bef1"
+          stroke="#FFB6C1"
           fill="transparent"
           r={radius}
           cx="100"
@@ -65,7 +65,7 @@ const TypeProfile: React.FC<{ type: PersonalityType, isUser?: boolean }> = ({ ty
         {isUser ? "あなた" : "パートナー"}
     </div>
     {type.icon && (
-      <div className="flex items-center justify-center w-[80px] h-[80px] md:w-[100px] md:h-[100px] rounded-full border-2 border-black bg-[#e2bef1] text-4xl md:text-5xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+      <div className="flex items-center justify-center w-[80px] h-[80px] md:w-[100px] md:h-[100px] rounded-full border-2 border-black bg-[#FFB6C1] text-4xl md:text-5xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
         {type.icon}
       </div>
     )}
@@ -74,9 +74,9 @@ const TypeProfile: React.FC<{ type: PersonalityType, isUser?: boolean }> = ({ ty
     </div>
     <p className="text-sm md:text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black/80 w-full px-4 text-center leading-relaxed text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{type.description}</p>
     <div className="flex flex-wrap gap-2 justify-center pt-2">
-        <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#e2bef1] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{type.traits.communication}</span>
-        <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#f97b83] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{type.traits.decision}</span>
-        <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#f9ded7] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{type.traits.relationship}</span>
+        <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#FFB6C1] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{type.traits.communication}</span>
+        <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#87CEEB] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{type.traits.decision}</span>
+        <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#FFF8DC] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{type.traits.relationship}</span>
     </div>
   </div>
 );
@@ -107,7 +107,7 @@ const AxisInsight: React.FC<{ label: string; value: number; description: string 
             <span className="font-['Coming_Soon:Regular',sans-serif] font-normal text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{value}%</span>
         </div>
         <div className="w-full bg-white rounded-full h-4 border border-black overflow-hidden">
-            <div className="bg-[#e2bef1] h-full rounded-full transition-all duration-1000" style={{ width: `${value}%` }}></div>
+            <div className="bg-[#FFB6C1] h-full rounded-full transition-all duration-1000" style={{ width: `${value}%` }}></div>
         </div>
         <p className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal text-black/70 mt-2 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">{description}</p>
     </div>
@@ -195,7 +195,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
             animate="visible"
         >
             {/* スマホ用レイアウト */}
-            <div className="w-full max-w-md rounded-[16px] border border-black bg-[#e2bef1] p-8 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] md:hidden">
+            <div className="w-full max-w-md rounded-[16px] border border-black bg-[#FFB6C1] p-8 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] md:hidden">
                 <h1 className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">あなたのタイプ</h1>
                 <TypeProfile type={type1} isUser={true} />
                 <div className="mt-8">
@@ -203,7 +203,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                 </div>
             </div>
             {/* PC用レイアウト */}
-            <div className="hidden md:block w-full max-w-2xl rounded-[16px] border border-black bg-[#e2bef1] p-12 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+            <div className="hidden md:block w-full max-w-2xl rounded-[16px] border border-black bg-[#FFB6C1] p-12 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <h1 className="text-4xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-6 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">あなたのタイプ</h1>
                 <TypeProfile type={type1} isUser={true} />
                 <div className="mt-10">
@@ -300,7 +300,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
 
         <main className="grid grid-cols-1 gap-6">
           <motion.div 
-            className="rounded-[16px] border border-black bg-[#e2bef1] p-6 space-y-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+            className="rounded-[16px] border border-black bg-[#FFB6C1] p-6 space-y-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -361,7 +361,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
             </div>
 
             {analysis && (
-              <div className="rounded-[16px] border border-black bg-[#fbf7d5] p-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+              <div className="rounded-[16px] border border-black bg-[#E0F2E0] p-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <h3 className="text-base font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-[0.3em] text-black/60 mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">詳細分析</h3>
                 <AccordionItem title="二人の強み" initialOpen={true}>
                   <ul className="list-disc pl-5 space-y-2 text-black/90">
@@ -394,7 +394,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                             <h4 className="font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-2 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">会話のきっかけ</h4>
                             <div className="flex flex-wrap gap-2 mt-2">
                                 {analysis.conversationStarters.map((starter, i) => (
-                                    <span key={i} className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#e2bef1] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                                    <span key={i} className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#FFB6C1] text-black px-3 py-1 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                                       {starter}
                                     </span>
                                 ))}
@@ -405,7 +405,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                 </AccordionItem>
               </div>
             )}
-             <div className="rounded-[16px] border border-black bg-[#f97b83] p-6 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+             <div className="rounded-[16px] border border-black bg-[#FFB6C1] p-6 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <h3 className="text-base font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-[0.3em] text-black mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">結果を共有</h3>
                 <div className="flex flex-col gap-3">
                   <ShareButton shareUrl={shareUrl} darkTheme={false} />
@@ -500,7 +500,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
 
         <main className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <motion.div 
-            className="lg:col-span-2 rounded-[16px] border border-black bg-[#e2bef1] p-10 space-y-10 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+            className="lg:col-span-2 rounded-[16px] border border-black bg-[#FFB6C1] p-10 space-y-10 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -557,7 +557,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
             </div>
 
             {analysis && (
-              <div className="rounded-[16px] border border-black bg-[#fbf7d5] p-8 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+              <div className="rounded-[16px] border border-black bg-[#E0F2E0] p-8 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <h3 className="text-lg font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-[0.3em] text-black/60 mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">詳細分析</h3>
                 <AccordionItem title="二人の強み" initialOpen={true}>
                   <ul className="list-disc pl-5 space-y-3 text-black/90 text-base">
@@ -590,7 +590,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                             <h4 className="font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-3 text-lg text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">会話のきっかけ</h4>
                             <div className="flex flex-wrap gap-3 mt-3">
                                 {analysis.conversationStarters.map((starter, i) => (
-                                    <span key={i} className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#e2bef1] text-black px-5 py-2 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                                    <span key={i} className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal bg-[#FFB6C1] text-black px-5 py-2 rounded-[16px] border border-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                                       {starter}
                                     </span>
                                 ))}
@@ -601,7 +601,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
                 </AccordionItem>
               </div>
             )}
-             <div className="rounded-[16px] border border-black bg-[#f97b83] p-8 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+             <div className="rounded-[16px] border border-black bg-[#FFB6C1] p-8 text-center shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <h3 className="text-lg font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-[0.3em] text-black mb-6 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">結果を共有</h3>
                 <div className="flex flex-col gap-4">
                   <ShareButton shareUrl={shareUrl} darkTheme={false} />

@@ -26,7 +26,7 @@ export const ProgressBar = memo(function ProgressBar({
       </div>
       <div className={`w-full overflow-hidden rounded-full border border-black bg-white ${isMobile ? "h-1.5" : "h-5"}`}>
         <div
-          className="h-full rounded-full bg-[#e2bef1] transition-all duration-200"
+          className="h-full rounded-full bg-[#FFB6C1] transition-all duration-200"
           style={{ width: `${progress}%` }}
         />
       </div>

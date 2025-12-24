@@ -33,7 +33,7 @@ export const CompletionSection = memo(function CompletionSection({
           <button
             onClick={onConfirm}
             disabled={isTransitioning}
-            className={`inline-flex w-full items-center justify-center rounded-[16px] border border-black bg-[#e2bef1] font-['Coming_Soon:Regular',sans-serif] font-normal text-black disabled:cursor-not-allowed disabled:opacity-60 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105 ${isMobile ? "px-6 py-3 text-base" : "px-8 py-4 text-lg"}`}
+            className={`inline-flex w-full items-center justify-center rounded-[16px] border border-black bg-[#FFB6C1] font-['Coming_Soon:Regular',sans-serif] font-normal text-black disabled:cursor-not-allowed disabled:opacity-60 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105 ${isMobile ? "px-6 py-3 text-base" : "px-8 py-4 text-lg"}`}
           >
             パートナーの回答に進む →
           </button>
@@ -57,7 +57,7 @@ export const CompletionSection = memo(function CompletionSection({
         <button
           onClick={onConfirm}
           disabled={isCalculating}
-          className={`inline-flex w-full items-center justify-center rounded-[16px] border border-black bg-[#e2bef1] font-['Coming_Soon:Regular',sans-serif] font-normal text-black disabled:cursor-not-allowed disabled:opacity-60 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105 ${isMobile ? "px-6 py-3 text-base" : "px-8 py-4 text-lg"}`}
+          className={`inline-flex w-full items-center justify-center rounded-[16px] border border-black bg-[#FFB6C1] font-['Coming_Soon:Regular',sans-serif] font-normal text-black disabled:cursor-not-allowed disabled:opacity-60 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:scale-105 ${isMobile ? "px-6 py-3 text-base" : "px-8 py-4 text-lg"}`}
         >
           結果を表示
         </button>

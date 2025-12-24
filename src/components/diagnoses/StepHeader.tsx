@@ -15,7 +15,7 @@ export const StepHeader = memo(function StepHeader({
 
   return (
     <div className="text-center">
-      <div className={`inline-flex items-center rounded-[16px] border border-black bg-[#e2bef1] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] ${isMobile ? "gap-1.5 px-3 py-1" : "gap-2 px-6 py-2"}`}>
+      <div className={`inline-flex items-center rounded-[16px] border border-black bg-[#FFB6C1] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] ${isMobile ? "gap-1.5 px-3 py-1" : "gap-2 px-6 py-2"}`}>
         <span className={`font-['Coming_Soon:Regular',sans-serif] font-normal text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] ${isMobile ? "text-sm" : "text-lg"}`}>
           {stepLabel}
         </span>

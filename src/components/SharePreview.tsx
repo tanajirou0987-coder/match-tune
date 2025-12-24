@@ -84,15 +84,15 @@ interface ShareImageCardProps {
 // ランクに応じたカード背景色を取得
 function getCardBgColor(rank: string): string {
   const colors: Record<string, string> = {
-    SS: "#564eb3", // 紫
-    S: "#f1dd02", // 黄色
-    A: "#ff84c5", // ピンク
-    B: "#d4ff4e", // ライム
-    C: "#746ae1", // ライトパープル
-    D: "#949494", // グレー
-    E: "#949494",
-    F: "#949494",
-    G: "#949494",
+    SS: "#FFD700", // ゴールド
+    S: "#FFA500", // オレンジ
+    A: "#FF7F7F", // コーラル
+    B: "#40E0D0", // ターコイズ
+    C: "#E6E6FA", // ラベンダー
+    D: "#D3D3D3", // ライトグレー
+    E: "#D3D3D3",
+    F: "#D3D3D3",
+    G: "#D3D3D3",
   };
   return colors[rank] || colors.G;
 }
@@ -134,7 +134,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
             transform: "translateX(-50%)",
             width: scaleValue(344, 230),
             height: scaleValue(344, 230),
-            backgroundColor: "#746ae1",
+            backgroundColor: "#E6E6FA",
           }}
         />
         {/* 左下のプラネットのような装飾 */}
@@ -145,7 +145,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
             bottom: scaleValue(201, 134),
             width: scaleValue(224, 149),
             height: scaleValue(224, 149),
-            backgroundColor: "#746ae1",
+            backgroundColor: "#E6E6FA",
           }}
         />
         {/* 右下のハートのような装飾 */}
@@ -156,7 +156,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
             bottom: scaleValue(-100, -67),
             width: scaleValue(416, 277),
             height: scaleValue(416, 277),
-            backgroundColor: "#746ae1",
+            backgroundColor: "#E6E6FA",
           }}
         />
       </div>
@@ -185,12 +185,12 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
               top: scaleValue(-24, -12),
               width: `calc(100% + ${scaleValue(52, 26)}px)`,
               height: `calc(100% + ${scaleValue(48, 24)}px)`,
-              backgroundColor: "#ff84c5",
+              backgroundColor: "#FF7F7F",
             }}
           />
           {/* 画像フレーム（内側） */}
           <div
-            className="relative rounded-3xl border border-black bg-[#ffa5d4]"
+            className="relative rounded-3xl border border-black bg-[#FFB6C1]"
             style={{
               width: "100%",
               height: "100%",
@@ -199,7 +199,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
           >
             {/* 画像背景（黄色、角丸） */}
             <div
-              className="absolute border border-black bg-[#f1dd02] rounded-2xl"
+              className="absolute border border-black bg-[#FFA500] rounded-2xl"
               style={{
                 left: scaleValue(24, 12),
                 top: scaleValue(24, 12),
@@ -302,7 +302,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
               {[2, 1, 0].map((i) => (
                 <div
                   key={i}
-                  className="absolute rounded-full border border-black bg-[#f1dd02] flex items-center justify-center"
+                  className="absolute rounded-full border border-black bg-[#FFA500] flex items-center justify-center"
                   style={{
                     left: i === 0 ? 0 : i === 1 ? "4.83%" : "9.66%",
                     top: i === 0 ? 0 : i === 1 ? "7.58%" : "15.15%",
@@ -313,7 +313,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
                 >
                   {i === 0 && (
                     <span
-                      className="font-normal text-[#564eb3]"
+                      className="font-normal text-[#FFD700]"
                       style={{ fontSize: scaleValue(32, 21) }} // フォントサイズを40から32に縮小
                     >
                       result

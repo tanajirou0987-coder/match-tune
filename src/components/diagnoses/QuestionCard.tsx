@@ -23,7 +23,7 @@ export const QuestionCard = memo(function QuestionCard({
       key={`${step}-${question.id}`}
       className={`rounded-[16px] border border-black p-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] ${
         isAnswered 
-          ? "bg-[#e2bef1]" 
+          ? "bg-[#FFB6C1]" 
           : "bg-white"
       }`}
     >
@@ -65,7 +65,7 @@ export const QuestionCard = memo(function QuestionCard({
                   <div
                     className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border-2 border-black flex items-center justify-center transition-all shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] ${
                       isSelected
-                        ? "bg-[#e2bef1]"
+                        ? "bg-[#FFB6C1]"
                         : "bg-white active:bg-gray-100"
                     }`}
                   >

@@ -517,15 +517,15 @@ async function drawQRCode(
  */
 function getCardBackgroundColor(rank: string): string {
   const colors: Record<string, string> = {
-    SS: "#564eb3", // 紫
-    S: "#f1dd02", // 黄色
-    A: "#ff84c5", // ピンク
-    B: "#d4ff4e", // ライム
-    C: "#746ae1", // ライトパープル
-    D: "#949494", // グレー
-    E: "#949494",
-    F: "#949494",
-    G: "#949494",
+    SS: "#FFD700", // ゴールド
+    S: "#FFA500", // オレンジ
+    A: "#FF7F7F", // コーラル
+    B: "#40E0D0", // ターコイズ
+    C: "#E6E6FA", // ラベンダー
+    D: "#D3D3D3", // ライトグレー
+    E: "#D3D3D3",
+    F: "#D3D3D3",
+    G: "#D3D3D3",
   };
   return colors[rank] || colors.G;
 }
@@ -578,19 +578,19 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   const flowerSize = 344;
   const flowerX = CANVAS_WIDTH / 2;
   const flowerY = -158;
-  drawCircle(ctx, flowerX, flowerY, flowerSize / 2, SCALE, "#746ae1", "transparent", 0);
+  drawCircle(ctx, flowerX, flowerY, flowerSize / 2, SCALE, "#E6E6FA", "transparent", 0);
   
   // 左下にプラネットのような装飾
   const planetSize = 224;
   const planetX = 33;
   const planetY = CANVAS_HEIGHT - 201;
-  drawCircle(ctx, planetX, planetY, planetSize / 2, SCALE, "#746ae1", "transparent", 0);
+  drawCircle(ctx, planetX, planetY, planetSize / 2, SCALE, "#E6E6FA", "transparent", 0);
   
   // 右下にハートのような装飾（大きな円）
   const heartSize = 416;
   const heartX = CANVAS_WIDTH;
   const heartY = CANVAS_HEIGHT + 100;
-  drawCircle(ctx, heartX, heartY, heartSize / 2, SCALE, "#746ae1", "transparent", 0);
+  drawCircle(ctx, heartX, heartY, heartSize / 2, SCALE, "#E6E6FA", "transparent", 0);
   
   ctx.restore();
   
@@ -643,7 +643,7 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
     24,
     1
   );
-  ctx.fillStyle = "#ff84c5";
+  ctx.fillStyle = "#FF7F7F";
   ctx.fill();
   ctx.strokeStyle = "#000000";
   ctx.lineWidth = 1;
@@ -654,7 +654,7 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   ctx.save();
   ctx.scale(SCALE, SCALE);
   drawRoundedRect(ctx, imageX, imageY, IMAGE_SIZE, IMAGE_SIZE, 24, 1);
-  ctx.fillStyle = "#ffa5d4";
+  ctx.fillStyle = "#FFB6C1";
   ctx.fill();
   ctx.strokeStyle = "#000000";
   ctx.lineWidth = 1;
@@ -670,7 +670,7 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   ctx.save();
   ctx.scale(SCALE, SCALE);
   drawRoundedRect(ctx, imageBgX, imageBgY, imageBgSize, imageBgSize, 16, 1); // 角丸16px
-  ctx.fillStyle = "#f1dd02";
+  ctx.fillStyle = "#FFA500";
   ctx.fill();
   ctx.strokeStyle = "#000000";
   ctx.lineWidth = 1;
@@ -853,7 +853,7 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
     ctx.quadraticCurveTo(bioSectionX + offsetX, bioSectionY + offsetY, bioSectionX + offsetX + 24, bioSectionY + offsetY);
     ctx.closePath();
     
-    ctx.fillStyle = "#f1dd02";
+    ctx.fillStyle = "#FFA500";
     ctx.fill();
     ctx.strokeStyle = "#000000";
     ctx.lineWidth = 1;
@@ -862,7 +862,7 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   
   // BIOテキスト（最前面）- "result"に変更
   ctx.font = `400 32px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`; // フォントサイズを40から32に縮小
-  ctx.fillStyle = "#564eb3";
+  ctx.fillStyle = "#FFD700";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText("result", bioSectionX + bioTitleWidth / 2, bioSectionY + bioTitleHeight / 2);
@@ -903,7 +903,7 @@ export async function generateShareImageBlob(data: ShareImageData): Promise<Blob
   
   // Fun factタイトル（上部、padding内）
   ctx.font = `400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-  ctx.fillStyle = "#564eb3";
+  ctx.fillStyle = "#FFD700";
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
   ctx.fillText("Fun fact!", funFactBoxX + funFactPadding, funFactBoxY + funFactPadding);
