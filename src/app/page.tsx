@@ -27,9 +27,9 @@ const diagnostics = [
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-blue-50 via-purple-50 to-purple-100">
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 max-w-md mx-auto bg-white min-h-screen shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] md:hidden">
+      <div className="relative z-10 max-w-md mx-auto min-h-screen md:hidden py-8 px-4">
         {/* ヘッダーセクション - Figmaデザインの背景画像とスタイル */}
         <motion.section
           className="relative h-[299px] rounded-t-[28px] overflow-hidden mx-3 mt-3"
@@ -47,10 +47,10 @@ export default function Home() {
           </p>
         </motion.section>
 
-        {/* メインコンテナ - Figmaデザインの背景色 */}
-        <div className="relative bg-[#FFB6C1] rounded-[36px] mx-3 mb-20 overflow-hidden">
-          {/* メインコンテンツエリア */}
-          <div className="relative bg-white rounded-[35px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] mx-0 mt-[-35px] px-[12px] py-[24px] min-h-[665px]">
+        {/* メインコンテナ - Soft UIデザインスタイル */}
+        <div className="relative mb-20">
+          {/* メインコンテンツエリア - Soft UIカード */}
+          <div className="relative bg-white/80 backdrop-blur-xl rounded-[40px] shadow-[0px_20px_60px_rgba(0,0,0,0.08),0px_8px_24px_rgba(0,0,0,0.04)] px-6 py-8 min-h-[665px] border border-white/50">
             {/* ロゴ/タイトル - Figmaデザインのフォントスタイルに合わせて調整 */}
             <motion.div
               className="text-center mb-8 pt-8"
@@ -72,13 +72,13 @@ export default function Home() {
             >
               <Link
                 href="/diagnoses/compatibility-54"
-                className="group relative px-8 py-4 text-lg font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] bg-[#FFB6C1] text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transition-all transform hover:scale-[1.02]"
+                className="group relative px-8 py-4 text-lg font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[24px] bg-gradient-to-br from-pink-200/80 to-pink-300/80 backdrop-blur-sm text-black shadow-[0px_8px_24px_rgba(255,182,193,0.3),0px_4px_12px_rgba(255,182,193,0.2)] hover:shadow-[0px_12px_32px_rgba(255,182,193,0.4),0px_6px_16px_rgba(255,182,193,0.3)] transition-all transform hover:scale-[1.02] border border-white/50"
               >
                 <span className="relative z-10">54問でじっくり</span>
               </Link>
               <Link
                 href="/diagnoses/compatibility-18"
-                className="group relative px-8 py-4 text-lg font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] bg-[#87CEEB] text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transition-all transform hover:scale-[1.02]"
+                className="group relative px-8 py-4 text-lg font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[24px] bg-gradient-to-br from-sky-200/80 to-sky-300/80 backdrop-blur-sm text-black shadow-[0px_8px_24px_rgba(135,206,235,0.3),0px_4px_12px_rgba(135,206,235,0.2)] hover:shadow-[0px_12px_32px_rgba(135,206,235,0.4),0px_6px_16px_rgba(135,206,235,0.3)] transition-all transform hover:scale-[1.02] border border-white/50"
               >
                 <span className="relative z-10">3分で試す</span>
               </Link>
@@ -98,7 +98,7 @@ export default function Home() {
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
-                  className="rounded-[16px] border border-black bg-white p-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+                  className="rounded-[24px] bg-white/70 backdrop-blur-sm p-4 shadow-[0px_8px_24px_rgba(0,0,0,0.06),0px_4px_12px_rgba(0,0,0,0.04)] border border-white/50"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.7 + i * 0.1 }}
@@ -133,8 +133,12 @@ export default function Home() {
                 >
                   <Link href={mode.href}>
                     <div
-                      className="relative rounded-[16px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] h-[115px] flex items-center justify-center cursor-pointer transform hover:scale-[1.02] transition-all"
-                      style={{ backgroundColor: mode.bgColor }}
+                      className="relative rounded-[28px] shadow-[0px_12px_32px_rgba(0,0,0,0.08),0px_6px_16px_rgba(0,0,0,0.04)] h-[115px] flex items-center justify-center cursor-pointer transform hover:scale-[1.02] transition-all backdrop-blur-sm border border-white/50"
+                      style={{ 
+                        background: mode.bgColor === "#FFB6C1" 
+                          ? "linear-gradient(135deg, rgba(255,182,193,0.8) 0%, rgba(255,182,193,0.6) 100%)"
+                          : "linear-gradient(135deg, rgba(135,206,235,0.8) 0%, rgba(135,206,235,0.6) 100%)"
+                      }}
                     >
                       <div className="text-center px-4 max-w-[300px] mx-auto">
                         <div className="text-xs font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-[0.4em] mb-2 opacity-80 text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
@@ -156,9 +160,9 @@ export default function Home() {
               ))}
             </div>
 
-            {/* 使い方セクション - Figmaデザインのスタイルに合わせて調整 */}
+            {/* 使い方セクション - Soft UIデザインスタイル */}
             <motion.section
-              className="rounded-[16px] border border-black bg-[#FFB6C1] p-8 mb-8 mx-4 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+              className="rounded-[32px] bg-gradient-to-br from-pink-200/60 to-pink-300/60 backdrop-blur-xl p-8 mb-8 mx-4 shadow-[0px_16px_48px_rgba(255,182,193,0.2),0px_8px_24px_rgba(255,182,193,0.15)] border border-white/50"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -196,7 +200,7 @@ export default function Home() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
             >
-              <div className="rounded-[16px] border border-black bg-[#FFF8DC] p-10 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+              <div className="rounded-[32px] bg-gradient-to-br from-yellow-50/80 to-yellow-100/80 backdrop-blur-xl p-10 shadow-[0px_16px_48px_rgba(255,248,220,0.3),0px_8px_24px_rgba(255,248,220,0.2)] border border-white/50">
                 <h3 className="text-2xl sm:text-3xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-4 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] leading-[1.5] mx-auto max-w-[320px]">
                   今日の2人の温度を<br />
                   診断してみる
@@ -208,13 +212,13 @@ export default function Home() {
                 <div className="flex flex-wrap justify-center gap-4">
                   <Link
                     href="/diagnoses/compatibility-54"
-                    className="px-10 py-5 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] border border-black bg-white text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transform hover:scale-105 transition-all"
+                    className="px-10 py-5 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[24px] bg-white/90 backdrop-blur-sm text-black shadow-[0px_12px_32px_rgba(0,0,0,0.08),0px_6px_16px_rgba(0,0,0,0.04)] hover:shadow-[0px_16px_40px_rgba(0,0,0,0.12),0px_8px_20px_rgba(0,0,0,0.06)] transform hover:scale-105 transition-all border border-white/50"
                   >
                     徹底診断を始める
                   </Link>
                   <Link
                     href="/diagnoses/compatibility-18"
-                    className="px-10 py-5 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] border border-black bg-[#FFB6C1] text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transform hover:scale-105 transition-all"
+                    className="px-10 py-5 text-xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[24px] bg-gradient-to-br from-pink-200/80 to-pink-300/80 backdrop-blur-sm text-black shadow-[0px_12px_32px_rgba(255,182,193,0.3),0px_6px_16px_rgba(255,182,193,0.2)] hover:shadow-[0px_16px_40px_rgba(255,182,193,0.4),0px_8px_20px_rgba(255,182,193,0.3)] transform hover:scale-105 transition-all border border-white/50"
                   >
                     クイック診断
                   </Link>
@@ -226,19 +230,20 @@ export default function Home() {
       </div>
 
       {/* PC用レイアウト */}
-      <div className="hidden md:block relative z-10 max-w-7xl mx-auto px-8 py-12">
-        {/* ヘッダーセクション - PC用 */}
+      <div className="hidden md:block relative z-10 max-w-7xl mx-auto px-8 py-16">
+        {/* ヘッダーセクション - PC用 Soft UIスタイル */}
         <motion.section
-          className="relative h-[400px] rounded-[28px] overflow-hidden mb-12"
+          className="relative h-[400px] rounded-[40px] overflow-hidden mb-12 shadow-[0px_20px_60px_rgba(0,0,0,0.08),0px_8px_24px_rgba(0,0,0,0.04)] border border-white/50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="absolute inset-0 overflow-hidden rounded-[28px]">
+          <div className="absolute inset-0 overflow-hidden rounded-[40px]">
             <img alt="" className="absolute inset-0 w-full h-full object-cover" src={headerBackgroundImage} />
           </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/40 rounded-[40px]"></div>
           {/* 引用文 - PC用 */}
-          <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-['Inter:Extra_Bold_Italic',sans-serif] font-extrabold italic text-3xl text-center text-white text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] max-w-2xl leading-[1.5]">
+          <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-['Inter:Extra_Bold_Italic',sans-serif] font-extrabold italic text-3xl text-center text-white text-shadow-[0px_4px_12px_rgba(0,0,0,0.3)] max-w-2xl leading-[1.5] z-10">
             2人のリズム、<br />
             響き合う瞬間を。
           </p>
@@ -269,13 +274,13 @@ export default function Home() {
             >
               <Link
                 href="/diagnoses/compatibility-54"
-                className="group relative px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] bg-[#FFB6C1] text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transition-all transform hover:scale-[1.02] text-center"
+                className="group relative px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[28px] bg-gradient-to-br from-pink-200/80 to-pink-300/80 backdrop-blur-sm text-black shadow-[0px_12px_32px_rgba(255,182,193,0.3),0px_6px_16px_rgba(255,182,193,0.2)] hover:shadow-[0px_16px_40px_rgba(255,182,193,0.4),0px_8px_20px_rgba(255,182,193,0.3)] transition-all transform hover:scale-[1.02] text-center border border-white/50"
               >
                 <span className="relative z-10">54問でじっくり</span>
               </Link>
               <Link
                 href="/diagnoses/compatibility-18"
-                className="group relative px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] bg-[#87CEEB] text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transition-all transform hover:scale-[1.02] text-center"
+                className="group relative px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[28px] bg-gradient-to-br from-sky-200/80 to-sky-300/80 backdrop-blur-sm text-black shadow-[0px_12px_32px_rgba(135,206,235,0.3),0px_6px_16px_rgba(135,206,235,0.2)] hover:shadow-[0px_16px_40px_rgba(135,206,235,0.4),0px_8px_20px_rgba(135,206,235,0.3)] transition-all transform hover:scale-[1.02] text-center border border-white/50"
               >
                 <span className="relative z-10">3分で試す</span>
               </Link>
@@ -295,7 +300,7 @@ export default function Home() {
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
-                  className="rounded-[16px] border border-black bg-white p-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] text-center"
+                  className="rounded-[28px] bg-white/70 backdrop-blur-sm p-6 shadow-[0px_12px_32px_rgba(0,0,0,0.06),0px_6px_16px_rgba(0,0,0,0.04)] text-center border border-white/50"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.7 + i * 0.1 }}
@@ -333,8 +338,12 @@ export default function Home() {
                 >
                   <Link href={mode.href}>
                     <div
-                      className="relative rounded-[16px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] h-[140px] flex items-center justify-center cursor-pointer transform hover:scale-[1.02] transition-all"
-                      style={{ backgroundColor: mode.bgColor }}
+                      className="relative rounded-[32px] shadow-[0px_16px_48px_rgba(0,0,0,0.08),0px_8px_24px_rgba(0,0,0,0.04)] h-[140px] flex items-center justify-center cursor-pointer transform hover:scale-[1.02] transition-all backdrop-blur-sm border border-white/50"
+                      style={{ 
+                        background: mode.bgColor === "#FFB6C1" 
+                          ? "linear-gradient(135deg, rgba(255,182,193,0.8) 0%, rgba(255,182,193,0.6) 100%)"
+                          : "linear-gradient(135deg, rgba(135,206,235,0.8) 0%, rgba(135,206,235,0.6) 100%)"
+                      }}
                     >
                       <div className="text-center px-8">
                         <div className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-[0.4em] mb-2 opacity-80 text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
@@ -358,9 +367,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 使い方セクション - PC用 */}
+        {/* 使い方セクション - PC用 Soft UIスタイル */}
         <motion.section
-          className="rounded-[16px] border border-black bg-[#FFB6C1] p-12 mb-8 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
+          className="rounded-[40px] bg-gradient-to-br from-pink-200/60 to-pink-300/60 backdrop-blur-xl p-12 mb-8 shadow-[0px_20px_60px_rgba(255,182,193,0.2),0px_10px_30px_rgba(255,182,193,0.15)] border border-white/50"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -398,7 +407,7 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <div className="rounded-[16px] border border-black bg-[#FFF8DC] p-16 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] max-w-4xl mx-auto">
+          <div className="rounded-[40px] bg-gradient-to-br from-yellow-50/80 to-yellow-100/80 backdrop-blur-xl p-16 shadow-[0px_20px_60px_rgba(255,248,220,0.3),0px_10px_30px_rgba(255,248,220,0.2)] max-w-4xl mx-auto border border-white/50">
             <h3 className="text-4xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-6 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] leading-[1.5]">
               今日の2人の温度を<br />
               診断してみる
@@ -410,13 +419,13 @@ export default function Home() {
             <div className="flex justify-center gap-6">
               <Link
                 href="/diagnoses/compatibility-54"
-                className="px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] border border-black bg-white text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transform hover:scale-105 transition-all"
+                className="px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[28px] bg-white/90 backdrop-blur-sm text-black shadow-[0px_16px_40px_rgba(0,0,0,0.08),0px_8px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_20px_50px_rgba(0,0,0,0.12),0px_10px_25px_rgba(0,0,0,0.06)] transform hover:scale-105 transition-all border border-white/50"
               >
                 徹底診断を始める
               </Link>
               <Link
                 href="/diagnoses/compatibility-18"
-                className="px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[16px] border border-black bg-[#FFB6C1] text-black shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0px_6px_6px_0px_rgba(0,0,0,0.3)] transform hover:scale-105 transition-all"
+                className="px-12 py-6 text-2xl font-['Coming_Soon:Regular',sans-serif] font-normal rounded-[28px] bg-gradient-to-br from-pink-200/80 to-pink-300/80 backdrop-blur-sm text-black shadow-[0px_16px_40px_rgba(255,182,193,0.3),0px_8px_20px_rgba(255,182,193,0.2)] hover:shadow-[0px_20px_50px_rgba(255,182,193,0.4),0px_10px_25px_rgba(255,182,193,0.3)] transform hover:scale-105 transition-all border border-white/50"
               >
                 クイック診断
               </Link>
