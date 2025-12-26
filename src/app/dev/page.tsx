@@ -207,22 +207,6 @@ export default function DevPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">キャラクター画像管理</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              27タイプそれぞれに対応するキャラクター画像をアップロードできます。
-            </p>
-            <Button
-              onClick={() => router.push("/dev/character-images")}
-              className="w-full"
-            >
-              キャラクター画像管理ページへ
-            </Button>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
