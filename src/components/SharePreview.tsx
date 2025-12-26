@@ -346,7 +346,7 @@ export const ShareImageCard = forwardRef<HTMLDivElement, ShareImageCardProps>(fu
                 >
                   {i === 0 && (
                     <span
-                      className="font-normal text-[#FFD700]"
+                      className="font-normal text-black"
                       style={{ fontSize: scaleValue(32, 21) }} // フォントサイズを40から32に縮小
                     >
                       result
