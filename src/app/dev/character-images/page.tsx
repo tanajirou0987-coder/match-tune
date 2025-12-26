@@ -25,7 +25,7 @@ export default function CharacterImagesPage() {
   // タイプコードからタイプ名を取得するマップ
   const typeNameMap = useMemo(() => {
     const map: Record<string, string> = {};
-    Object.values(types54Data).forEach((type: PersonalityType) => {
+    Object.values(types54Data as Record<string, PersonalityType>).forEach((type) => {
       map[type.type] = type.name;
     });
     return map;
