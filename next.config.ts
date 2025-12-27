@@ -32,13 +32,10 @@ const nextConfig: NextConfig = {
         source: '/:path*',
         headers: [
           {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN', // iframeで埋め込む場合は 'ALLOWALL' または削除
-          },
-          {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
+          // X-Frame-Optionsは削除（WordPressからiframeで埋め込むため）
         ],
       },
     ];
