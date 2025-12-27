@@ -99,7 +99,7 @@ export default function Compatibility18QuestionsPage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-3 sm:px-4 py-8 sm:py-10 lg:px-8">
+    <div className="relative min-h-screen w-full overflow-hidden px-4 py-10 lg:px-8">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -109,32 +109,32 @@ export default function Compatibility18QuestionsPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* トップに戻るボタン */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-3 sm:px-4 pt-3 sm:pt-4 md:px-8 md:pt-8">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-4 pt-4 lg:px-8 lg:pt-8">
         <Button
           type="button"
           onClick={() => router.push("/")}
-          className="pointer-events-auto rounded-[28px] sm:rounded-[32px] border border-white/70 bg-white/95 backdrop-blur-md px-4 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm md:px-6 md:py-3 md:text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition hover:bg-white shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] text-shadow-[0px_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1"
+          className="pointer-events-auto rounded-[32px] border border-white/70 bg-white/95 backdrop-blur-md px-5 py-2 text-sm lg:px-6 lg:py-3 lg:text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition hover:bg-white shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] text-shadow-[0px_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1"
         >
           トップに戻る
         </Button>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 mx-auto w-full max-w-md space-y-6 sm:space-y-8 lg:hidden">
+      <div className="relative z-10 mx-auto w-full max-w-md space-y-8 lg:hidden">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 sm:gap-3 rounded-[24px] sm:rounded-[28px] md:rounded-[32px] border border-white/70 bg-gradient-to-br from-sky-200/90 via-sky-100/90 to-sky-200/90 backdrop-blur-md px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 shadow-[0px_12px_32px_rgba(135,206,235,0.3),0px_6px_16px_rgba(135,206,235,0.2),inset_0px_1px_0px_rgba(255,255,255,0.6)]">
-            <span className="text-sm sm:text-base md:text-lg font-['Coming_Soon:Regular',sans-serif] font-semibold text-gray-900 drop-shadow-[0px_1px_2px_rgba(255,255,255,0.8)]">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
-            <span className="text-xs sm:text-sm font-['Coming_Soon:Regular',sans-serif] font-semibold bg-white/95 rounded-[16px] sm:rounded-[18px] md:rounded-[20px] border border-white/80 text-gray-900 drop-shadow-[0px_1px_2px_rgba(0,0,0,0.1)] px-2 sm:px-3 py-0.5 sm:py-1">{step === "user" ? "1/2" : "2/2"}</span>
+          <div className="inline-flex items-center gap-3 rounded-[32px] border border-white/70 bg-gradient-to-br from-sky-200/90 via-sky-100/90 to-sky-200/90 backdrop-blur-md px-6 py-3 shadow-[0px_12px_32px_rgba(135,206,235,0.3),0px_6px_16px_rgba(135,206,235,0.2),inset_0px_1px_0px_rgba(255,255,255,0.6)]">
+            <span className="text-lg font-['Coming_Soon:Regular',sans-serif] font-semibold text-gray-900 drop-shadow-[0px_1px_2px_rgba(255,255,255,0.8)]">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
+            <span className="text-sm font-['Coming_Soon:Regular',sans-serif] font-semibold bg-white/95 rounded-[20px] border border-white/80 text-gray-900 drop-shadow-[0px_1px_2px_rgba(0,0,0,0.1)] px-3 py-1">{step === "user" ? "1/2" : "2/2"}</span>
           </div>
         </div>
 
-        <div className="sticky top-0 z-20 -mx-3 sm:-mx-4 border-b border-white/70 bg-white/90 backdrop-blur-2xl px-3 sm:px-4 py-2.5 sm:py-3 shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)]">
-          <div className="mb-1.5 sm:mb-2 flex items-center justify-between">
-            <span className="text-[10px] sm:text-xs font-['Coming_Soon:Regular',sans-serif] font-semibold text-gray-900 drop-shadow-[0px_1px_2px_rgba(0,0,0,0.1)]">
+        <div className="sticky top-0 z-20 -mx-4 border-b border-white/70 bg-white/90 backdrop-blur-2xl px-4 py-3 shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)]">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-xs font-['Coming_Soon:Regular',sans-serif] font-semibold text-gray-900 drop-shadow-[0px_1px_2px_rgba(0,0,0,0.1)]">
               回答済み {answeredCount} / {TOTAL_QUESTIONS}
             </span>
-            <span className="text-base sm:text-lg font-['Coming_Soon:Regular',sans-serif] font-bold text-gray-900 drop-shadow-[0px_1px_2px_rgba(0,0,0,0.1)]">{Math.round(progress)}%</span>
+            <span className="text-lg font-['Coming_Soon:Regular',sans-serif] font-bold text-gray-900 drop-shadow-[0px_1px_2px_rgba(0,0,0,0.1)]">{Math.round(progress)}%</span>
           </div>
-          <div className="h-1.5 sm:h-2 w-full overflow-hidden rounded-full border border-white/70 bg-white/80 backdrop-blur-sm">
+          <div className="h-2 w-full overflow-hidden rounded-full border border-white/70 bg-white/80 backdrop-blur-sm">
             <div
               className="h-full rounded-full bg-gradient-to-r from-pink-300/90 via-pink-200/90 to-pink-300/90 transition-all duration-300 shadow-[inset_0px_1px_2px_rgba(255,255,255,0.6)]"
               style={{ width: `${progress}%` }}
@@ -162,7 +162,7 @@ export default function Compatibility18QuestionsPage() {
         </div>
 
         <div className="text-center">
-          <p className="text-xs sm:text-sm font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-wider text-black/60 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <p className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-wider text-black/60 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
             クイック診断（18問・約3分）
           </p>
         </div>

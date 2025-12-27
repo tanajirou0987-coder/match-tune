@@ -169,7 +169,7 @@ function SingleDeviceQuestions() {
 
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
+    <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 lg:px-8">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -179,11 +179,11 @@ function SingleDeviceQuestions() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* トップに戻るボタン */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-4 pt-4 md:px-8 md:pt-8">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-4 pt-4 lg:px-8 lg:pt-8">
         <Button
           type="button"
           onClick={() => router.push("/")}
-          className="pointer-events-auto rounded-[28px] sm:rounded-[32px] border border-white/70 bg-white/95 backdrop-blur-md px-5 py-2 text-sm md:px-6 md:py-3 md:text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition hover:bg-white shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] text-shadow-[0px_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1"
+          className="pointer-events-auto rounded-[32px] border border-white/70 bg-white/95 backdrop-blur-md px-5 py-2 text-sm lg:px-6 lg:py-3 lg:text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition hover:bg-white shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] text-shadow-[0px_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1"
         >
           トップに戻る
         </Button>
@@ -215,8 +215,8 @@ function SingleDeviceQuestions() {
           })}
         </div>
 
-        <div className="mt-10 sm:mt-12 space-y-4 sm:space-y-6 text-center px-2 sm:px-0">
-          <p className="text-xs sm:text-sm font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-wider text-black/60 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-2">徹底診断（54問・約7分）</p>
+        <div className="mt-12 space-y-6 text-center">
+          <p className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-wider text-black/60 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-2">徹底診断（54問・約7分）</p>
           <CompletionSection
             step={step}
             answeredCount={step === "user" ? userAnswers.length : partnerAnswers.length}
@@ -405,7 +405,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
+    <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 lg:px-8">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -415,11 +415,11 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* トップに戻るボタン */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-4 pt-4 md:px-8 md:pt-8">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-4 pt-4 lg:px-8 lg:pt-8">
         <Button
           type="button"
           onClick={() => router.push("/")}
-          className="pointer-events-auto rounded-[28px] sm:rounded-[32px] border border-white/70 bg-white/95 backdrop-blur-md px-5 py-2 text-sm md:px-6 md:py-3 md:text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition hover:bg-white shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] text-shadow-[0px_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1"
+          className="pointer-events-auto rounded-[32px] border border-white/70 bg-white/95 backdrop-blur-md px-5 py-2 text-sm lg:px-6 lg:py-3 lg:text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black transition hover:bg-white shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] text-shadow-[0px_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1"
         >
           トップに戻る
         </Button>
@@ -492,8 +492,8 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
           })}
         </div>
 
-        <div className="mt-8 sm:mt-10 space-y-3 sm:space-y-4 rounded-[32px] sm:rounded-[40px] border border-white/70 bg-gradient-to-br from-pink-200/90 via-pink-100/90 to-pink-200/90 backdrop-blur-2xl p-6 sm:p-8 text-center shadow-[0px_24px_64px_rgba(255,182,193,0.25),0px_12px_32px_rgba(255,182,193,0.2),inset_0px_1px_0px_rgba(255,255,255,0.6)]">
-          <p className="text-[10px] sm:text-xs font-['Coming_Soon:Regular',sans-serif] font-semibold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-600 mb-3 sm:mb-4 drop-shadow-[0px_1px_2px_rgba(255,255,255,0.8)]">相性診断（54問） / セッション同期モード</p>
+        <div className="mt-10 space-y-4 rounded-[40px] border border-white/70 bg-gradient-to-br from-pink-200/90 via-pink-100/90 to-pink-200/90 backdrop-blur-2xl p-8 text-center shadow-[0px_24px_64px_rgba(255,182,193,0.25),0px_12px_32px_rgba(255,182,193,0.2),inset_0px_1px_0px_rgba(255,255,255,0.6)]">
+          <p className="text-xs font-['Coming_Soon:Regular',sans-serif] font-semibold uppercase tracking-[0.3em] text-gray-600 mb-4 drop-shadow-[0px_1px_2px_rgba(255,255,255,0.8)]">相性診断（54問） / セッション同期モード</p>
           {answers.length === TOTAL_QUESTIONS ? (
             <button
               onClick={handleComplete}

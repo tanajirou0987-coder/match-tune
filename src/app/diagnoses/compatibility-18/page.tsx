@@ -115,10 +115,10 @@ export default function Compatibility18StartPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="grid lg:grid-cols-2 gap-12 mb-12">
+            <div className="grid grid-cols-2 gap-12 mb-12">
               {/* 左カラム */}
               <div className="space-y-8">
-                <div className="text-center lg:text-left">
+                <div className="text-left">
                   <h1 className="text-7xl font-['Coming_Soon:Regular',sans-serif] font-normal mb-6 text-black text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                     QUICK 18
                   </h1>
