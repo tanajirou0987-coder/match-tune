@@ -37,7 +37,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 max-w-md mx-auto md:hidden py-6 px-4">
+      <div className="relative z-10 max-w-md mx-auto lg:hidden py-6 px-4">
         {/* ヘッダーセクション - Soft UIスタイル強化 */}
         <motion.section
           className="relative h-[240px] sm:h-[280px] rounded-[32px] sm:rounded-[40px] overflow-hidden mb-6 shadow-[0px_20px_60px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08)] border border-white/60"
@@ -256,7 +256,7 @@ export default function Home() {
       </div>
 
       {/* PC用レイアウト */}
-      <div className="hidden md:block relative z-10 max-w-7xl mx-auto px-8 py-20">
+      <div className="hidden lg:block relative z-10 max-w-7xl mx-auto px-8 py-20">
         {/* ヘッダーセクション - PC用 Soft UIスタイル強化 */}
         <motion.section
           className="relative h-[450px] rounded-[48px] overflow-hidden mb-16 shadow-[0px_30px_80px_rgba(0,0,0,0.15),0px_15px_40px_rgba(0,0,0,0.1)] border border-white/60"

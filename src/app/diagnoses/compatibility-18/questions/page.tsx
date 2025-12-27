@@ -119,7 +119,7 @@ export default function Compatibility18QuestionsPage() {
         </Button>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 mx-auto w-full max-w-md space-y-6 sm:space-y-8 md:hidden">
+      <div className="relative z-10 mx-auto w-full max-w-md space-y-6 sm:space-y-8 lg:hidden">
         <div className="text-center">
           <div className="inline-flex items-center gap-2 sm:gap-3 rounded-[24px] sm:rounded-[28px] md:rounded-[32px] border border-white/70 bg-gradient-to-br from-sky-200/90 via-sky-100/90 to-sky-200/90 backdrop-blur-md px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 shadow-[0px_12px_32px_rgba(135,206,235,0.3),0px_6px_16px_rgba(135,206,235,0.2),inset_0px_1px_0px_rgba(255,255,255,0.6)]">
             <span className="text-sm sm:text-base md:text-lg font-['Coming_Soon:Regular',sans-serif] font-semibold text-gray-900 drop-shadow-[0px_1px_2px_rgba(255,255,255,0.8)]">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
@@ -198,7 +198,7 @@ export default function Compatibility18QuestionsPage() {
       </div>
 
       {/* PC用レイアウト */}
-      <div className="hidden md:block relative z-10 mx-auto w-full max-w-7xl space-y-10">
+      <div className="hidden lg:block relative z-10 mx-auto w-full max-w-7xl space-y-10">
         <div className="text-center">
           <div className="inline-flex items-center gap-3 rounded-[32px] border border-white/70 bg-gradient-to-br from-sky-200/90 via-sky-100/90 to-sky-200/90 backdrop-blur-md px-8 py-4 shadow-[0px_12px_32px_rgba(135,206,235,0.3),0px_6px_16px_rgba(135,206,235,0.2),inset_0px_1px_0px_rgba(255,255,255,0.6)]">
             <span className="text-xl font-['Coming_Soon:Regular',sans-serif] font-semibold text-gray-900 drop-shadow-[0px_1px_2px_rgba(255,255,255,0.8)]">{step === "user" ? "自分の回答" : "パートナーの回答"}</span>
