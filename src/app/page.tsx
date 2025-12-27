@@ -37,7 +37,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 w-full lg:hidden py-6 px-3">
+      <div className="relative z-10 w-full lg:hidden py-6 px-2">
         {/* ヘッダーセクション - Soft UIスタイル強化 */}
         <motion.section
           className="relative h-[280px] rounded-[40px] overflow-hidden mb-6 shadow-[0px_20px_60px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08)] border border-white/60"
@@ -60,7 +60,7 @@ export default function Home() {
         <div className="relative mb-12">
           {/* メインコンテンツエリア - Soft UIカード強化 */}
           <motion.div
-            className="relative bg-white/90 backdrop-blur-2xl rounded-[48px] shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)] px-8 py-10 border border-white/70"
+            className="relative bg-white/90 backdrop-blur-2xl rounded-[48px] shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)] px-4 py-10 border border-white/70"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -79,7 +79,7 @@ export default function Home() {
 
             {/* クイックアクションボタン - Soft UIスタイル強化 */}
             <motion.div
-              className="flex flex-col gap-4 mb-10 px-2"
+              className="flex flex-col gap-4 mb-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
@@ -159,7 +159,7 @@ export default function Home() {
                       transition={{ duration: 0.3 }}
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative z-10 text-center px-6 max-w-[320px] mx-auto">
+                      <div className="relative z-10 text-center px-4">
                         <div className="text-xs font-['Coming_Soon:Regular',sans-serif] font-semibold uppercase tracking-[0.3em] mb-2 text-gray-700 drop-shadow-[0px_1px_2px_rgba(255,255,255,0.8)]">
                           {mode.duration}
                         </div>
@@ -190,7 +190,7 @@ export default function Home() {
             >
               <div className="text-center mb-8">
                 <p className="text-xs font-['Coming_Soon:Regular',sans-serif] font-semibold uppercase tracking-[0.5em] text-gray-600 mb-4">使い方</p>
-                <h3 className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-bold text-gray-900 drop-shadow-[0px_2px_8px_rgba(255,255,255,0.8)] whitespace-nowrap">かんたん3ステップ</h3>
+                <h3 className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-bold text-gray-900 drop-shadow-[0px_2px_8px_rgba(255,255,255,0.8)]">かんたん3ステップ</h3>
               </div>
               <div className="grid grid-cols-3 gap-8">
                 {[
@@ -224,24 +224,24 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <div className="rounded-[40px] bg-gradient-to-br from-yellow-50/90 via-amber-50/90 to-yellow-50/90 backdrop-blur-2xl p-10 shadow-[0px_24px_64px_rgba(255,248,220,0.35),0px_12px_32px_rgba(255,248,220,0.25),inset_0px_1px_0px_rgba(255,255,255,0.7)] border border-white/70">
-                <h3 className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-bold text-gray-900 mb-6 drop-shadow-[0px_2px_8px_rgba(255,255,255,0.9)] leading-[1.4] mx-auto max-w-[360px]">
+                <h3 className="text-3xl font-['Coming_Soon:Regular',sans-serif] font-bold text-gray-900 mb-6 drop-shadow-[0px_2px_8px_rgba(255,255,255,0.9)] leading-[1.4]">
                   今日の2人の温度を<br />
                   診断してみる
                 </h3>
-                <p className="text-base font-['Coming_Soon:Regular',sans-serif] font-medium text-gray-700 mb-10 leading-[1.7] mx-auto max-w-[380px] drop-shadow-[0px_1px_4px_rgba(255,255,255,0.8)]">
+                <p className="text-base font-['Coming_Soon:Regular',sans-serif] font-medium text-gray-700 mb-10 leading-[1.7] drop-shadow-[0px_1px_4px_rgba(255,255,255,0.8)]">
                   気分が上がる前にサッと診断したい日も、<br />
                   じっくり語り合いたい日もOK。
                 </p>
-                <div className="flex flex-col gap-4 items-center">
+                <div className="flex flex-col gap-4">
                   <Link
                     href="/diagnoses/compatibility-54"
-                    className="px-10 py-5 text-lg font-['Coming_Soon:Regular',sans-serif] font-bold rounded-[32px] bg-white/95 backdrop-blur-md text-gray-900 shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 border border-white/80 w-full max-w-[320px]"
+                    className="px-10 py-5 text-lg font-['Coming_Soon:Regular',sans-serif] font-bold rounded-[32px] bg-white/95 backdrop-blur-md text-gray-900 shadow-[0px_16px_48px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.9)] hover:shadow-[0px_20px_60px_rgba(0,0,0,0.16),0px_10px_30px_rgba(0,0,0,0.12),inset_0px_1px_0px_rgba(255,255,255,1)] transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 border border-white/80 w-full"
                   >
                     徹底診断を始める
                   </Link>
                   <Link
                     href="/diagnoses/compatibility-18"
-                    className="px-10 py-5 text-lg font-['Coming_Soon:Regular',sans-serif] font-bold rounded-[32px] bg-gradient-to-br from-pink-300/90 via-pink-200/90 to-pink-300/90 backdrop-blur-md text-gray-900 shadow-[0px_16px_48px_rgba(255,182,193,0.4),0px_8px_24px_rgba(255,182,193,0.3),inset_0px_1px_0px_rgba(255,255,255,0.7)] hover:shadow-[0px_20px_60px_rgba(255,182,193,0.5),0px_10px_30px_rgba(255,182,193,0.4),inset_0px_1px_0px_rgba(255,255,255,0.9)] transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 border border-white/70 w-full max-w-[320px]"
+                    className="px-10 py-5 text-lg font-['Coming_Soon:Regular',sans-serif] font-bold rounded-[32px] bg-gradient-to-br from-pink-300/90 via-pink-200/90 to-pink-300/90 backdrop-blur-md text-gray-900 shadow-[0px_16px_48px_rgba(255,182,193,0.4),0px_8px_24px_rgba(255,182,193,0.3),inset_0px_1px_0px_rgba(255,255,255,0.7)] hover:shadow-[0px_20px_60px_rgba(255,182,193,0.5),0px_10px_30px_rgba(255,182,193,0.4),inset_0px_1px_0px_rgba(255,255,255,0.9)] transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 border border-white/70 w-full"
                   >
                     クイック診断
                   </Link>
@@ -295,7 +295,7 @@ export default function Home() {
 
             {/* クイックアクションボタン - PC用 Soft UIスタイル強化 */}
             <motion.div
-              className="flex flex-col gap-5 mb-12 max-w-md mx-auto"
+              className="flex flex-col gap-5 mb-12 max-w-lg mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
@@ -316,7 +316,7 @@ export default function Home() {
 
             {/* 統計セクション - PC用 Soft UIスタイル強化 */}
             <motion.div
-              className="grid grid-cols-3 gap-6 mb-12 max-w-2xl mx-auto"
+              className="grid grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -341,7 +341,7 @@ export default function Home() {
             </motion.div>
 
             {/* 診断モードカード - PC用 Soft UIスタイル強化 */}
-            <div className="space-y-6 mb-12 max-w-2xl mx-auto">
+            <div className="space-y-6 mb-12 max-w-3xl mx-auto">
               <motion.div
                 className="text-center mb-8"
                 initial={{ opacity: 0, y: 20 }}

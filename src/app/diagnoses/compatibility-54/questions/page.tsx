@@ -169,7 +169,7 @@ function SingleDeviceQuestions() {
 
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-3 py-12 lg:px-12">
+    <div className="relative min-h-screen w-full overflow-hidden px-2 py-12 lg:px-12">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -179,7 +179,7 @@ function SingleDeviceQuestions() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* トップに戻るボタン */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-3 pt-4 lg:px-12 lg:pt-8">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-2 pt-4 lg:px-12 lg:pt-8">
         <Button
           type="button"
           onClick={() => router.push("/")}
@@ -405,7 +405,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-3 py-12 lg:px-12">
+    <div className="relative min-h-screen w-full overflow-hidden px-2 py-12 lg:px-12">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -415,7 +415,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* トップに戻るボタン */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-3 pt-4 lg:px-12 lg:pt-8">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-2 pt-4 lg:px-12 lg:pt-8">
         <Button
           type="button"
           onClick={() => router.push("/")}

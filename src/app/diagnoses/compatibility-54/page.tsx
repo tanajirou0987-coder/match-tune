@@ -17,10 +17,10 @@ export default function Compatibility54StartPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 min-h-screen px-3 py-12 lg:hidden">
+      <div className="relative z-10 min-h-screen px-2 py-12 lg:hidden">
         <div className="relative mx-auto w-full">
         <motion.main
-          className="rounded-[48px] border border-white/70 bg-white/90 backdrop-blur-2xl p-8 shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)]"
+          className="rounded-[48px] border border-white/70 bg-white/90 backdrop-blur-2xl p-5 shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -30,7 +30,7 @@ export default function Compatibility54StartPage() {
               DEEP 54
             </h1>
             <p className="text-xl font-['Coming_Soon:Regular',sans-serif] font-normal text-black mb-2 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">徹底相性診断</p>
-            <p className="text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black/80 max-w-2xl mx-auto leading-relaxed text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+            <p className="text-base font-['Coming_Soon:Regular',sans-serif] font-normal text-black/80 leading-relaxed text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
               54問で価値観から生活リズムまで照射。<br />
               ひとつずつ丁寧に進められるので、相手と共有する前に自分の感覚も整理できます。
             </p>
