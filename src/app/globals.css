@@ -84,19 +84,20 @@
     @apply border-border outline-ring/50;
   }
   html {
-    background: transparent;
+    background: #ffffff;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
   }
   body {
-    @apply min-h-screen bg-transparent text-foreground antialiased;
+    @apply min-h-screen text-foreground antialiased;
     font-family: var(--font-lato), sans-serif;
     font-feature-settings: "liga" 1, "calt" 1;
     text-rendering: optimizeLegibility;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    background: #ffffff;
   }
 
   ::selection {

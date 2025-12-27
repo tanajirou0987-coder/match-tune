@@ -69,7 +69,8 @@ function ResultContent() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 text-gray-700">
+      <div className="relative w-full min-h-screen flex items-center justify-center text-gray-700">
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
         結果を計算中...
       </div>
     );
@@ -77,7 +78,8 @@ function ResultContent() {
 
   if (error || !userType || !partnerType || !compatibility || !detailedAnalysis || percentile === null || !rank) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 px-4 text-gray-800">
+      <div className="relative w-full min-h-screen flex items-center justify-center px-4 text-gray-800">
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
         <div className="space-y-4 rounded-[32px] border border-white/70 bg-white/90 backdrop-blur-2xl p-6 text-center shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)]">
           <p>{error || "結果を取得できませんでした"}</p>
           <Button onClick={() => router.push("/diagnoses/compatibility-54")}>
@@ -91,7 +93,9 @@ function ResultContent() {
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50">
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* 背景を全画面に固定 */}
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
@@ -127,7 +131,8 @@ export default function Compatibility54ResultPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 text-gray-700">
+        <div className="relative w-full min-h-screen flex items-center justify-center text-gray-700">
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
           結果を読み込み中...
         </div>
       }

@@ -99,7 +99,9 @@ export default function Compatibility18QuestionsPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 px-3 sm:px-4 py-8 sm:py-10 lg:px-8">
+    <div className="relative min-h-screen w-full overflow-hidden px-3 sm:px-4 py-8 sm:py-10 lg:px-8">
+      {/* 背景を全画面に固定 */}
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
