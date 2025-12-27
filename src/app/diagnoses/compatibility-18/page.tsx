@@ -17,8 +17,8 @@ export default function Compatibility18StartPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 min-h-screen px-4 py-12 lg:hidden">
-        <div className="relative mx-auto w-full max-w-md">
+      <div className="relative z-10 min-h-screen px-3 py-12 lg:hidden">
+        <div className="relative mx-auto w-full">
         <motion.main
           className="rounded-[48px] border border-white/70 bg-white/90 backdrop-blur-2xl p-8 shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)]"
           initial={{ opacity: 0, y: 20 }}

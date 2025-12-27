@@ -169,7 +169,7 @@ function SingleDeviceQuestions() {
 
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 lg:px-8">
+    <div className="relative min-h-screen w-full overflow-hidden px-3 py-12 lg:px-12">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -179,7 +179,7 @@ function SingleDeviceQuestions() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* トップに戻るボタン */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-4 pt-4 lg:px-8 lg:pt-8">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-3 pt-4 lg:px-12 lg:pt-8">
         <Button
           type="button"
           onClick={() => router.push("/")}
@@ -189,7 +189,7 @@ function SingleDeviceQuestions() {
         </Button>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 mx-auto w-full max-w-md space-y-10 lg:hidden">
+      <div className="relative z-10 mx-auto w-full space-y-10 lg:hidden">
         <StepHeader step={step} variant="mobile" />
         <ProgressBar answeredCount={answeredCount} totalQuestions={TOTAL_QUESTIONS} variant="mobile" />
 
@@ -255,7 +255,7 @@ function SingleDeviceQuestions() {
           })}
         </div>
 
-        <div className="mt-12 space-y-6 text-center px-4">
+        <div className="mt-12 space-y-6 text-center">
           <p className="text-sm font-['Coming_Soon:Regular',sans-serif] font-normal uppercase tracking-wider text-black/60 text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] mb-2">徹底診断（54問・約7分）</p>
           <CompletionSection
             step={step}
@@ -405,7 +405,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 lg:px-8">
+    <div className="relative min-h-screen w-full overflow-hidden px-3 py-12 lg:px-12">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -415,7 +415,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* トップに戻るボタン */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-4 pt-4 lg:px-8 lg:pt-8">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-end px-3 pt-4 lg:px-12 lg:pt-8">
         <Button
           type="button"
           onClick={() => router.push("/")}
@@ -425,7 +425,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
         </Button>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 mx-auto w-full max-w-md space-y-10 lg:hidden">
+      <div className="relative z-10 mx-auto w-full space-y-10 lg:hidden">
         <div className="rounded-[32px] border border-white/70 bg-white/90 backdrop-blur-2xl p-4 shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)]">
           <div className="flex flex-col gap-3 text-center mb-4">
             <div className="inline-flex items-center justify-center gap-2 rounded-[32px] border border-white/70 bg-gradient-to-br from-pink-200/90 via-pink-100/90 to-pink-200/90 backdrop-blur-md px-4 py-2 shadow-[0px_12px_32px_rgba(255,182,193,0.3),0px_6px_16px_rgba(255,182,193,0.2),inset_0px_1px_0px_rgba(255,255,255,0.6)]">

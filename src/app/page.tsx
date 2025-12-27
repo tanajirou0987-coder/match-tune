@@ -37,7 +37,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-200/20 rounded-full blur-3xl"></div>
       </div>
       {/* スマホ用レイアウト */}
-      <div className="relative z-10 max-w-md mx-auto lg:hidden py-6 px-4">
+      <div className="relative z-10 w-full lg:hidden py-6 px-3">
         {/* ヘッダーセクション - Soft UIスタイル強化 */}
         <motion.section
           className="relative h-[280px] rounded-[40px] overflow-hidden mb-6 shadow-[0px_20px_60px_rgba(0,0,0,0.12),0px_8px_24px_rgba(0,0,0,0.08)] border border-white/60"
