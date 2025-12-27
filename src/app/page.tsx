@@ -273,15 +273,20 @@ export default function Home() {
         </motion.section>
 
         {/* メインコンテンツエリア - PC用 Soft UIスタイル強化 */}
-        <div className="grid grid-cols-2 gap-12 mb-16">
-          {/* 左カラム */}
-          <div className="space-y-10">
+        <div className="relative mb-16">
+          {/* メインコンテンツエリア - Soft UIカード強化 */}
+          <motion.div
+            className="relative bg-white/90 backdrop-blur-2xl rounded-[48px] shadow-[0px_30px_80px_rgba(0,0,0,0.12),0px_15px_40px_rgba(0,0,0,0.08),inset_0px_1px_0px_rgba(255,255,255,0.8)] px-12 py-16 border border-white/70"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
             {/* ロゴ/タイトル - PC用 Soft UIスタイル */}
             <motion.div
-              className="text-left"
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="text-center mb-10 pt-4"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
             >
               <h1 className="text-7xl font-['Coming_Soon:Regular',sans-serif] font-bold tracking-[-0.03em] mb-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent drop-shadow-[0px_4px_12px_rgba(0,0,0,0.1)]">
                 トリンクシーのふたり診断
@@ -290,10 +295,10 @@ export default function Home() {
 
             {/* クイックアクションボタン - PC用 Soft UIスタイル強化 */}
             <motion.div
-              className="flex flex-col gap-5"
+              className="flex flex-col gap-5 mb-12 max-w-md mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
             >
               <Link
                 href="/diagnoses/compatibility-54"
@@ -311,10 +316,10 @@ export default function Home() {
 
             {/* 統計セクション - PC用 Soft UIスタイル強化 */}
             <motion.div
-              className="grid grid-cols-3 gap-6"
+              className="grid grid-cols-3 gap-6 mb-12 max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
             >
               {[
                 { label: "質問", value: "18/54" },
@@ -326,7 +331,7 @@ export default function Home() {
                   className="rounded-[36px] bg-white/85 backdrop-blur-lg p-8 shadow-[0px_16px_48px_rgba(0,0,0,0.1),0px_8px_24px_rgba(0,0,0,0.06),inset_0px_1px_0px_rgba(255,255,255,0.9)] text-center border border-white/70 hover:shadow-[0px_20px_60px_rgba(0,0,0,0.15),0px_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300"
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 + i * 0.1, ease: "easeOut" }}
+                  transition={{ duration: 0.5, delay: 0.9 + i * 0.1, ease: "easeOut" }}
                   whileHover={{ scale: 1.05, y: -4 }}
                 >
                   <div className="text-4xl font-['Coming_Soon:Regular',sans-serif] font-bold text-gray-900 mb-2 drop-shadow-[0px_2px_4px_rgba(0,0,0,0.1)]">{stat.value}</div>
@@ -334,12 +339,9 @@ export default function Home() {
                 </motion.div>
               ))}
             </motion.div>
-          </div>
 
-          {/* 右カラム */}
-          <div className="space-y-10">
             {/* 診断モードカード - PC用 Soft UIスタイル強化 */}
-            <div className="space-y-6">
+            <div className="space-y-6 mb-12 max-w-2xl mx-auto">
               <motion.div
                 className="text-center mb-8"
                 initial={{ opacity: 0, y: 20 }}
@@ -393,7 +395,7 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* 使い方セクション - PC用 Soft UIスタイル強化 */}
