@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -419,11 +419,38 @@ export default function SharePreview({
 }: SharePreviewProps) {
   const [isDownloading, setIsDownloading] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const roundedPercentile = Math.round(percentile);
   const displayPercentile = roundedPercentile;
   const percentileDisplay = `上位${displayPercentile}%`;
   const rankInfo = getCompatibilityRank(displayPercentile);
   const rankImagePath = getRankImagePath(rankInfo.rank);
+
+  // モーダルが開いたときにスクロール位置をトップに戻す
+  useEffect(() => {
+    if (isOpen) {
+      // モーダルが開いたときにスクロール位置をトップに戻す
+      const scrollToTop = () => {
+        if (containerRef.current) {
+          containerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+        }
+        // フォールバック: windowもスクロール
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (document.documentElement) {
+          document.documentElement.scrollTop = 0;
+        }
+        if (document.body) {
+          document.body.scrollTop = 0;
+        }
+      };
+      
+      // 即座にスクロール
+      scrollToTop();
+      // 少し待ってからもう一度（レンダリング後に確実に）
+      setTimeout(scrollToTop, 100);
+      setTimeout(scrollToTop, 300);
+    }
+  }, [isOpen]);
 
   const handleDownloadImage = async () => {
     if (!cardRef.current) {
@@ -574,6 +601,7 @@ export default function SharePreview({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={containerRef}
             className={`fixed inset-0 z-50 bg-black backdrop-blur-md ${
               isMobile ? 'overflow-y-auto' : 'flex items-center justify-center p-4 overflow-y-auto'
             }`}
