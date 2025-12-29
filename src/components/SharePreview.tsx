@@ -481,13 +481,17 @@ export default function SharePreview({
     }
   };
 
+  const isMobile = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   return (
     <>
       {/* ダウンロード用の非表示DOMは不要（canvasで直接生成するため） */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 overflow-y-auto"
+            className={`fixed inset-0 z-50 bg-black backdrop-blur-md overflow-y-auto ${
+              isMobile ? 'p-0' : 'flex items-center justify-center p-4'
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -495,17 +499,35 @@ export default function SharePreview({
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             <motion.div
-              className="relative w-full max-w-md my-auto rounded-2xl bg-black/90"
-              initial={{ scale: 0.95, y: 20, opacity: 0 }}
+              className={`relative w-full ${
+                isMobile 
+                  ? 'min-h-screen py-4 px-2' 
+                  : 'max-w-md my-auto rounded-2xl bg-black/90'
+              }`}
+              initial={{ scale: isMobile ? 1 : 0.95, y: isMobile ? 0 : 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.95, y: 20, opacity: 0 }}
+              exit={{ scale: isMobile ? 1 : 0.95, y: isMobile ? 0 : 20, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex flex-col items-center gap-3 py-6 px-4">
+              {/* 右上の×ボタン */}
+              <button
+                onClick={onClose}
+                className={`fixed top-4 right-4 rounded-full bg-black/70 p-3 text-white/90 shadow-lg hover:bg-black/80 z-50 transition-all ${
+                  isMobile ? 'bg-white/20 backdrop-blur-md' : ''
+                }`}
+                aria-label="シェア画面を閉じる"
+              >
+                <X className="h-6 w-6" />
+              </button>
+
+              {!isMobile && (
+                <div className="flex flex-col items-center gap-3 py-6 px-4">
                   <p className="text-xs uppercase tracking-[0.45em] text-white/70">Share Card Preview</p>
                   <h3 className="text-2xl font-semibold text-white sm:text-3xl">シェア画像</h3>
                 </div>
-              <div className="w-full max-w-[350px] mx-auto px-4">
+              )}
+              
+              <div className={`w-full ${isMobile ? 'max-w-full' : 'max-w-[350px]'} mx-auto ${isMobile ? 'px-2' : 'px-4'}`}>
                 <div className="relative w-full" style={{ aspectRatio: "700 / 1080" }}>
                   {/* プレビュー表示用（このDOMを直接画像化） */}
                   <div ref={cardRef} className="absolute inset-0 h-full w-full">
@@ -524,24 +546,20 @@ export default function SharePreview({
                   </div>
                 </div>
               </div>
-              <div className="my-6 flex items-center justify-center gap-3 px-4 pb-4">
+              
+              <div className={`${isMobile ? 'my-8 px-4 pb-8' : 'my-6 px-4 pb-4'} flex items-center justify-center gap-3`}>
                 <Button
                   type="button"
                   onClick={handleDownloadImage}
-                  className="rounded-full bg-white/90 px-8 text-zinc-900 font-bold shadow-lg hover:bg-white disabled:cursor-not-allowed disabled:opacity-70"
-                  size="lg"
+                  className={`rounded-full bg-white/90 px-8 text-zinc-900 font-bold shadow-lg hover:bg-white disabled:cursor-not-allowed disabled:opacity-70 ${
+                    isMobile ? 'w-full py-6 text-lg' : ''
+                  }`}
+                  size={isMobile ? "lg" : "lg"}
                   disabled={isDownloading}
                 >
                   {isDownloading ? "生成中..." : "画像をダウンロード"}
                 </Button>
               </div>
-              <button
-                  onClick={onClose}
-                  className="absolute top-0 right-0 m-4 rounded-full bg-black/50 p-2 text-white/80 shadow-md hover:bg-black/70 z-10"
-                  aria-label="シェア画面を閉じる"
-                >
-                  <X className="h-5 w-5" />
-                </button>
             </motion.div>
           </motion.div>
         )}

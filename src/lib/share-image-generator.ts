@@ -1085,16 +1085,42 @@ export function downloadImage(blob: Blob, filename: string): void {
 
 /**
  * Web Share APIで共有、またはダウンロードにフォールバック
+ * iPhoneではWeb Share APIを使って「写真に保存」を選べるようにする
  */
 export async function shareOrDownloadImage(
   blob: Blob,
   filename: string,
   shareData?: { title: string; text: string }
 ): Promise<void> {
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isMobile = isIOS || isAndroid;
   
-  // モバイルでWeb Share APIが利用可能な場合
-  if (isMobile && navigator.share) {
+  // iOSでWeb Share APIが利用可能な場合（写真に保存を選べる）
+  if (isIOS && navigator.share) {
+    try {
+      const file = new File([blob], filename, { type: "image/png" });
+      
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: shareData?.title || "相性診断結果",
+          text: shareData?.text || "",
+        });
+        return;
+      }
+    } catch (error: unknown) {
+      // ユーザーがキャンセルした場合は何もしない
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return;
+      }
+      // その他のエラーの場合はダウンロードにフォールバック
+      console.log("Web Share API failed, falling back to download", error);
+    }
+  }
+  
+  // AndroidでWeb Share APIが利用可能な場合
+  if (isAndroid && navigator.share) {
     try {
       const file = new File([blob], filename, { type: "image/png" });
       
