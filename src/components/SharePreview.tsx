@@ -612,7 +612,7 @@ export default function SharePreview({
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {isMobile ? (
-              <div className="w-full min-h-screen flex flex-col">
+              <div className="w-full flex flex-col">
                 {/* 右上の×ボタン */}
                 <button
                   onClick={onClose}
@@ -622,14 +622,14 @@ export default function SharePreview({
                   <X className="h-6 w-6" />
                 </button>
 
-                {/* タイトル */}
-                <div className="flex flex-col items-center gap-2 pt-20 pb-4 px-4">
+                {/* タイトル - 最小限の高さ */}
+                <div className="flex flex-col items-center gap-1 pt-12 pb-2 px-4 w-full">
                   <p className="text-xs uppercase tracking-[0.45em] text-white/70">Share Card Preview</p>
-                  <h3 className="text-xl font-semibold text-white">シェア画像</h3>
+                  <h3 className="text-base font-semibold text-white">シェア画像</h3>
                 </div>
                 
-                {/* 画像コンテナ - 画面全面に表示 */}
-                <div className="w-full flex-1 flex items-start justify-center px-2">
+                {/* 画像コンテナ - 画面の上部から表示 */}
+                <div className="w-full flex items-center justify-center px-2">
                   <div className="relative w-full max-w-full" style={{ aspectRatio: "700 / 1080" }}>
                     {/* プレビュー表示用（このDOMを直接画像化） */}
                     <div ref={cardRef} className="absolute inset-0 h-full w-full">
@@ -650,7 +650,7 @@ export default function SharePreview({
                 </div>
                 
                 {/* ダウンロードボタン */}
-                <div className="mt-8 mb-8 px-4 flex items-center justify-center gap-3">
+                <div className="mt-6 mb-8 px-4 w-full flex items-center justify-center gap-3">
                   <Button
                     type="button"
                     onClick={handleDownloadImage}
