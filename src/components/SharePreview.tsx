@@ -425,6 +425,7 @@ export default function SharePreview({
   const percentileDisplay = `上位${displayPercentile}%`;
   const rankInfo = getCompatibilityRank(displayPercentile);
   const rankImagePath = getRankImagePath(rankInfo.rank);
+  const isMobile = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   // モーダルが開いたときにスクロール位置をトップに戻す
   useEffect(() => {
@@ -605,8 +606,6 @@ export default function SharePreview({
       setIsDownloading(false);
     }
   };
-
-  const isMobile = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   return (
     <>
