@@ -583,76 +583,112 @@ export default function SharePreview({
             onClick={onClose}
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            <motion.div
-              className={`relative w-full ${
-                isMobile 
-                  ? 'flex flex-col min-h-screen' 
-                  : 'max-w-md my-auto rounded-2xl bg-black/90'
-              }`}
-              initial={{ scale: isMobile ? 1 : 0.95, y: isMobile ? 0 : 20, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: isMobile ? 1 : 0.95, y: isMobile ? 0 : 20, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* 右上の×ボタン */}
-              <button
-                onClick={onClose}
-                className={`fixed top-4 right-4 rounded-full bg-black/70 p-3 text-white/90 shadow-lg hover:bg-black/80 z-50 transition-all ${
-                  isMobile ? 'bg-white/20 backdrop-blur-md' : ''
-                }`}
-                aria-label="シェア画面を閉じる"
-              >
-                <X className="h-6 w-6" />
-              </button>
+            {isMobile ? (
+              <div className="w-full min-h-screen flex flex-col">
+                {/* 右上の×ボタン */}
+                <button
+                  onClick={onClose}
+                  className="fixed top-4 right-4 rounded-full bg-white/20 backdrop-blur-md p-3 text-white/90 shadow-lg hover:bg-white/30 z-50 transition-all"
+                  aria-label="シェア画面を閉じる"
+                >
+                  <X className="h-6 w-6" />
+                </button>
 
-              {!isMobile && (
+                {/* タイトル */}
+                <div className="flex flex-col items-center gap-2 pt-20 pb-4 px-4">
+                  <p className="text-xs uppercase tracking-[0.45em] text-white/70">Share Card Preview</p>
+                  <h3 className="text-xl font-semibold text-white">シェア画像</h3>
+                </div>
+                
+                {/* 画像コンテナ - 画面全面に表示 */}
+                <div className="w-full flex-1 flex items-start justify-center px-2">
+                  <div className="relative w-full max-w-full" style={{ aspectRatio: "700 / 1080" }}>
+                    {/* プレビュー表示用（このDOMを直接画像化） */}
+                    <div ref={cardRef} className="absolute inset-0 h-full w-full">
+                      <ShareImageCard
+                        score={score}
+                        percentileDisplay={percentileDisplay}
+                        userNickname={userNickname}
+                        partnerNickname={partnerNickname}
+                        rankInfo={rankInfo}
+                        rankImagePath={rankImagePath}
+                        message={message}
+                        userTypeCode={userTypeCode}
+                        partnerTypeCode={partnerTypeCode}
+                        className="h-full w-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* ダウンロードボタン */}
+                <div className="mt-8 mb-8 px-4 flex items-center justify-center gap-3">
+                  <Button
+                    type="button"
+                    onClick={handleDownloadImage}
+                    className="rounded-full bg-white/90 px-8 text-zinc-900 font-bold shadow-lg hover:bg-white disabled:cursor-not-allowed disabled:opacity-70 w-full py-6 text-lg"
+                    size="lg"
+                    disabled={isDownloading}
+                  >
+                    {isDownloading ? "生成中..." : "画像をダウンロード"}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <motion.div
+                className="relative w-full max-w-md my-auto rounded-2xl bg-black/90"
+                initial={{ scale: 0.95, y: 20, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                exit={{ scale: 0.95, y: 20, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* 右上の×ボタン */}
+                <button
+                  onClick={onClose}
+                  className="fixed top-4 right-4 rounded-full bg-black/70 p-3 text-white/90 shadow-lg hover:bg-black/80 z-50 transition-all"
+                  aria-label="シェア画面を閉じる"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+
                 <div className="flex flex-col items-center gap-3 py-6 px-4">
                   <p className="text-xs uppercase tracking-[0.45em] text-white/70">Share Card Preview</p>
                   <h3 className="text-2xl font-semibold text-white sm:text-3xl">シェア画像</h3>
                 </div>
-              )}
-              
-              {isMobile && (
-                <div className="flex flex-col items-center gap-2 pt-16 pb-4 px-4">
-                  <p className="text-xs uppercase tracking-[0.45em] text-white/70">Share Card Preview</p>
-                  <h3 className="text-xl font-semibold text-white">シェア画像</h3>
-                </div>
-              )}
-              
-              <div className={`w-full ${isMobile ? 'flex-1 flex items-start justify-center px-2' : 'max-w-[350px] mx-auto px-4'}`}>
-                <div className={`relative w-full ${isMobile ? 'max-w-full' : ''}`} style={{ aspectRatio: "700 / 1080" }}>
-                  {/* プレビュー表示用（このDOMを直接画像化） */}
-                  <div ref={cardRef} className="absolute inset-0 h-full w-full">
-                    <ShareImageCard
-                      score={score}
-                      percentileDisplay={percentileDisplay}
-                      userNickname={userNickname}
-                      partnerNickname={partnerNickname}
-                      rankInfo={rankInfo}
-                      rankImagePath={rankImagePath}
-                      message={message}
-                      userTypeCode={userTypeCode}
-                      partnerTypeCode={partnerTypeCode}
-                      className="h-full w-full"
-                    />
+                
+                <div className="w-full max-w-[350px] mx-auto px-4">
+                  <div className="relative w-full" style={{ aspectRatio: "700 / 1080" }}>
+                    {/* プレビュー表示用（このDOMを直接画像化） */}
+                    <div ref={cardRef} className="absolute inset-0 h-full w-full">
+                      <ShareImageCard
+                        score={score}
+                        percentileDisplay={percentileDisplay}
+                        userNickname={userNickname}
+                        partnerNickname={partnerNickname}
+                        rankInfo={rankInfo}
+                        rankImagePath={rankImagePath}
+                        message={message}
+                        userTypeCode={userTypeCode}
+                        partnerTypeCode={partnerTypeCode}
+                        className="h-full w-full"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className={`${isMobile ? 'mt-8 mb-8 px-4' : 'my-6 px-4 pb-4'} flex items-center justify-center gap-3`}>
-                <Button
-                  type="button"
-                  onClick={handleDownloadImage}
-                  className={`rounded-full bg-white/90 px-8 text-zinc-900 font-bold shadow-lg hover:bg-white disabled:cursor-not-allowed disabled:opacity-70 ${
-                    isMobile ? 'w-full py-6 text-lg' : ''
-                  }`}
-                  size={isMobile ? "lg" : "lg"}
-                  disabled={isDownloading}
-                >
-                  {isDownloading ? "生成中..." : "画像をダウンロード"}
-                </Button>
-              </div>
-            </motion.div>
+                
+                <div className="my-6 px-4 pb-4 flex items-center justify-center gap-3">
+                  <Button
+                    type="button"
+                    onClick={handleDownloadImage}
+                    className="rounded-full bg-white/90 px-8 text-zinc-900 font-bold shadow-lg hover:bg-white disabled:cursor-not-allowed disabled:opacity-70"
+                    size="lg"
+                    disabled={isDownloading}
+                  >
+                    {isDownloading ? "生成中..." : "画像をダウンロード"}
+                  </Button>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
