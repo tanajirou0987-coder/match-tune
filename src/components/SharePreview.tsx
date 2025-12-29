@@ -428,13 +428,15 @@ export default function SharePreview({
 
   // モーダルが開いたときにスクロール位置をトップに戻す
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && isMobile) {
       // モーダルが開いたときにスクロール位置をトップに戻す
       const scrollToTop = () => {
+        // モーダルコンテナのスクロール位置をトップに
         if (containerRef.current) {
+          containerRef.current.scrollTop = 0;
           containerRef.current.scrollTo({ top: 0, behavior: 'instant' });
         }
-        // フォールバック: windowもスクロール
+        // windowのスクロール位置もリセット
         window.scrollTo({ top: 0, behavior: 'instant' });
         if (document.documentElement) {
           document.documentElement.scrollTop = 0;
@@ -442,15 +444,26 @@ export default function SharePreview({
         if (document.body) {
           document.body.scrollTop = 0;
         }
+        // すべてのスクロール可能な要素をリセット
+        const scrollableElements = document.querySelectorAll('[style*="overflow"]');
+        scrollableElements.forEach((el) => {
+          if (el instanceof HTMLElement && el.scrollTop > 0) {
+            el.scrollTop = 0;
+          }
+        });
       };
       
-      // 即座にスクロール
+      // 即座にスクロール（複数回実行して確実に）
       scrollToTop();
-      // 少し待ってからもう一度（レンダリング後に確実に）
-      setTimeout(scrollToTop, 100);
-      setTimeout(scrollToTop, 300);
+      requestAnimationFrame(() => {
+        scrollToTop();
+        setTimeout(scrollToTop, 50);
+        setTimeout(scrollToTop, 100);
+        setTimeout(scrollToTop, 200);
+        setTimeout(scrollToTop, 300);
+      });
     }
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   const handleDownloadImage = async () => {
     if (!cardRef.current) {
@@ -612,7 +625,7 @@ export default function SharePreview({
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {isMobile ? (
-              <div className="w-full flex flex-col">
+              <div className="w-full flex flex-col" style={{ minHeight: '100vh' }}>
                 {/* 右上の×ボタン */}
                 <button
                   onClick={onClose}
@@ -623,13 +636,13 @@ export default function SharePreview({
                 </button>
 
                 {/* タイトル - 最小限の高さ */}
-                <div className="flex flex-col items-center gap-1 pt-12 pb-2 px-4 w-full">
+                <div className="flex flex-col items-center gap-1 pt-12 pb-3 px-4 w-full flex-shrink-0">
                   <p className="text-xs uppercase tracking-[0.45em] text-white/70">Share Card Preview</p>
                   <h3 className="text-base font-semibold text-white">シェア画像</h3>
                 </div>
                 
                 {/* 画像コンテナ - 画面の上部から表示 */}
-                <div className="w-full flex items-center justify-center px-2">
+                <div className="w-full flex items-center justify-center px-2 flex-shrink-0">
                   <div className="relative w-full max-w-full" style={{ aspectRatio: "700 / 1080" }}>
                     {/* プレビュー表示用（このDOMを直接画像化） */}
                     <div ref={cardRef} className="absolute inset-0 h-full w-full">
@@ -650,7 +663,7 @@ export default function SharePreview({
                 </div>
                 
                 {/* ダウンロードボタン */}
-                <div className="mt-6 mb-8 px-4 w-full flex items-center justify-center gap-3">
+                <div className="mt-6 mb-8 px-4 w-full flex items-center justify-center gap-3 flex-shrink-0">
                   <Button
                     type="button"
                     onClick={handleDownloadImage}
