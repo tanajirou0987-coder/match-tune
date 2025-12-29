@@ -575,14 +575,33 @@ export default function SharePreview({
       }
       
       // プレビュー画像のDOM要素をそのまま画像化
-      const blob = await toBlob(cardRef.current, {
-        pixelRatio: 2, // 高解像度
-        quality: 1.0,
-        cacheBust: true,
-      });
+      // スマホではメモリ制限があるため、pixelRatioを下げる
+      const pixelRatio = isMobile ? 1 : 2;
+      
+      let blob: Blob | null = null;
+      try {
+        blob = await toBlob(cardRef.current, {
+          pixelRatio: pixelRatio,
+          quality: 1.0,
+          cacheBust: true,
+        });
+      } catch (toBlobError) {
+        console.error("toBlob error:", toBlobError);
+        // リトライ: pixelRatioを1に下げて再試行
+        try {
+          blob = await toBlob(cardRef.current, {
+            pixelRatio: 1,
+            quality: 0.95,
+            cacheBust: true,
+          });
+        } catch (retryError) {
+          console.error("toBlob retry error:", retryError);
+          throw new Error(`画像の生成に失敗しました: ${retryError instanceof Error ? retryError.message : String(retryError)}`);
+        }
+      }
       
       if (!blob) {
-        throw new Error("画像の生成に失敗しました");
+        throw new Error("画像の生成に失敗しました（blobがnull）");
       }
       
       // 画像のダウンロードまたは共有
@@ -601,7 +620,17 @@ export default function SharePreview({
       
     } catch (error) {
       console.error("Failed to generate share image", error);
-      alert("画像の生成に失敗しました。\n\nもう一度お試しください。");
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error("Error details:", {
+        error,
+        errorMessage,
+        cardRefExists: !!cardRef.current,
+        cardRefDimensions: cardRef.current ? {
+          width: cardRef.current.offsetWidth,
+          height: cardRef.current.offsetHeight,
+        } : null,
+      });
+      alert(`画像の生成に失敗しました。\n\nエラー: ${errorMessage}\n\nもう一度お試しください。`);
     } finally {
       setIsDownloading(false);
     }
