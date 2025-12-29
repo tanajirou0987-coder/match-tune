@@ -199,76 +199,113 @@ const ShareImageButton: React.FC<{
       // フォントの読み込みを待つ
       await document.fonts.ready;
       
+      // レンダリングを待つ
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      
       // 画像の読み込みを確実に待つ
       const images = cardRef.current.querySelectorAll('img');
       const imagePromises = Array.from(images).map((img) => {
         return new Promise<void>((resolve) => {
+          // 既に読み込み済みで有効な画像の場合
           if (img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
-            setTimeout(() => resolve(), 200);
+            // さらに少し待ってから解決（レンダリングを確実にする）
+            setTimeout(() => resolve(), 500);
             return;
           }
           
           let resolved = false;
+          
           const resolveOnce = () => {
             if (!resolved) {
               resolved = true;
-              setTimeout(() => resolve(), 200);
+              // 画像が読み込まれた後、少し待ってから解決
+              setTimeout(() => resolve(), 500);
             }
           };
           
+          // 読み込み成功
           img.onload = () => {
+            // 画像が実際に読み込まれたか確認
             if (img.naturalWidth > 0 && img.naturalHeight > 0) {
               resolveOnce();
+            } else {
+              // 画像サイズが0の場合は再試行
+              setTimeout(() => {
+                if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                  resolveOnce();
+                } else {
+                  console.warn("画像のサイズが0です:", img.src);
+                  resolveOnce(); // エラーでも続行
+                }
+              }, 1000);
             }
           };
           
+          // エラーでも続行（フォールバック画像が表示される）
           img.onerror = () => {
             console.warn("画像の読み込みエラー:", img.src);
             resolveOnce();
           };
           
+          // タイムアウト（15秒に延長）
           setTimeout(() => {
             if (!resolved) {
               console.warn("画像の読み込みタイムアウト:", img.src);
               resolveOnce();
             }
-          }, 10000);
+          }, 15000);
           
+          // 画像が既に読み込み済みの場合でも、サイズを確認
           if (img.complete) {
             if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-              setTimeout(() => resolveOnce(), 200);
+              setTimeout(() => resolveOnce(), 500);
             } else {
+              // サイズが0の場合は、読み込みイベントを待つ
               setTimeout(() => {
                 if (img.naturalWidth > 0 && img.naturalHeight > 0) {
                   resolveOnce();
                 } else {
                   console.warn("画像が読み込み済みですがサイズが0です:", img.src);
-                  resolveOnce();
+                  resolveOnce(); // エラーでも続行
                 }
-              }, 1000);
+              }, 2000);
             }
           }
         });
       });
       
       await Promise.all(imagePromises);
-      await new Promise(resolve => setTimeout(resolve, 1000));
       
+      // レンダリング完了を待つ（画像が確実に表示されるまで）
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // requestAnimationFrameでレンダリングを確実にする
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      
+      // 画像が実際に表示されているか確認
       const allImagesLoaded = Array.from(images).every(img => {
         const isLoaded = img.complete && img.naturalWidth > 0 && img.naturalHeight > 0;
         if (!isLoaded) {
-          console.warn("画像がまだ読み込まれていません:", img.src);
+          console.warn("画像がまだ読み込まれていません:", img.src, {
+            complete: img.complete,
+            naturalWidth: img.naturalWidth,
+            naturalHeight: img.naturalHeight
+          });
         }
         return isLoaded;
       });
       
       if (!allImagesLoaded) {
         console.warn("一部の画像が読み込まれていませんが、続行します");
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // さらに2秒待つ
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        // 再度requestAnimationFrameでレンダリングを確実にする
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       }
       
       // プレビュー画像のDOM要素をそのまま画像化
-      const pixelRatio = isMobile ? 1 : 2;
+      // 画質を向上させるため、pixelRatioを上げる（スマホでも1.5に）
+      const pixelRatio = isMobile ? 1.5 : 2;
       const { toBlob } = await import('html-to-image');
       const { shareOrDownloadImage, downloadImage } = await import('@/lib/share-image-generator');
       
@@ -281,15 +318,26 @@ const ShareImageButton: React.FC<{
         });
       } catch (toBlobError) {
         console.error("toBlob error:", toBlobError);
+        // リトライ: pixelRatioを下げて再試行（ただし画質を維持）
         try {
           blob = await toBlob(cardRef.current, {
-            pixelRatio: 1,
-            quality: 0.95,
+            pixelRatio: isMobile ? 1.2 : 1.5,
+            quality: 1.0,
             cacheBust: true,
           });
         } catch (retryError) {
           console.error("toBlob retry error:", retryError);
-          throw new Error(`画像の生成に失敗しました: ${retryError instanceof Error ? retryError.message : String(retryError)}`);
+          // 最後のリトライ: 最低限の画質で
+          try {
+            blob = await toBlob(cardRef.current, {
+              pixelRatio: 1,
+              quality: 0.95,
+              cacheBust: true,
+            });
+          } catch (finalError) {
+            console.error("toBlob final retry error:", finalError);
+            throw new Error(`画像の生成に失敗しました: ${finalError instanceof Error ? finalError.message : String(finalError)}`);
+          }
         }
       }
       
