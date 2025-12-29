@@ -194,7 +194,7 @@ const ShareImageButton: React.FC<{
       
       // 要素を一時的に表示（画像生成のため）
       const originalStyle = cardRef.current.style.cssText;
-      cardRef.current.style.cssText = 'position: fixed; left: 0; top: 0; width: 700px; height: 1080px; visibility: visible; opacity: 1; z-index: 9999; pointer-events: none;';
+      cardRef.current.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 700px; height: 1080px; visibility: visible; opacity: 1; z-index: 9999; pointer-events: none;';
       
       const roundedPercentile = Math.round(percentile);
       const displayPercentile = roundedPercentile;
@@ -311,7 +311,7 @@ const ShareImageButton: React.FC<{
       console.error("Failed to generate share image", error);
       // エラー時も要素を非表示に戻す
       if (cardRef.current) {
-        cardRef.current.style.cssText = 'position: fixed; left: 0; top: 0; width: 700px; height: 1080px; visibility: hidden; z-index: -1; pointer-events: none;';
+        cardRef.current.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 700px; height: 1080px; visibility: hidden; z-index: -1; pointer-events: none;';
       }
       alert("画像の生成に失敗しました。\n\nもう一度お試しください。");
     } finally {
@@ -334,7 +334,7 @@ const ShareImageButton: React.FC<{
         style={{ 
           width: '700px', 
           height: '1080px', 
-          left: '0', 
+          left: '-9999px', 
           top: '0',
           visibility: 'hidden',
           zIndex: -1
@@ -350,7 +350,7 @@ const ShareImageButton: React.FC<{
           message={message}
           userTypeCode={userTypeCode}
           partnerTypeCode={partnerTypeCode}
-          className="h-full w-full"
+          className=""
         />
       </div>
       
