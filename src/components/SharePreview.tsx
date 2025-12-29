@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { getCompatibilityRank, getRankImagePath } from "@/lib/calculate";
-import { shareOrDownloadImage } from "@/lib/share-image-generator";
+import { shareOrDownloadImage, downloadImage } from "@/lib/share-image-generator";
 import { toBlob } from "html-to-image";
 import type { PersonalityTypeCode } from "@/lib/types";
 import { getCharacterImagePath } from "@/lib/character-image-mapping";
@@ -50,7 +50,7 @@ const RankImageDisplay: React.FC<{ imagePath: string; alt: string; fallbackText?
           height: "100%",
           transform: "translateY(-5%)",
         }}
-        crossOrigin="anonymous"
+        loading="eager"
         onLoad={handleImageLoad}
         onError={() => {
           console.error("画像の読み込みエラー:", imagePath);
@@ -437,41 +437,85 @@ export default function SharePreview({
       // フォントの読み込みを待つ
       await document.fonts.ready;
       
-      // 画像の読み込みを確実に待つ
+      // 画像の読み込みを確実に待つ（より長いタイムアウトと再試行）
       const images = cardRef.current.querySelectorAll('img');
       await Promise.all(
         Array.from(images).map((img) => {
-          if (img.complete && img.naturalWidth > 0) {
+          // 既に読み込み済みで有効な画像の場合
+          if (img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
             return Promise.resolve();
           }
+          
+          // 画像の読み込みを待つ
           return new Promise<void>((resolve) => {
-            img.onload = () => resolve();
-            img.onerror = () => resolve(); // エラーでも続行
-            setTimeout(() => resolve(), 3000); // タイムアウト
+            let resolved = false;
+            
+            const resolveOnce = () => {
+              if (!resolved) {
+                resolved = true;
+                resolve();
+              }
+            };
+            
+            // 読み込み成功
+            img.onload = () => {
+              // 画像が実際に読み込まれたか確認
+              if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                resolveOnce();
+              }
+            };
+            
+            // エラーでも続行（フォールバック画像が表示される）
+            img.onerror = () => {
+              console.warn("画像の読み込みエラー:", img.src);
+              resolveOnce();
+            };
+            
+            // タイムアウト（5秒に延長）
+            setTimeout(() => {
+              if (!resolved) {
+                console.warn("画像の読み込みタイムアウト:", img.src);
+                resolveOnce();
+              }
+            }, 5000);
+            
+            // 画像が既に読み込み済みの場合
+            if (img.complete) {
+              setTimeout(() => resolveOnce(), 100);
+            }
           });
         })
       );
       
-      // レンダリング完了を待つ
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // レンダリング完了を待つ（より長い待機時間）
+      await new Promise(resolve => setTimeout(resolve, 500));
       
-      // プレビュー画像のDOM要素をそのまま画像化（何も変更しない）
+      // プレビュー画像のDOM要素をそのまま画像化
       const blob = await toBlob(cardRef.current, {
         pixelRatio: 2, // 高解像度
         quality: 1.0,
         cacheBust: true,
+        useCORS: true, // CORSを有効化
       });
       
       if (!blob) {
         throw new Error("画像の生成に失敗しました");
       }
       
-      // 共有またはダウンロード
+      // iPhoneでは直接画像を新しいタブで開いて、長押しで保存できるようにする
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       const filename = `pairlylab-${userNickname}-${partnerNickname}-${rankInfo.rank}.png`;
-      await shareOrDownloadImage(blob, filename, {
-        title: `${userNickname} × ${partnerNickname} の相性診断結果`,
-        text: `${rankInfo.tier} - ${percentileDisplay}`,
-      });
+      
+      if (isIOS) {
+        // iOSでは、画像を新しいタブで開いて、ユーザーが長押しで保存できるようにする
+        downloadImage(blob, filename);
+      } else {
+        // その他のデバイスでは、Web Share APIまたは通常のダウンロード
+        await shareOrDownloadImage(blob, filename, {
+          title: `${userNickname} × ${partnerNickname} の相性診断結果`,
+          text: `${rankInfo.tier} - ${percentileDisplay}`,
+        });
+      }
       
     } catch (error) {
       console.error("Failed to generate share image", error);
