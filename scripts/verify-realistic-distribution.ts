@@ -181,3 +181,4 @@ console.log("多く出る傾向があります。これは理論的には正し�
 console.log("=".repeat(80));
 
 
+

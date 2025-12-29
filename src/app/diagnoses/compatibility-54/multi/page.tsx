@@ -31,7 +31,7 @@ export default function Compatibility54MultiPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
+    <div className="relative min-h-screen w-full overflow-x-hidden px-4 py-12 sm:px-6 lg:px-8">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}

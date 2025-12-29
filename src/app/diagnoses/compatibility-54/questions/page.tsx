@@ -169,7 +169,7 @@ function SingleDeviceQuestions() {
 
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-2 py-12 lg:px-12">
+    <div className="relative min-h-screen w-full overflow-x-hidden px-2 py-12 lg:px-12">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}
@@ -405,7 +405,7 @@ function MultiDeviceQuestions({ sessionId, participant }: { sessionId: string; p
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-2 py-12 lg:px-12">
+    <div className="relative min-h-screen w-full overflow-x-hidden px-2 py-12 lg:px-12">
       {/* 背景を全画面に固定 */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 -z-10"></div>
       {/* 装飾的な背景要素 - Soft UIスタイル */}

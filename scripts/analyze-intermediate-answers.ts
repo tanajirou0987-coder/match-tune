@@ -208,3 +208,4 @@ console.log("中間的なタイプ（バランス型_ハイブリッド型_対�
 console.log("=".repeat(80));
 
 
+
