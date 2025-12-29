@@ -574,8 +574,8 @@ export default function SharePreview({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className={`fixed inset-0 z-50 bg-black backdrop-blur-md overflow-y-auto ${
-              isMobile ? 'p-0' : 'flex items-center justify-center p-4'
+            className={`fixed inset-0 z-50 bg-black backdrop-blur-md ${
+              isMobile ? 'overflow-y-auto' : 'flex items-center justify-center p-4 overflow-y-auto'
             }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -586,7 +586,7 @@ export default function SharePreview({
             <motion.div
               className={`relative w-full ${
                 isMobile 
-                  ? 'min-h-screen py-4 px-2' 
+                  ? 'flex flex-col min-h-screen' 
                   : 'max-w-md my-auto rounded-2xl bg-black/90'
               }`}
               initial={{ scale: isMobile ? 1 : 0.95, y: isMobile ? 0 : 20, opacity: 0 }}
@@ -612,8 +612,15 @@ export default function SharePreview({
                 </div>
               )}
               
-              <div className={`w-full ${isMobile ? 'max-w-full' : 'max-w-[350px]'} mx-auto ${isMobile ? 'px-2' : 'px-4'}`}>
-                <div className="relative w-full" style={{ aspectRatio: "700 / 1080" }}>
+              {isMobile && (
+                <div className="flex flex-col items-center gap-2 pt-16 pb-4 px-4">
+                  <p className="text-xs uppercase tracking-[0.45em] text-white/70">Share Card Preview</p>
+                  <h3 className="text-xl font-semibold text-white">シェア画像</h3>
+                </div>
+              )}
+              
+              <div className={`w-full ${isMobile ? 'flex-1 flex items-start justify-center px-2' : 'max-w-[350px] mx-auto px-4'}`}>
+                <div className={`relative w-full ${isMobile ? 'max-w-full' : ''}`} style={{ aspectRatio: "700 / 1080" }}>
                   {/* プレビュー表示用（このDOMを直接画像化） */}
                   <div ref={cardRef} className="absolute inset-0 h-full w-full">
                     <ShareImageCard
@@ -632,7 +639,7 @@ export default function SharePreview({
                 </div>
               </div>
               
-              <div className={`${isMobile ? 'my-8 px-4 pb-8' : 'my-6 px-4 pb-4'} flex items-center justify-center gap-3`}>
+              <div className={`${isMobile ? 'mt-8 mb-8 px-4' : 'my-6 px-4 pb-4'} flex items-center justify-center gap-3`}>
                 <Button
                   type="button"
                   onClick={handleDownloadImage}
